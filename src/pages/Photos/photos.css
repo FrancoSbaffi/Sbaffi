@@ -1,0 +1,18 @@
+.page-photos {
+  width: 100%;
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 10em;
+}
+
+.page-photos img {
+  position: relative;
+  height: 600px;
+  padding-bottom: 0.5em;
+}
+
+@media (max-width: 900px) {
+  .page-photos {
+    flex-direction: column;
+  }
+}
