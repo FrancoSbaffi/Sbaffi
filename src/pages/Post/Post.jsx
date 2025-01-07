@@ -676,6 +676,516 @@ const postData = {
     ],
       images: [],
   },
+  "sql-injection": {
+  title: "Exploring and Exploiting Vulnerabilities in Masa/Mura CMS",
+  date: "December 2024",
+  content: [
+    <span className="title-work">
+      Introduction
+    </span>,
+    <p className="p-work">
+       In this project, I took a deep dive into Masa/Mura CMS, exploring its source code and identifying a significant attack surface. Over a week of dedicated analysis, 
+       I discovered several potential vulnerabilities, including a critical SQL injection flaw within Apple’s Book Travel portal. 
+       My goal was to investigate this issue thoroughly, trace it to its source, and demonstrate how it could lead to Remote Code Execution (RCE). 
+       Here’s how I approached and executed this project step by step.
+    </p>,
+    <br />,
+    <span className="title-work">
+      Finding the Vulnerability Sink
+    </span>,
+    <p className="p-work">
+      While analyzing Masa/Mura CMS, I focused on its JSON API, as this exposed methods accessible within Apple’s environment. 
+      This API became the central point of my investigation, aiming to identify SQL injection sinks and their sources. 
+      To streamline the process, I explored static analysis tools and parsers capable of detecting unsanitized inputs in the code. 
+      For this, I used the cfmlparser tool, which helped identify vulnerable cfquery tags lacking proper sanitization.
+    </p>,
+    <p className="subtitle-work">
+      Using a custom script, I:
+    </p>,
+    <ul className="list-work">
+      <li><i>1.</i> Parsed all <span className="bg-work">.cfm</span> and <span className="bg-work">.cfc</span> files in the codebase.</li> <br />
+      <li><i>2.</i> Filtered <span className="bg-work">cfquery</span> tags, ignoring those with sanitized inputs (e.g., <span className="bg-work">cfqueryparam</span> tags).</li> <br />
+      <li><i>3.</i> Flagged queries with unsanitized arguments for further review.</li>
+    </ul>,
+    <br />,
+    <p className="p-work">
+      This approach revealed multiple queries, but I filtered them further based on contextual validation to focus only on exploitable inputs.
+    </p>,
+    <br />,
+    <span className="title-work">
+      Tracing the Sink to Its Source
+    </span>,
+    <p className="p-work">
+      One vulnerable query stood out, located in the <span className="bg-work">getObjects</span> function. This query processed three arguments, among which <span className="bg-work">ContentHistID</span> was unsanitized. 
+      I traced the function's usage back to its origin within the JSON API, identifying the following call stack:
+    </p>,
+    <p className="subtitle-work">
+      <i>/</i> JSON API → <span className="bg-work">processAsyncObject</span> → <span className="bg-work">displayregion</span> → <span className="bg-work">dspObjects()</span> → <span className="bg-work">getObjects()</span>.
+    </p>,
+    <p className="p-work">
+      At this stage, I had a clear path to test the vulnerability in the JSON API.
+    </p>,
+    <br />,
+    <span className="title-work">
+      Triggering and Exploiting the SQL Injection
+    </span>,
+    <p className="p-work">
+      Initially, I attempted to exploit the SQL injection by passing malicious input via the <span className="bg-work">contenthistid</span> parameter. 
+      However, my first attempts failed due to a condition within the <span className="bg-work">dspObjects</span> function requiring the <span className="bg-work">isOnDisplay</span> property to be true. 
+      After debugging the codebase, I discovered that setting the <span className="bg-work">previewID</span> parameter would indirectly satisfy this condition. Using this insight, 
+      I successfully triggered the SQL injection with the following request:
+    </p>,
+    <div className="code-snippet">
+    <pre>
+      <code>
+        /_api/json/v1/default/?method=processAsyncObject&amp;object=displayregion&amp;contenthistid=x%5c&apos;&amp;previewID=x
+      </code>
+    </pre>
+  </div>,
+  <p className="p-work">
+    This turned out to be an error-based SQL injection, allowing me to extract sensitive information from the database.
+  </p>,
+  <br />,
+  <span className="title-work">
+    Achieving Remote Code Execution (RCE)
+  </span>,
+  <p className="p-subtitle">
+    To escalate the impact of this vulnerability, I:
+  </p>,
+  <ul className="list-work">
+    <li><i>1.</i> Reset an admin user's password using SQL injection.</li> <br />
+    <li><i>2.</i> Extracted the reset token and user ID from the database.</li> <br />
+    <li><i>3.</i> Used the password reset endpoint to log in as an admin.</li> <br />
+    <li><i>4.</i> Uploaded a malicious CFM file through the admin interface, achieving RCE.</li>
+  </ul>,
+  <p className="p-work">
+    In Apple’s production environment, the SQL injection was blind, but with scripting, I was able to exfiltrate UUIDs and repeat the process successfully.
+  </p>,
+  <br />,
+  <span className="title-work">
+    Reporting and Disclosure
+  </span>,
+  <p className="p-work">
+    After successfully exploiting the SQL injection and achieving RCE, I reported my findings to Apple’s security team. 
+    I provided a detailed report outlining the vulnerability, its impact, and the steps to reproduce it. 
+    Apple acknowledged the issue and promptly patched the vulnerability, ensuring the security of their Book Travel portal.
+  </p>,
+  <ul className="list-work">
+    <li><i>/ Apple:</i> Implemented a fix within 2 hours of my report.</li>
+    <li><i>/ Masa CMS:</i> Released new versions with patched vulnerabilities.</li>
+    <li><i>/ Mura CMS:</i> Despite multiple attempts to contact the team, I received no response, leading to a public disclosure after the 90-day deadline.</li>
+  </ul>,
+  <br />,
+  <span className="title-work">
+    Detection via Nuclei
+  </span>,
+  <p className="p-work">
+    To aid in detecting this vulnerability, I created a Nuclei template and contributed it to the open-source community. This template allows security teams to identify and address similar issues proactively.
+  </p>,
+  <br />,
+  <span className="title-work">
+    Conclusion
+  </span>,
+  <p className="p-work">
+    This project showcased the critical importance of proactive code review and vulnerability assessment. By leveraging tools like <span className="bg-work">cfmlparser</span> and engaging in responsible disclosure, I not only uncovered significant security risks but also contributed to improving the security posture of widely used software. This experience reinforced my skills in static code analysis, exploit development, and collaborative problem-solving.
+  </p>,
+  <span className="signature">
+    Provided by <i>Lucee</i>,
+  </span>,
+  ],
+    images: [],
+  },
+  "pentesting": {
+  title: "Penetration Testing",
+  date: "February 2024",
+  content: [
+    <span className="title-work">
+      Introduction
+    </span>,
+    <p className="p-work">
+      In this project, I conducted a basic penetration test within a controlled and safe environment to simulate real-world cybersecurity scenarios. 
+      The goal was to identify potential vulnerabilities in a target machine, exploit them ethically, 
+      and document findings alongside recommended remediations. 
+      This project utilized a virtual lab setup with tools like Kali Linux, Nmap, and Metasploit, 
+      following a structured methodology that reflects industry best practices.
+    <br />
+    <br />
+    This guide details the process from setup to reporting, providing a comprehensive view of how 
+    I approached and completed the penetration test.
+    </p>,
+    <br />,
+    <span className="title-work">
+      Step-by-Step Process
+    </span>,
+    <p className="p-work">
+      Step 1: Setting Up the Environment
+    </p>,
+    <p className="p-work">
+      <b>Objective:</b> Create a safe lab for penetration testing without risking real-world systems.
+    </p>,
+    <p className="p-work">
+      <b>Actions:</b>
+    </p>,
+    <ul className="list-work">
+      <li><i>1.</i> Installed VirtualBox to host virtual machines.</li> <br />
+      <li><i>2.</i> Downloaded and set up. (Kali Linux as the attacker machine & A vulnerable VM, such as Metasploitable2 or a target from Hack The Box or TryHackMe.)</li> <br />
+      <li><i>3.</i> Configured both VMs to operate on an internal network to isolate traffic and ensure no external interference.</li> <br />
+      <li><i>4.</i> Verified connectivity between the machines using the ping command:</li>
+    </ul>,
+    <p className="p-work">
+      Verified connectivity between the machines using the ping command
+    </p>,
+    <div className="code-snippet">
+      <pre>
+        <code>
+          ping [IP Address]
+        </code>
+      </pre>
+    </div>,
+    <br />,
+    <hr />,
+    <br />,  
+    <p className="p-work">
+      Step 2: Initial Reconnaissance
+    </p>,
+    <p className="p-work">
+      <b>Objective:</b> Gather basic information about the target system and its network presence.
+    </p>,
+    <p className="p-work">
+      <b>Actions:</b>
+    </p>,
+    <ul className="list-work">
+      <li><i>1.</i> Identified the target's IP address using Netdiscover:</li>
+    </ul>,
+    <div className="code-snippet">
+      <pre>
+        <code>
+          netdiscover -i eth0
+        </code>
+      </pre>
+    </div>,
+    <p className="p-work">
+      Validated network connectivity between Kali Linux and the target by pinging the identified IP address.
+    </p>,
+    <br />,
+    <hr />,
+    <br />,
+    <p className="p-work">
+      Step 3: Network Scanning
+    </p>,
+    <p className="p-work">
+      <b>Objective:</b> Discover open ports and services running on the target.
+    </p>,
+    <p className="p-work">
+      <b>Tool Used: Nmap</b>
+    </p>,
+    <p className="p-work">
+      <b>Actions:</b>
+    </p>,
+    <ul className="list-work">
+      <li><i>/</i> Conducted a basic port scan using Nmap:</li>
+    </ul>,
+    <div className="code-snippet">
+      <pre>
+        <code>
+          nmap &lt;Target-IP&gt;
+        </code>
+      </pre>
+    </div>,
+    <p className="p-work">
+      <i>/</i> Conducted a more detailed scan to identify running services, their versions, and potential configurations:
+    </p>,
+    <div className="code-snippet">
+      <pre>
+        <code>
+          nmap -sV -sC -A &lt;Target-IP&gt;
+        </code>
+      </pre>
+    </div>,
+    <p className="p-work">
+      <i>/</i> Saved the scan results for analysis
+    </p>,
+    <div className="code-snippet">
+      <pre>
+        <code>
+          nmap -oN nmap_results.txt  &lt;Target-IP&gt;
+        </code>
+      </pre>
+    </div>,
+    <p className="p-work">
+      Interpreted the scan output to identify ports (e.g., 22 for SSH, 80 for HTTP) and services (e.g., Apache, MySQL).
+    </p>,
+    <br />,
+    <hr />,
+    <br />,
+    <p className="p-work">
+      Step 4: Identifying Vulnerabilities
+    </p>,
+    <p className="p-work">
+      <b>Objective:</b> Analyze services discovered during the scan for known vulnerabilities.
+    </p>,
+    <p className="p-work">
+      <b>Actions:</b>
+    </p>,
+    <ul className="list-work">
+      <li><i>1.</i> Checked the identified services (e.g., Apache HTTPD, MySQL) against vulnerability databases like:</li>
+      <li><i>2.</i> Exploit Database (exploit-db.com)</li>
+      <li><i>3.</i> Common Vulnerabilities and Exposures (cve.mitre.org)</li>
+    </ul>,
+    <p className="p-work">
+      <b>Used additional tools to enumerate specific services:</b>
+    </p>,
+    <p className="p-work">
+      Nikto for web servers:
+    </p>,
+    <div className="code-snippet">
+      <pre>
+        <code>
+          nikto -h http://&lt;Target-IP&gt;
+        </code>
+      </pre>
+    </div>,
+    <p className="p-work">
+      Gobuster to find hidden directories
+    </p>,
+    <div className="code-snippet">
+      <pre>
+        <code>
+          gobuster dir -u http://&lt;Target-IP&gt; -w /usr/share/wordlists/dirb/common.txt
+        </code>
+      </pre>
+    </div>,
+    <p className="p-work">
+      Documented vulnerabilities with their CVEs, descriptions, and potential impact.
+    </p>,
+    <br />,
+    <hr />,
+    <br />,
+    <p className="p-work">
+      Step 5: Exploitation
+    </p>,
+    <p className="p-work">
+      <b>Objective:</b> Ethically exploit identified vulnerabilities to demonstrate their impact.
+    </p>,
+    <p className="p-work">
+      <b>Tool Used: Metasploit</b>
+    </p>,
+    <p className="p-work">
+      <b>Actions:</b>
+    </p>,
+    <ul className="list-work">
+      <li><i>•</i> Launched Metasploit and searched for exploits</li>
+    </ul>,
+    <div className="code-snippet">
+      <pre>
+        <code>
+          msfconsole search &lt;Service/Vulnerability&gt;
+        </code>
+      </pre>
+    </div>,
+    <ul className="list-work">
+      <li><i>•</i> Selected an appropriate exploit module, configured it, and launched the exploit:</li>
+    </ul>,
+    <div className="code-snippet">
+      <pre>
+        <code>
+          use &lt;Exploit-Module&gt;
+          set RHOST &lt;Target-IP&gt;
+          exploit
+        </code>
+      </pre>
+    </div>,
+    <p className="p-work">
+      Gained shell access to the target machine and documented the process with screenshots and logs.
+    </p>,
+    <br />,
+    <hr />,
+    <br />,
+    <p className="p-work">
+      Step 6: Post-Exploitation
+    </p>,
+    <p className="p-work">
+      <b>Objective:</b> Assess the extent of access and gather information about the compromised system.
+    </p>,
+    <p className="p-work">
+      <b>Actions:</b>
+    </p>,
+    <p className="p-work">
+      I began by verifying user privileges on the target system to determine the level of access granted. Commands like <span className="bg-work">whoami</span> and <span className="bg-work">id</span> were executed to confirm whether administrative or limited user access was achieved. Next, I enumerated the file system by listing directories and files with the <span className="bg-work">ls -la</span> command. This process allowed me to identify potentially sensitive files, such as configuration files, logs, or credentials. Finally, I analyzed system logs and configuration files for further insights into the system's setup, potential weaknesses, or evidence of previous unauthorized activities. This information was critical for understanding the full scope of the attack.
+    </p>,
+    <br />,
+    <hr />,
+    <br />,
+    <p className="p-work">
+      Step 7: Reporting
+    </p>,
+    <p className="p-work">
+      <b>Objective:</b> This phase focused on documenting the findings, vulnerabilities exploited, and actionable recommendations for mitigating risks. The report served as a comprehensive summary of the penetration test.
+    </p>,
+    <p className="p-work">
+      <b>Actions:</b>
+    </p>,
+    <p className="p-work">
+      I prepared a structured report with several key sections. The Introduction provided an overview of the test's purpose and scope. The Methodology described the detailed steps and tools used throughout the testing process. In the Findings section, I listed each identified vulnerability, its severity level, and supporting evidence such as screenshots and logs. Finally, the Remediation Recommendations outlined clear, actionable steps to address each vulnerability. To ensure a professional presentation, I used Markdown to format the report and exported it as a PDF for distribution. The result was a clear and concise document suitable for both technical and non-technical audiences.
+    </p>,
+    <br />,
+    <hr />,
+    <br />,
+    <p className="p-work">
+      Key Takeaways
+    </p>,
+    <p className="p-work">
+      This project demonstrated my capability to conduct basic penetration testing, from initial reconnaissance to post-exploitation analysis. I successfully identified vulnerabilities and proposed solutions, showcasing my technical proficiency and problem-solving skills. Additionally, I gained practical experience with essential cybersecurity tools, including Nmap, Nikto, Metasploit, and Kali Linux, which are widely used in the industry. My ability to follow a structured approach, combined with adherence to ethical guidelines, underscores my commitment to maintaining professionalism in cybersecurity practices. This project provided valuable hands-on experience and enhanced my readiness for real-world scenarios.
+    </p>,
+      ],
+      images: [],
+  },
+  "log-file-analyzer": {
+  title: "Log File Analyzer",
+  date: "December 2024",
+  content: [
+    <span className="title-work">
+      Introduction
+    </span>,
+    <p className="p-work">
+      In this project, I developed a Log File Analyzer to identify security events and anomalies within server log files. 
+      The objective was to extract meaningful insights, detect potential threats, and recommend actionable solutions. 
+      By leveraging log analysis tools and Python for scripting, I simulated a real-world scenario where monitoring and 
+      analyzing log data are critical for maintaining cybersecurity. This guide outlines the step-by-step process of building and 
+      executing the Log File Analyzer project.
+    </p>,
+    <br />,
+    <span className="title-work">
+      Collecting Log Data
+    </span>,
+    <p className="p-work">
+      <b>Objective:</b> Gather log files from a simulated or real server environment to serve as the dataset for analysis.
+    </p>,
+    <p className="p-work">
+      <b>Actions:</b>
+    </p>,
+    <p className="p-work">
+      I obtained server logs from a Linux-based environment, including syslog, auth.log, and web server logs (e.g., Apache or Nginx). These files were exported from a virtual server set up in VirtualBox with Ubuntu installed. Using scp or direct file access, I transferred the logs to my analysis environment for processing. A test dataset was also created by simulating different types of suspicious activities, such as failed login attempts and unauthorized access attempts, to ensure diverse scenarios for analysis.
+    </p>,
+    <br />,
+    <hr />,
+    <br />,
+    <span className="title-work">
+      Preparing the Analysis Environment
+    </span>,
+    <p className="p-work">
+      <b>Objective:</b> Set up tools and dependencies for efficient log parsing and analysis.
+    </p>,
+    <p className="p-work">
+      <b>Actions:</b>
+    </p>,
+    <p className="p-work">
+      Installed Python and libraries like <span className="bg-work">pandas</span>, <span className="bg-work">re</span>, and <span className="bg-work">matplotlib</span> for log parsing, data manipulation, and visualization.
+    </p>,
+    <div className="code-snippet">
+      <pre>
+        <code>
+          pip install pandas matplotlib
+        </code>
+      </pre>
+    </div>,
+    <p className="p-work">
+      Prepared a Python script to read log files and parse key information such as IP addresses, timestamps, and events. Regular expressions (re module) were used to filter relevant data.
+    </p>,
+    <p className="p-work">
+      For large-scale data, I configured ELK Stack (Elasticsearch, Logstash, Kibana) as an alternative for visualization and querying.
+    </p>,
+    <br />,
+    <hr />,
+    <br />,
+    <span className="title-work">
+      Parsing and Analyzing Log Data
+    </span>,
+    <p className="p-work">
+      <b>Objective:</b> Extract useful data and remove irrelevant or redundant entries.
+    </p>,
+    <p className="p-work">
+      <b>Actions:</b>
+    </p>,
+    <p className="p-work">
+      Loaded the log files into Python using open() and iterated line by line to extract relevant information.
+    </p>,
+    <p className="p-work">
+      Applied regular expressions to filter critical events, such as failed login attempts (<span className="bg-work">"authentication failure"</span>), brute force attempts, and file access errors.
+      Example regex for extracting IP addresses:
+    </p>,
+    <div className="code-snippet">
+      <pre>
+        <code>
+        import re
+        ip_pattern = r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b'
+        matches = re.findall(ip_pattern, log_line)
+        </code>
+      </pre>
+    </div>,
+    <p className="p-work">
+      Structured the parsed data into a DataFrame using pandas for easier manipulation and analysis.
+    </p>,
+    <p className="p-work">
+      Removed duplicate entries and irrelevant lines, such as routine system messages.
+    </p>,
+    <br />,
+    <hr />,
+    <br />,
+    <span className="title-work">
+      Analyzing Logs for Patterns and Anomalies
+    </span>,
+    <p className="p-work">
+      <b>Objective:</b> Identify recurring patterns, anomalies, and potential security threats from the log data.
+    </p>,
+    <p className="p-work">
+      <b>Actions:</b>
+    </p>,
+    <p className="p-work">
+      Conducted statistical analysis on the log data to identify common events and their frequencies.
+    </p>,
+    <p className="p-work">
+      Visualized the data using matplotlib to create graphs and charts for better insight.
+    </p>,
+    <p className="p-work">
+      Detected anomalies such as spikes in failed login attempts, unusual access patterns, or suspicious IP addresses.
+    </p>,
+    <br />,
+    <hr />,
+    <br />,
+    <span className="title-work">
+      Reporting and Recommendations
+    </span>,
+    <p className="p-work">
+      <b>Objective:</b> Summarize findings, highlight potential risks, and propose actionable recommendations.
+    </p>,
+    <p className="p-work">
+      <b>Actions:</b>
+    </p>,
+    <p className="p-work">
+      Generated a report detailing the analysis process, key findings, identified threats, and recommended solutions.
+    </p>,
+    <p className="p-work">
+      Categorized threats based on severity and impact, providing a clear overview for stakeholders.
+    </p>,
+    <p className="p-work">
+      Proposed mitigation strategies, including log monitoring tools, security configurations, and incident response procedures.
+    </p>,
+    <br />,
+    <hr />,
+    <br />,
+    <span className="title-work">
+      Conclusion
+    </span>,
+    <p className="p-work">
+      This project demonstrated the importance of log analysis in cybersecurity and the value of automated tools for processing large datasets. 
+      By developing a Log File Analyzer, I enhanced my skills in data parsing, pattern recognition, and threat detection. 
+      The project also emphasized the significance of proactive monitoring and incident response planning to mitigate security risks effectively. 
+      Overall, this experience provided practical insights into log analysis techniques and their application in identifying security events and anomalies.
+    </p>,
+  ],
+  images: [],
+  },  
 };
 
 const Post = () => {

@@ -77,3 +77,35 @@ p.text-post{
   height: 200px;
 }
 
+.title-work {
+  font-size: 26px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 1em;
+}
+
+.p-work {
+  font-size: 16px;
+  font-weight: 400;
+  color: whitesmoke;
+  margin-bottom: 1em;
+}
+
+.list-work {
+  list-style: none;
+}
+
+.bg-work {
+  background-color: var(--dark-card-border);
+  backdrop-filter: blur(10px);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.code-snippet {
+  background-color: var(--dark-card-bg);
+  color: gray;
+  padding: 10px;
+  border-radius: 3px;
+  overflow-x: auto;
+}

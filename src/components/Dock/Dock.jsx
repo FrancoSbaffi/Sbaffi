@@ -6,8 +6,8 @@ import {
   FaInfoCircle,
   FaPalette,
   FaFolderOpen,
+  FaBook,
   FaCamera,
-  FaTwitter,
   FaGithub,
   FaEnvelope,
   FaLinkedin,
@@ -95,7 +95,8 @@ const Dock = () => {
   const icons = [
     { icon: FaHome, path: "/" },
     { icon: FaInfoCircle, path: "/about" },
-    { icon: FaFolderOpen, path: "/projects" },
+    { icon: FaFolderOpen, path: "/work" },
+    { icon: FaBook, path: "/projects" },
     { icon: FaCamera, path: "/photos" },
     {
       icon: FaLinkedin,

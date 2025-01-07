@@ -24,9 +24,9 @@ const WorkItem = ({
       <div className="work-item-cta">
         <Link to={url}>
           {type === "blog" ? (
-            <button>Read Post</button>
+            <button>Read Work</button>
           ) : type === "article" ? (
-            <button>View Article</button>
+            <button>View Work</button>
           ) : null}
         </Link>
       </div>

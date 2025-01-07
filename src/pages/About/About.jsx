@@ -1,4 +1,3 @@
-// src/pages/About/About.jsx
 
 import React, { useEffect, useRef } from "react";
 import "./About.css"; 
@@ -16,9 +15,9 @@ const About = () => {
       <div className="about-item">
         <p className="title">ABOUT ME</p>
         <p className="about-me-desc">
-          I'm Franco, a <span className="diffColor">Cyber Security Specialist</span> with 3 years of experience in IT and degree with deep focus on IT Infraestructure. <br />
-          I enhance security operations through threat detection, incident response, and automation.
-          My goal is to apply Advanced Cybersecurity practices, focusing on <span className="diffColor">threat detection</span>, <span className="diffColor">incident response</span>, and <span className="diffColor">network security</span>, to ensure data protection, and secure operations..
+        I’m Franco, a Cyber Security Specialist with over <span className="diffColor">3 years of experience in IT</span> and a strong academic background in IT Infrastructure.
+        My expertise lies in strengthening security frameworks through proactive <span className="diffColor">threat detection</span>, <span className="diffColor">effective incident response</span>, and <span className="diffColor">seamless automation</span>.
+        Driven by a commitment to excellence, I aim to implement advanced cybersecurity strategies, prioritizing data protection, network security, and operational resilience to <span className="diffColor">safeguard organizational assets</span>.
         </p>
         <br />
         <p className="title">EXPERIENCE</p>

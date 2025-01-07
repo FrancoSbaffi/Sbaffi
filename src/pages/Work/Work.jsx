@@ -28,6 +28,25 @@ import WorkImage19 from "../../assets/work/work-19.jpg";
 import WorkImage20 from "../../assets/work/work-20.jpg";
 import WorkImage21 from "../../assets/work/work-21.jpg";
 import WorkImage22 from "../../assets/work/work-22.jpg";
+import WorkImage23 from "../../assets/work/work-23.jpg";
+import WorkImage24 from "../../assets/work/work-24.jpg";
+import WorkImage25 from "../../assets/work/work-25.jpg";
+import WorkImage26 from "../../assets/work/work-26.jpg";
+import WorkImage27 from "../../assets/work/work-27.jpg";
+import WorkImage28 from "../../assets/work/work-28.jpg";
+import WorkImage29 from "../../assets/work/work-29.jpg";
+import WorkImage30 from "../../assets/work/work-30.jpg";
+import WorkImage31 from "../../assets/work/work-31.jpg";
+import WorkImage32 from "../../assets/work/work-32.jpg";
+import WorkImage33 from "../../assets/work/work-33.jpg";
+import WorkImage34 from "../../assets/work/work-34.jpg";
+import WorkImage35 from "../../assets/work/work-35.jpg";
+import WorkImage36 from "../../assets/work/work-36.jpg";
+import WorkImage37 from "../../assets/work/work-37.jpg";
+import WorkImage38 from "../../assets/work/work-38.jpg";
+import WorkImage39 from "../../assets/work/work-39.jpg";
+import WorkImage40 from "../../assets/work/work-40.jpg";
+import WorkImage41 from "../../assets/work/work-41.jpg";
 
 gsap.registerPlugin(useGSAP);
 
@@ -45,109 +64,109 @@ const Work = () => {
     <div className="container page-work" ref={container}>
       <div className="col">
         <WorkItem
-          imgUrl={WorkImage18}
+          imgUrl={WorkImage23}
           containerHeight="300"
-          workName="Work Name"
-          workDate="April 2024"
+          workName="SQL Injection"
+          workDate="December 2024"
           type="blog"
-          url="/post"
+          url="/post/sql-injection"
         />
         <WorkItem
           imgUrl={WorkImage20}
           containerHeight="200"
-          workName="Work Name"
+          workName="Password Policy Assessment"
           workDate="April 2024"
           type="img"
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage3}
+          imgUrl={WorkImage25}
           containerHeight="500"
-          workName="Work Name"
-          workDate="April 2024"
-          type="article"
-          url="/post"
-        />
-        <WorkItem
-          imgUrl={WorkImage4}
-          containerHeight="350"
-          workName="Work Name"
-          workDate="April 2024"
-          type="blog"
-          url="/post"
-        />
-        <WorkItem
-          imgUrl={WorkImage21}
-          containerHeight="250"
-          workName="Work Name"
-          workDate="April 2024"
+          workName="Incident Response Playbook"
+          workDate="July 2024"
           type="img"
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage6}
+          imgUrl={WorkImage28}
+          containerHeight="350"
+          workName="Network Traffic Analysis"
+          workDate="January 2024"
+          type="img"
+          url="/post"
+        />
+        <WorkItem
+          imgUrl={WorkImage27}
+          containerHeight="250"
+          workName="Honeypot Deployment"
+          workDate="January 2025"
+          type="img"
+          url="/post"
+        />
+        <WorkItem
+          imgUrl={WorkImage26}
           containerHeight="450"
-          workName="Work Name"
+          workName="Security Policy Creation"
           workDate="April 2024"
-          type="article"
+          type="img"
           url="/post"
         />
       </div>
 
       <div className="col">
         <WorkItem
-          imgUrl={WorkImage10}
+          imgUrl={WorkImage24}
           containerHeight="200"
-          workName="Work Name"
-          workDate="April 2024"
+          workName="Secure API Testing"
+          workDate="November 2024"
           type="img"
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage5}
+          imgUrl={WorkImage30}
           containerHeight="350"
-          workName="Work Name"
-          workDate="April 2024"
+          workName="Basic Pentesting"
+          workDate="February 2024"
           type="article"
-          url="/post"
+          url="/post/pentesting"
         />
         <WorkItem
-          imgUrl={WorkImage9}
+          imgUrl={WorkImage31}
           containerHeight="300"
-          workName="Work Name"
-          workDate="April 2024"
+          workName="Dark Web Monitoring"
+          workDate="June 2024"
           type="img"
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage10}
+          imgUrl={WorkImage32}
           containerHeight="450"
-          workName="Work Name"
-          workDate="April 2024"
-          type="article"
+          workName="DNS Security Configuration"
+          workDate="December 2024"
+          type="img"
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage11}
+          imgUrl={WorkImage33}
           containerHeight="200"
-          workName="Work Name"
-          workDate="April 2024"
-          type="blog"
+          workName="Security Policy Gap Analysis"
+          workDate="March 2024"
+          type="img"
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage12}
+          imgUrl={WorkImage34}
           containerHeight="450"
-          workName="Work Name"
-          workDate="April 2024"
-          type="article"
+          workName="Wi-Fi Security Assessment"
+          workDate="October 2024"
+          type="img"
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage13}
+          imgUrl={WorkImage35}
           containerHeight="200"
-          workName="Work Name"
-          workDate="April 2024"
+          workName="Botnet Simulation"
+          workDate="February 2024"
           type="img"
           url="/post"
         />
@@ -155,50 +174,50 @@ const Work = () => {
 
       <div className="col">
         <WorkItem
-          imgUrl={WorkImage7}
+          imgUrl={WorkImage36}
           containerHeight="250"
-          workName="Work Name"
-          workDate="April 2024"
+          workName="Log File Analyzer"
+          workDate="December 2024"
           type="article"
-          url="/post"
+          url="/post/log-file-analyzer"
         />
         <WorkItem
-          imgUrl={WorkImage22}
+          imgUrl={WorkImage37}
           containerHeight="350"
-          workName="Work Name"
+          workName="Network Packet Sniffer"
           workDate="April 2024"
           type="img"
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage16}
+          imgUrl={WorkImage38}
           containerHeight="400"
-          workName="Work Name"
-          workDate="April 2024"
-          type="blog"
-          url="/post"
-        />
-        <WorkItem
-          imgUrl={WorkImage17}
-          containerHeight="200"
-          workName="Work Name"
-          workDate="April 2024"
+          workName="Port Scanner"
+          workDate="May 2024"
           type="img"
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage18}
-          containerHeight="500"
-          workName="Work Name"
-          workDate="April 2024"
-          type="blog"
+          imgUrl={WorkImage39}
+          containerHeight="200"
+          workName="Security Automation Script"
+          workDate="August 2024"
+          type="img"
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage19}
+          imgUrl={WorkImage40}
+          containerHeight="500"
+          workName="Cybersecurity Quiz Bot"
+          workDate="January 2024"
+          type="img"
+          url="/post"
+        />
+        <WorkItem
+          imgUrl={WorkImage41}
           containerHeight="450"
-          workName="Work Name"
-          workDate="April 2024"
+          workName="Browser History Analyzer"
+          workDate="February 2025"
           type="img"
           url="/post"
         />
