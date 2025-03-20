@@ -15,31 +15,43 @@ const About = () => {
       <div className="about-item">
         <p className="title">ABOUT ME</p>
         <p className="about-me-desc">
-        I’m Franco, a Cyber Security Specialist with over <span className="diffColor">3 years of experience in IT</span> and a strong academic background in IT Infrastructure.
-        My expertise lies in strengthening security frameworks through proactive <span className="diffColor">threat detection</span>, <span className="diffColor">effective incident response</span>, and <span className="diffColor">seamless automation</span>.
-        Driven by a commitment to excellence, I aim to implement advanced cybersecurity strategies, prioritizing data protection, network security, and operational resilience to <span className="diffColor">safeguard organizational assets</span>.
+        I’m Franco, a <span className="diffColor">Cyber Security Enthusiast</span> with hands-on experience in IT gained through internships in <span className="diffColor">Internship Trainee</span> and <span className="diffColor">Information Technology Technician</span>.
+        My background includes a solid foundation in <span className="diffColor">IT infrastructure</span>, with skills in networking, system administration (Linux and Windows Server), and the use of tools like <span className="diffColor">SIEM</span> (Splunk, QRadar) for threat detection and initial incident response.
+        <br />
+        <br />
+        My focus is on strengthening security frameworks through proactive threat detection, task automation (<span className="diffColor">using Python and Bash</span>), and safeguarding organizational assets. With knowledge of cloud security principles (<span className="diffColor">Azure</span>) and frameworks such as ISO 27001 and GDPR, I aim to implement cybersecurity strategies that prioritize data protection, network security, and operational resilience.
+        <br />
+        <br />
+        Driven by continuous learning and collaboration, my goal is to contribute to security-oriented teams by providing innovative and effective solutions to tackle today’s cybersecurity challenges.
         </p>
         <br />
         <p className="title">EXPERIENCE</p>
         <p className="about-me-desc">
-          <span className="diffColor">Self-Taught Journey (2018)</span>
+          <span className="diffColor">IT Technician - @FLL ( March 2024 - June 2024 )</span>
           <br />
-          My journey began in 2018 during school, where I self-taught programming and spent six months learning various technologies. I worked on small projects for people in my network, helping me gain hands-on experience and develop a passion for IT.
-          <br />
-          <br />
-          <span className="diffColor">Software Developer – @EX Squared LATAM (2020–2022)</span>
-          <br />
-          In 2020, I landed my first job as a Software Developer at EX Squared LATAM. Over two years, I honed my programming and development skills, working on diverse projects that strengthened my understanding of software design and implementation.
+          After demonstrating my capabilities during the initial internship, I transitioned into the role of IT Technician for the next 4 months. 
+          In this role, I executed <span className="diffColor">IT operations</span> under supervision, including OS updates, patch management, and certificate management, 
+          to improve system stability and performance. I managed <span className="diffColor">Linux environments</span>, performed routine maintenance, 
+          and deployed security patches to ensure system integrity.
           <br />
           <br />
-          <span className="diffColor">System Administrator – @Kraken (2022–2024)</span>
+          Additionally, I applied basic <span className="diffColor">networking principles</span> to troubleshoot technical issues and supported system compatibility testing. 
+          Collaborating with IT teams to address infrastructure challenges and implement solutions further enhanced my technical expertise 
+          and teamwork skills. This experience deepened my passion for <span className="diffColor">IT operations</span> and revealed the importance of proactive maintenance 
+          and collaboration in building a strong technical framework.
           <br />
-          My most recent role was as a System Administrator at Kraken. This position allowed me to dive deeper into IT infrastructure, gaining valuable hands-on experience in system management and network administration. It was a pivotal step toward achieving my ultimate goal of specializing in cybersecurity, as it bridged my knowledge of systems and security practices.
-        </p>
-        <br />
-        <p className="title">CERTIFICATIONS</p>
-        <p className="about-me-desc">
-          I want to continue getting certified, I usually constantly follow the complete study guides for the certifications that interest me, I have done it with <span className="diffColor">Network+</span>, <span className="diffColor">Linux+</span> and <span className="diffColor">Security+</span>, also with Cloud Computing and Splunk certifications.
+          <br />
+          <span className="diffColor">Internship Trainee – @FLL ( November 2023 - February 2024 )</span>
+          <br />
+          During my first 4 months as an Internship Trainee at FLL, I gained hands-on experience in <span className="diffColor">IT support</span> by monitoring, triaging, 
+          and routing support tickets to ensure timely resolution and maintain an efficient workflow. I provided comprehensive customer 
+          service through both phone and face-to-face interactions, ensuring a positive experience for end-users.
+          <br />
+          <br />
+          This role allowed me to develop <span className="diffColor">foundational skills</span> in troubleshooting system problems and communicating technical 
+          information clearly and professionally. I also contributed to quality control processes, which helped improve operational efficiency. 
+          This experience deepened my understanding of IT support and highlighted the importance of clear communication 
+          and proactive <span className="diffColor">problem-solving</span> in delivering excellent customer service.
         </p>
       </div>
     </div>
