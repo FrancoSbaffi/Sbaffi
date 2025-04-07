@@ -15,7 +15,7 @@ const About = () => {
       <div className="about-container">
         <div className="left-col">
           <img 
-            src="../public/me.jpg" 
+            src="/me.jpg" 
             alt="Franco" 
             className="about-image"
           />
