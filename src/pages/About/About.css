@@ -1,90 +1,155 @@
+/* -------------------- */
+/*     RESET BÁSICO     */
+/* -------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+/* Opcional: estilo global para el body */
+body {
+  background-color: #faf8f4; /* Fondo claro */
+  color: #000;              /* Texto oscuro */
+  font-family: "Helvetica", sans-serif;
+}
+
+/* Contenedor general para el fade-in con GSAP */
+.page-container {
+  opacity: 0; /* Se animará hasta 1 en el useEffect */
+}
+
+/* -------------------- */
+/*     SECCIÓN ABOUT    */
+/* -------------------- */
 .about-container {
   display: flex;
-  flex-direction: column;
-  align-items: center; 
-  justify-content: center; 
-  padding: 2em;
-  margin: 5em auto; 
-  opacity: 0;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  /* Ajusta anchos y centrado */
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 5rem; /* Espacio superior */
 }
 
-.title {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--dark-text-tertiary);
+/* Columna Izquierda: Imagen */
+.left-col {
+  width: 45%;
 }
 
-.about-item {
-  width: 50%;
+.about-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.right-col {
+  width: 45%;
   display: flex;
   flex-direction: column;
-  padding: 1em;
-  border-radius: 10px;
-  gap: 1em;
-  cursor: default;
+  justify-content: flex-start;
+  margin-top: 20%; 
 }
 
-.about-me-desc {
-  font-size: 16px;
+.right-col h2 {
+  color: white;
+  text-transform: uppercase;
   font-weight: 400;
-  line-height: 3rem; 
-  color: #ffffff; 
-  text-align: left; 
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+  font-size: 1rem; 
 }
 
-.text-color {
-  color: var(--dark-text-tertiary);
-  font-style: italic;
+.right-col p {
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem; 
+}
+
+.right-col p strong {
   font-weight: 600;
 }
 
-.diffColor{
-  color: var(--dark-text-tertiary);
-  font-style: italic;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+.divider {
+  width: 90%;
+  max-width: 1200px;
+  margin: 2rem auto; 
+  border-bottom: 1px solid #1d1d1d; 
+  height: 0;
 }
 
-@media screen and (max-width: 1024px) {
-  .about-container {
-    padding: 1em;
-  }
-
-  .about-item {
-    width: 70%;
-  }
-
-  .about-me-desc {
-    font-size: 15px;
-    line-height: 1.6rem;
-  }
-
+.services-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 90%;
+  max-width: 1200px;
+  margin: 4rem auto 0 auto; 
+  padding-bottom: 2rem;     
 }
 
-@media screen and (max-width: 768px) {
-  .about-container {
-    padding: 1em;
+.services-left {
+  width: 45%;
+}
+
+.services-left h2 {
+  color: white;
+  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.services-left p {
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.services-right {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.services-right p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+
+.experience-description {
+  color: crimson;
+  font-family: 20px;
+  font-weight: 700;
+}
+
+.experience-details {
+  color: white;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+@media (max-width: 1024px) {
+  .about-container,
+  .services-section {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 2rem;
   }
 
-  .about-item {
+  .left-col,
+  .right-col,
+  .services-left,
+  .services-right {
     width: 100%;
-  }
-
-  .about-me-desc {
-    font-size: 15px;
-    line-height: 1.8rem;
-  }
-}
-
-@media screen and (max-width: 520px) {
-  .about-container {
-    max-width: 100%;
-  }
-}
-
-@media screen and (max-width: 375px) {
-  .about-me-desc {
-    font-size: 14px;
-    line-height: 1.8rem;
+    margin-bottom: 2rem;
   }
 }
