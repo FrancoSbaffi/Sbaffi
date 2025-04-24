@@ -48,54 +48,30 @@ const About = () => {
 
       <div className="services-section">
         <div className="services-left">
-          <h2>Experience</h2>
+          <h2>Experience & Certifications</h2>
           <p className="experience-description">
-            IT Security Intern at @FLL during 6 Months.
+            IT Support at @FLL during 1 year.
             <br />
             <span className="experience-details">
-            During my first six months as an IT Security Intern at FLL, 
-            I monitored and analyzed support tickets to spot security issues, 
-            ensuring prompt resolutions and secure workflows. 
-            I also provided both phone and in-person customer service while upholding 
-            technical support and security protocols.
+            Managed 8–10 support tickets per week while sustaining a 95 % SLA; authored a 
+            knowledge-base article that cut repeat inquiries by 15 %; and wrote a Bash script to 
+            automate monthly backup verifications, saving roughly one hour each month.
             </span>
           </p>
           </div>
         <div className="services-right">
           <p className="experience-description">
-            IT Security Operations Support at @FLL during 6 Months.
             <br />
             <span className="experience-details">
-            Evolving from my internship, I focused on IT security support for six months. 
-            I managed vulnerabilities through OS updates, security patches (including on Linux), 
-            proactive maintenance, and certificate management. I also used my networking skills to 
-            troubleshoot security issues and collaborated with IT teams to implement secure 
-            infrastructure solutions.
+            Currently certified in networks with <b>CompTIA Network+</b>, <b>CompTIA Linux+</b>, 
+            <b>Microsoft AZ-900</b>, <b>Splunk Core User</b> and <b>CompTIA Security+</b>, I want to continue expanding my knowledge 
+            with more and better certifications.
             </span>
           </p>
           </div>
       </div>
 
       <div className="divider"></div>
-
-
-      <div className="services-section">
-        <div className="services-left">
-          <h2>CERTIFICATIONS</h2>
-          <p>
-            I love to continue training and developing in this world, so I constantly follow study 
-            guides on professional certifications related to my areas of greatest interest and that 
-            can help me in my daily work.
-          </p>
-        </div>
-        <div className="services-right">
-          <p>
-            Network+, Security+, Certified Network Security Practitioner (CNSP), 
-            Microsoft Certified: Azure Fundamentals, Certified in Cybersecurity (CC), 
-            Cybersecurity Awareness Certified Associate
-          </p>
-        </div>
-      </div>
     </div>
   );
 };
