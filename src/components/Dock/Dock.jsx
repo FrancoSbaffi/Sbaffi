@@ -7,7 +7,6 @@ import {
   FaPalette,
   FaFolderOpen,
   FaBook,
-  FaCamera,
   FaGithub,
   FaEnvelope,
   FaLinkedin,
@@ -97,7 +96,6 @@ const Dock = () => {
     { icon: FaInfoCircle, path: "/about" },
     { icon: FaFolderOpen, path: "/work" },
     { icon: FaBook, path: "/projects" },
-    { icon: FaCamera, path: "/photos" },
     {
       icon: FaLinkedin,
       path: "https://www.linkedin.com/in/franco-sbaffi/",
