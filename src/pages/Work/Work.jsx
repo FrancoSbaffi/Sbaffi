@@ -66,10 +66,10 @@ const Work = () => {
         <WorkItem
           imgUrl={WorkImage23}
           containerHeight="300"
-          workName="SQL Injection"
+          workName="Friday Overtime"
           workDate="December 2024"
           type="blog"
-          url="/post/sql-injection"
+          url="/post/friday-overtime"
         />
         <WorkItem
           imgUrl={WorkImage20}

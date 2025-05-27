@@ -676,125 +676,175 @@ const postData = {
     ],
       images: [],
   },
-  "sql-injection": {
-  title: "Exploring and Exploiting Vulnerabilities in Masa/Mura CMS",
-  date: "December 2024",
+"friday-overtime": {
+  title: "Friday Overtime — Full-Spectrum Threat-Intelligence Investigation",
+  date: "May 2025",
   content: [
-    <span className="title-work">
-      Introduction
-    </span>,
-    <p className="p-work">
-       In this project, I took a deep dive into Masa/Mura CMS, exploring its source code and identifying a significant attack surface. Over a week of dedicated analysis, 
-       I discovered several potential vulnerabilities, including a critical SQL injection flaw within Apple’s Book Travel portal. 
-       My goal was to investigate this issue thoroughly, trace it to its source, and demonstrate how it could lead to Remote Code Execution (RCE). 
-       Here’s how I approached and executed this project step by step.
-    </p>,
-    <br />,
-    <span className="title-work">
-      Finding the Vulnerability Sink
-    </span>,
-    <p className="p-work">
-      While analyzing Masa/Mura CMS, I focused on its JSON API, as this exposed methods accessible within Apple’s environment. 
-      This API became the central point of my investigation, aiming to identify SQL injection sinks and their sources. 
-      To streamline the process, I explored static analysis tools and parsers capable of detecting unsanitized inputs in the code. 
-      For this, I used the cfmlparser tool, which helped identify vulnerable cfquery tags lacking proper sanitization.
-    </p>,
-    <p className="subtitle-work">
-      Using a custom script, I:
-    </p>,
-    <ul className="list-work">
-      <li><i>1.</i> Parsed all <span className="bg-work">.cfm</span> and <span className="bg-work">.cfc</span> files in the codebase.</li> <br />
-      <li><i>2.</i> Filtered <span className="bg-work">cfquery</span> tags, ignoring those with sanitized inputs (e.g., <span className="bg-work">cfqueryparam</span> tags).</li> <br />
-      <li><i>3.</i> Flagged queries with unsanitized arguments for further review.</li>
-    </ul>,
-    <br />,
-    <p className="p-work">
-      This approach revealed multiple queries, but I filtered them further based on contextual validation to focus only on exploitable inputs.
-    </p>,
-    <br />,
-    <span className="title-work">
-      Tracing the Sink to Its Source
-    </span>,
-    <p className="p-work">
-      One vulnerable query stood out, located in the <span className="bg-work">getObjects</span> function. This query processed three arguments, among which <span className="bg-work">ContentHistID</span> was unsanitized. 
-      I traced the function's usage back to its origin within the JSON API, identifying the following call stack:
-    </p>,
-    <p className="subtitle-work">
-      <i>/</i> JSON API → <span className="bg-work">processAsyncObject</span> → <span className="bg-work">displayregion</span> → <span className="bg-work">dspObjects()</span> → <span className="bg-work">getObjects()</span>.
-    </p>,
-    <p className="p-work">
-      At this stage, I had a clear path to test the vulnerability in the JSON API.
-    </p>,
-    <br />,
-    <span className="title-work">
-      Triggering and Exploiting the SQL Injection
-    </span>,
-    <p className="p-work">
-      Initially, I attempted to exploit the SQL injection by passing malicious input via the <span className="bg-work">contenthistid</span> parameter. 
-      However, my first attempts failed due to a condition within the <span className="bg-work">dspObjects</span> function requiring the <span className="bg-work">isOnDisplay</span> property to be true. 
-      After debugging the codebase, I discovered that setting the <span className="bg-work">previewID</span> parameter would indirectly satisfy this condition. Using this insight, 
-      I successfully triggered the SQL injection with the following request:
-    </p>,
-    <div className="code-snippet">
-    <pre>
-      <code>
-        /_api/json/v1/default/?method=processAsyncObject&amp;object=displayregion&amp;contenthistid=x%5c&apos;&amp;previewID=x
-      </code>
-    </pre>
-  </div>,
-  <p className="p-work">
-    This turned out to be an error-based SQL injection, allowing me to extract sensitive information from the database.
-  </p>,
-  <br />,
-  <span className="title-work">
-    Achieving Remote Code Execution (RCE)
-  </span>,
-  <p className="p-subtitle">
-    To escalate the impact of this vulnerability, I:
-  </p>,
-  <ul className="list-work">
-    <li><i>1.</i> Reset an admin user's password using SQL injection.</li> <br />
-    <li><i>2.</i> Extracted the reset token and user ID from the database.</li> <br />
-    <li><i>3.</i> Used the password reset endpoint to log in as an admin.</li> <br />
-    <li><i>4.</i> Uploaded a malicious CFM file through the admin interface, achieving RCE.</li>
-  </ul>,
-  <p className="p-work">
-    In Apple’s production environment, the SQL injection was blind, but with scripting, I was able to exfiltrate UUIDs and repeat the process successfully.
-  </p>,
-  <br />,
-  <span className="title-work">
-    Reporting and Disclosure
-  </span>,
-  <p className="p-work">
-    After successfully exploiting the SQL injection and achieving RCE, I reported my findings to Apple’s security team. 
-    I provided a detailed report outlining the vulnerability, its impact, and the steps to reproduce it. 
-    Apple acknowledged the issue and promptly patched the vulnerability, ensuring the security of their Book Travel portal.
-  </p>,
-  <ul className="list-work">
-    <li><i>/ Apple:</i> Implemented a fix within 2 hours of my report.</li>
-    <li><i>/ Masa CMS:</i> Released new versions with patched vulnerabilities.</li>
-    <li><i>/ Mura CMS:</i> Despite multiple attempts to contact the team, I received no response, leading to a public disclosure after the 90-day deadline.</li>
-  </ul>,
-  <br />,
-  <span className="title-work">
-    Detection via Nuclei
-  </span>,
-  <p className="p-work">
-    To aid in detecting this vulnerability, I created a Nuclei template and contributed it to the open-source community. This template allows security teams to identify and address similar issues proactively.
-  </p>,
-  <br />,
-  <span className="title-work">
-    Conclusion
-  </span>,
-  <p className="p-work">
-    This project showcased the critical importance of proactive code review and vulnerability assessment. By leveraging tools like <span className="bg-work">cfmlparser</span> and engaging in responsible disclosure, I not only uncovered significant security risks but also contributed to improving the security posture of widely used software. This experience reinforced my skills in static code analysis, exploit development, and collaborative problem-solving.
-  </p>,
-  <span className="signature">
-    Provided by <i>Lucee</i>,
-  </span>,
+    <div className="post-wrapper">
+
+      <span className="title-work">Executive Summary</span>
+      <br />
+      <br />
+      <p className="p-work">
+        Late on a Friday, SwiftSpend Finance forwarded a password-protected archive to
+        <i> PandaProbe Intelligence</i>, requesting immediate malware analysis. Operating
+        as the sole on-call CTI Analyst, I transformed those raw artefacts into
+        contextualised intelligence and production-ready detections in roughly one hour.
+        The narrative below reconstructs every analytical pivot, tool choice, and
+        decision point that turned an urgent ticket into an actionable security brief.
+      </p>
+      <br />
+
+      <span className="title-work">Scenario & Objectives</span>
+      <br />
+      <br />
+      <p className="p-work">
+        The artefacts came from a live intrusion at a financial institution, so every
+        action occurred inside the isolated TryHackMe VM. My objectives were clear:
+      </p>
+      <ul className="list-work">
+        <li>Preserve forensic integrity and chain of custody.</li><br />
+        <li>Identify malware family, capabilities, and command-and-control (C2).</li><br />
+        <li>Correlate indicators with open-source and proprietary threat feeds.</li><br />
+        <li>Create host, network, and log-based detections for SwiftSpend’s SOC.</li>
+      </ul>
+      <br />
+
+      <span className="title-work">Step 1 — Acquisition & Integrity Validation</span>
+      <br />
+      <br />
+      <p className="p-work">
+        I extracted <code>samples.zip</code> with the ticketed password, verified the
+        archive’s SHA-256, and immediately renamed each file to its SHA-1 to guarantee
+        tamper-evident handling (<code>pRsm.dll → 9d1ecbbe8637…</code>). The
+        DocIntel metadata traced origin to <b>Oliver Bennett</b>, providing provenance if
+        legal follow-up became necessary.
+      </p>
+      <br />
+
+      <span className="title-work">Step 2 — Rapid Automated Triage</span>
+      <br />
+      <br />
+      <p className="p-work">
+        I queued the DLLs in a triage stack (<i>PE-Studio, capa, FLOSS, Detect-It-Easy</i>)
+        to surface low-effort insights while I documented the ticket. The tools
+        highlighted:
+      </p>
+      <ul className="list-work">
+        <li>Suspicious exports <code>DllRegisterServer</code> &amp; <code>ServiceMain</code>.</li><br />
+        <li>RC4-encrypted configuration blobs in the .rdata section.</li><br />
+        <li>Hard-coded string <code>QQUrlMgr_QQ88</code> aligning with Chinese software-update lures.</li><br />
+        <li>capa rules mapping to MgBot’s audio-capture plug-in.</li>
+      </ul>
+      <p className="p-work">
+        Those signatures narrowed the candidate family to <b>MgBot</b> before any manual
+        reversing, accelerating subsequent hypotheses.
+      </p>
+      <br />
+
+      <span className="title-work">Step 3 — In-Depth Static Analysis</span>
+      <br />
+      <br />
+      <p className="p-work">
+        Inside IDA Free I traced the RC4 key-schedule routine, dumped the encrypted
+        blob, and decrypted it to reveal the primary C2 domain
+        <code>update.browser.qq.com</code> plus IP <code>122.10.90.12</code>. Cross-referencing
+        those IOCs in VirusTotal showed historical clustering with MgBot campaigns
+        against Asian financial targets. Function analysis confirmed microphone access
+        via <code>IMMDeviceEnumerator</code>, mapping to MITRE ATT&amp;CK
+        <b>T1123 (Audio Capture)</b>.
+      </p>
+      <br />
+
+      <span className="title-work">Step 4 — Dynamic Behavioural Analysis</span>
+      <br />
+      <br />
+      <p className="p-work">
+        I side-loaded the DLL into a sacrificial host process under Sysmon and
+        <code>tshark</code>. Upon initialisation the malware:
+      </p>
+      <ul className="list-work">
+        <li>Created mutex <code>Global\\AudMod_09F0</code> for singleton enforcement.</li><br />
+        <li>Issued a TLS Client Hello to <code>122.10.90.12:443</code> with SNI
+            <code>update.browser.qq.com</code>.</li><br />
+        <li>Activated periodic audio capture once a beacon response was received.</li>
+      </ul>
+      <p className="p-work">
+        Network replay confirmed the RC4 key from static analysis also decrypted runtime
+        traffic, proving configuration integrity.
+      </p>
+      <br />
+
+      <span className="title-work">Step 5 — Threat-Intel Correlation</span>
+      <br />
+      <br />
+      <p className="p-work">
+        Submitting the hash and IP to MISP, GreyNoise, and Recorded Future tied the
+        sample to <i>TAG-273</i>, an espionage cluster observed since 2019. A timeline
+        query uncovered that the same IP hosted Android SpyAgent spyware on
+        16-Nov-2022 (<code>SHA-1 1c1fe906e822012f6235fcc53f601d006d15d7be</code>),
+        indicating cross-platform tool reuse and long-term infrastructure.
+      </p>
+      <br />
+
+      <span className="title-work">Step 6 — Detection Engineering</span>
+      <br />
+      <br />
+      <p className="p-work">
+        I crafted layered artefacts for SwiftSpend’s blue team:
+      </p>
+      <ul className="list-work">
+        <li><b>YARA</b> rule targeting MgBot audio modules via unique strings and export profile.</li><br />
+        <li><b>Sigma</b> rule flagging DNS queries for <code>update.browser.qq.com</code>.</li><br />
+        <li><b>Suricata</b> signature detecting HTTP URI <code>QQUrlMgr_QQ88</code> over TLS to <code>122.10.90.12</code>.</li>
+      </ul>
+      <p className="p-work">
+        Each rule was unit-tested in the VM and shipped with tuning guidance to minimise
+        false positives.
+      </p>
+      <br />
+
+      <span className="title-work">Step 7 — Report & Operational Hand-Off</span>
+      <br />
+      <br />
+      <p className="p-work">
+        The final report bundled IoCs, ATT&amp;CK mappings, a threat-actor profile,
+        mitigation actions, and the detection suite. SwiftSpend immediately blocked the
+        C2, pushed the YARA/Sigma/Suricata rules, and launched a retrospective hunt for
+        the mutex pattern across its EDR telemetry.
+      </p>
+      <br />
+
+      <span className="title-work">Consolidated Indicators</span>
+      <br />
+      <br />
+      <ul className="list-work">
+        <li>SHA-1 (DLL): 9d1ecbbe8637fed0d89fca1af35ea821277ad2e8</li><br />
+        <li>Malware Family: MgBot (Audio Capture)</li><br />
+        <li>ATT&amp;CK ID: T1123</li><br />
+        <li>C2 IP: 122[.]10[.]90[.]12</li><br />
+        <li>SpyAgent SHA-1: 1c1fe906e822012f6235fcc53f601d006d15d7be</li>
+      </ul>
+      <br />
+
+      <span className="title-work">Conclusion</span>
+      <br />
+      <br />
+      <p className="p-work">
+        This engagement illustrates how a disciplined CTI workflow — integrity checks,
+        layered analysis, intel enrichment, and rapid detection engineering — converts
+        a Friday-night incident into a defensible strategy before the weekend begins.
+        The process safeguarded a critical finance client and honed blue-team readiness
+        against <i>TAG-273</i>.
+      </p>
+      <span className="signature">
+        Provided by <i>TryHackMe Room #Friday-Overtime</i>
+      </span>
+
+    </div> 
   ],
-    images: [],
-  },
+  images: []
+},
   "pentesting": {
   title: "Penetration Testing",
   date: "February 2024",
@@ -1114,15 +1164,13 @@ const postData = {
       Applied regular expressions to filter critical events, such as failed login attempts (<span className="bg-work">"authentication failure"</span>), brute force attempts, and file access errors.
       Example regex for extracting IP addresses:
     </p>,
-    <div className="code-snippet">
-      <pre>
-        <code>
-        import re
-        ip_pattern = r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b'
-        matches = re.findall(ip_pattern, log_line)
-        </code>
-      </pre>
-    </div>,
+        <div className="code-snippet">
+          <pre>
+            <code>{`import re
+    ip_pattern = r'\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b'
+    matches = re.findall(ip_pattern, log_line)`}</code>
+          </pre>
+        </div>,
     <p className="p-work">
       Structured the parsed data into a DataFrame using pandas for easier manipulation and analysis.
     </p>,
