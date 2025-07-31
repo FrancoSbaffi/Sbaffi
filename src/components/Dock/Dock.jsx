@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./dock.css";
+import { useDisplacementEffect } from "./useDisplacementEffect";
 import {
   FaHome,
   FaInfoCircle,
@@ -15,27 +16,20 @@ import {
 const DockItem = ({
   IconComponent,
   path,
-  isHovered,
-  isNeighbor,
-  onMouseEnter,
   external,
 }) => {
-  const scale = isHovered ? 2.5 : isNeighbor ? 2 : 1;
-  const margin = isHovered || isNeighbor ? "28px" : "4px";
-  const linkStyle = { transform: `scale(${scale})`, margin: `0 ${margin}` };
-
   return (
-    <div className="dock-item" style={linkStyle} onMouseEnter={onMouseEnter}>
+    <div className="dock-item">
       {external ? (
         <a href={path} target="_blank" rel="noopener noreferrer">
           <div className="dock-item-link-wrap">
-            <IconComponent size="14px" style={{ color: "hsl(0, 0%, 50%)" }} />
+            <IconComponent size="14px" />
           </div>
         </a>
       ) : (
         <Link to={path}>
           <div className="dock-item-link-wrap">
-            <IconComponent size="14px" style={{ color: "hsl(0, 0%, 50%)" }} />
+            <IconComponent size="14px" />
           </div>
         </Link>
       )}
@@ -45,51 +39,7 @@ const DockItem = ({
 
 // Dock component
 const Dock = () => {
-  const [hoveredIndex, setHoveredIndex] = useState(-1);
-  const [hoverEffectsEnabled, setHoverEffectsEnabled] = useState(
-    window.innerWidth >= 900
-  );
-
-  useEffect(() => {
-    const checkScreenSize = () => {
-      const isEnabled = window.innerWidth >= 900;
-      console.log(
-        "Window width:",
-        window.innerWidth,
-        "Hover effects enabled:",
-        isEnabled
-      );
-      setHoverEffectsEnabled(isEnabled);
-    };
-
-    checkScreenSize();
-
-    window.addEventListener("resize", checkScreenSize);
-
-    return () => window.removeEventListener("resize", checkScreenSize);
-  }, []);
-
-  const handleMouseEnter = (index) => {
-    if (hoverEffectsEnabled) {
-      setHoveredIndex(index);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (hoverEffectsEnabled) {
-      setTimeout(() => {
-        console.log(hoverEffectsEnabled);
-        setHoveredIndex(-100);
-      }, 50);
-    }
-  };
-
-  useEffect(() => {
-    console.log("Component mounted, hoveredIndex:", hoveredIndex);
-    setTimeout(() => {
-      setHoveredIndex(-100);
-    }, 50);
-  }, []);
+  const { filterRef } = useDisplacementEffect();
 
   const icons = [
     { icon: FaHome, path: "/" },
@@ -105,20 +55,96 @@ const Dock = () => {
   ];
 
   return (
-    <div className="dock-container" onMouseLeave={handleMouseLeave}>
+    <div className="dock-container">
       <div className="dock">
-        {icons.map((item, index) => (
-          <DockItem
-            key={index}
-            IconComponent={item.icon}
-            path={item.path}
-            isHovered={index === hoveredIndex}
-            isNeighbor={Math.abs(index - hoveredIndex) === 1}
-            onMouseEnter={() => handleMouseEnter(index)}
-            external={item.external}
-          />
-        ))}
+        <div className="nav-wrap">
+          <nav>
+            {icons.map((item, index) => (
+              <DockItem
+                key={index}
+                IconComponent={item.icon}
+                path={item.path}
+                external={item.external}
+              />
+            ))}
+          </nav>
+        </div>
       </div>
+      
+      {/* SVG Filter para el efecto de displacement */}
+      <svg ref={filterRef} className="filter" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="filter" color-interpolation-filters="sRGB">
+            {/* the input displacement image */}
+            <feImage
+              x="0"
+              y="0"
+              width="100%"
+              height="100%"
+              result="map"
+            ></feImage>
+            {/* RED channel with strongest displacement */}
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="map"
+              id="redchannel"
+              xChannelSelector="R"
+              yChannelSelector="G"
+              result="dispRed"
+            />
+            <feColorMatrix
+              in="dispRed"
+              type="matrix"
+              values="1 0 0 0 0
+                      0 0 0 0 0
+                      0 0 0 0 0
+                      0 0 0 1 0"
+              result="red"
+            />
+            {/* GREEN channel (reference / least displaced) */}
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="map"
+              id="greenchannel"
+              xChannelSelector="R"
+              yChannelSelector="G"
+              result="dispGreen"
+            />
+            <feColorMatrix
+              in="dispGreen"
+              type="matrix"
+              values="0 0 0 0 0
+                      0 1 0 0 0
+                      0 0 0 0 0
+                      0 0 0 1 0"
+              result="green"
+            />
+            {/* BLUE channel with medium displacement */}
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="map"
+              id="bluechannel"
+              xChannelSelector="R"
+              yChannelSelector="G"
+              result="dispBlue"
+            />
+            <feColorMatrix
+              in="dispBlue"
+              type="matrix"
+              values="0 0 0 0 0
+                      0 0 0 0 0
+                      0 0 1 0 0
+                      0 0 0 1 0"
+              result="blue"
+            />
+            {/* Blend channels back together */}
+            <feBlend in="red" in2="green" mode="screen" result="rg" />
+            <feBlend in="rg" in2="blue" mode="screen" result="output" />
+            {/* output blend */}
+            <feGaussianBlur in="output" stdDeviation="0.7" />
+          </filter>
+        </defs>
+      </svg>
     </div>
   );
 };
