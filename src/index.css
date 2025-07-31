@@ -21,10 +21,22 @@
   box-sizing: border-box;
 }
 
+html {
+  /* Optimizaciones para Lenis Scroll */
+  overflow-x: hidden;
+  will-change: scroll-position;
+}
+
 html,
 body {
   width: 100%;
   background-color: var(--dark-bg-color);
+}
+
+body {
+  /* Optimizaciones para Lenis Scroll */
+  overflow-x: hidden;
+  will-change: scroll-position;
 }
 
 img {

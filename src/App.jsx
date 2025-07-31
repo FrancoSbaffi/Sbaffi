@@ -10,7 +10,7 @@ import Work from "./pages/Work/Work";
 import Projects from "./pages/Projects/Projects";
 import Photos from "./pages/Photos/Photos";
 import Post from "./pages/Post/Post";
-import About from "./pages/About/About"; 
+import About from "./pages/About/About";
 
 function App() {
   const location = useLocation();
