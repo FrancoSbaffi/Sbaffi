@@ -8,10 +8,10 @@ import {
   FaPalette,
   FaFolderOpen,
   FaBook,
-  FaGithub,
   FaEnvelope,
   FaLinkedin,
 } from "react-icons/fa";
+import { SiTryhackme } from "react-icons/si";
 
 const DockItem = ({
   IconComponent,
@@ -59,7 +59,7 @@ const Dock = () => {
       path: "https://www.linkedin.com/in/franco-sbaffi/",
       external: true,
     },
-    { icon: FaGithub, path: "https://github.com/FrancoSbaffi", external: true },
+    { icon: SiTryhackme, path: "https://tryhackme.com/p/sb4ff1", external: true },
   ];
 
   return (
