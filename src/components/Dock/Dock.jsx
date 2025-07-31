@@ -21,13 +21,21 @@ const DockItem = ({
   return (
     <div className="dock-item">
       {external ? (
-        <a href={path} target="_blank" rel="noopener noreferrer">
+        <a 
+          href={path} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className="dock-item-link-wrap">
             <IconComponent size="14px" />
           </div>
         </a>
       ) : (
-        <Link to={path}>
+        <Link 
+          to={path}
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className="dock-item-link-wrap">
             <IconComponent size="14px" />
           </div>
