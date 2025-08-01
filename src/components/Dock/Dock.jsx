@@ -82,7 +82,7 @@ const Dock = () => {
       {/* SVG Filter para el efecto de displacement */}
       <svg ref={filterRef} className="filter" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <filter id="filter" color-interpolation-filters="sRGB">
+          <filter id="filter" colorInterpolationFilters="sRGB">
             {/* the input displacement image */}
             <feImage
               x="0"

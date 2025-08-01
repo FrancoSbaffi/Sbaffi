@@ -1,318 +1,644 @@
-/* About Page Styles */
-
-:root {
-  --bg: #faf8f4;   
-  --fg: #1d1d1d;   
-  --gg: #2d2d2d;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background-color: var(--bg);
-  color: var(--gg);
-  font-family: "Helvetica", sans-serif;
-}
+/* About Page Styles - Exactamente como FranSbaffi */
 
 .page.about {
+  opacity: 1;
+  min-height: 100vh;
+  background-color: #f5f5dc; /* Beige claro como en la referencia */
+  color: #2c2c2c; /* Texto oscuro */
+  font-family: "Urbanist", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+/* Container */
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Hero Section */
+.about-hero {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.about-hero .about-hero-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.about-hero .about-hero-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-hero .about-header {
+  position: absolute;
+  bottom: 2.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  text-align: center;
+  color: var(--dark-text-color);
+}
+
+.about-hero .about-header h2 {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+/* Anime Text Container */
+.anime-text-container {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  padding: 2rem;
+  background-color: #ffffff;
+}
+
+.anime-text-container .copy-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.anime-text-container .anime-text {
+  width: 85%; /* Ancho exacto como en la imagen de referencia */
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  top: 0;
+  transform: translateY(0);
+}
+
+.anime-text-container .anime-text p {
+  color: #2c2c2c; /* Texto oscuro */
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.6rem; /* Tamaño como en la imagen */
+  font-weight: 700; /* Peso bold */
+  line-height: 1.4; /* Espaciado generoso */
+  margin-top: 0;
+}
+
+.anime-text-container .anime-text .word {
+  display: inline-block;
+  position: relative;
+  margin-right: 0.2rem;
+  margin-bottom: 0.2rem;
+  padding: 0.1rem 0.2rem;
+  border-radius: 8px;
+  will-change: background-color, opacity;
+}
+
+.anime-text-container .anime-text .word.keyword-wrapper {
+  margin: 0 0.2rem 0.1rem 0.1rem;
+}
+
+.anime-text-container .anime-text .word span {
+  position: relative;
+}
+
+.anime-text-container .anime-text .word span.keyword {
+  border-radius: 2rem;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  padding: 0.1rem 0;
+  color: #2c2c2c; /* Texto oscuro */
+}
+
+.anime-text-container .anime-text .word span.keyword::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% + 1rem);
+  height: calc(100% + 0.1rem);
+  background-color: #e6e6fa; /* Fondo lila claro por defecto */
+  border-radius: 8px;
+  z-index: -1;
+  border: 1px dashed #2c2c2c;
+}
+
+/* Azul claro para palabras clave importantes */
+.anime-text-container .anime-text .word span.keyword.degree::before,
+.anime-text-container .anime-text .word span.keyword.cybersecurity::before {
+  background-color: #b1c0ee;
+}
+
+/* Amarillo claro para palabras clave secundarias */
+.anime-text-container .anime-text .word span.keyword.top-1-percent::before,
+.anime-text-container .anime-text .word span.keyword.tryhackme::before,
+.anime-text-container .anime-text .word span.keyword.ctfs::before {
+  background-color: #ffdc95;
+}
+
+.anime-text-container .anime-text .word,
+.anime-text-container .anime-text .word span {
   opacity: 0;
 }
 
-.about-header {
+/* Home Spotlight Bars */
+.home-spotlight-top-bar,
+.home-spotlight-bottom-bar {
+  position: absolute;
+  left: 0;
   width: 100%;
-  margin-top: 8em;
-  padding: 2em;
   display: flex;
   justify-content: space-between;
-  font-family: "Urbanist", sans-serif;
-}
-
-.about-header h1 {
-  position: relative;
-  font-size: 15vw;
-  line-height: 0.75;
-}
-
-.about-hero {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  padding: 2em;
-  height: 100svh;            
-  margin: 2em;
-  border-radius: 1em;
-  overflow: hidden;
-  border: 1px dashed var(--gg);
-}
-
-.about-hero-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.about-hero-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.about-me-copy {
-  width: 100%;
-  padding: 4em 2em;
-  color: white;
-}
-
-.about-me-copy-wrapper {
-  width: 60%;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.about-me-copy-wrapper h3 {
-  margin: 1em;
-  font-size: 3vw;
-  letter-spacing: -0.02em;
-  line-height: 3vw;
-}
-
-.services {
-  margin: 2em;
-  padding: 2em;
-  display: flex;
-  gap: 2em;
-  border: 1px dashed var(--gg);
-  border-radius: 1em;
-}
-
-.services-col:nth-child(1) {
-  position: relative;
-  flex: 2;
-  border: 1px dashed var(--gg);
-  border-radius: 1em;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  text-align: center;
-  overflow: hidden;
+  padding: 2.5rem 2rem;
 }
 
-.services-banner {
-  position: absolute;
-  inset: 0;
+.home-spotlight-top-bar {
+  top: 0;
+}
+
+.home-spotlight-bottom-bar {
+  bottom: 0;
+}
+
+/* When there's a container inside the spotlight bars, apply flex to the container */
+.home-spotlight-top-bar .container,
+.home-spotlight-bottom-bar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  height: 100%;
 }
 
-.services-col:nth-child(1) p {
-  position: relative;
-  z-index: 1;
-  color: var(--bg);
-  font-weight: 600;
+.symbols-container {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
 }
 
-.services-col:nth-child(2) {
-  flex: 4;
+.symbol img {
+  width: 20px;
+  height: 20px;
+  opacity: 0.6;
 }
 
-.services-col h4 {
-  margin-bottom: 2em;
+.mono {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.8rem;
+  color: #2c2c2c; /* Texto oscuro */
   font-weight: 500;
-  font-size: 20px;
-  color: var(--bg);
-}
-
-.services-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-}
-
-.title-stack {
-  color: var(--bg);
-}
-
-.service-list-row {
-  display: flex;
-  gap: 2em;
-  padding: 2em 0;
-  border-top: 1px dashed var(--gg);
-}
-
-.service-list-col:nth-child(1) {
-  flex: 2;
-}
-
-.service-list-col:nth-child(2) {
-  flex: 4;
-}
-
-.service-list-col h5 {
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: white;
-}
-
-.about-banner-img {
-  margin: 2em;
-  height: 50svh;
-  border-radius: 1em;
-  overflow: hidden;
-  border: 1px dashed var(--gg);
-}
-
-.about-banner-img-wrapper {
-  width: 100%;
-  height: 100%;
-}
-
-.about-banner-img-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.fav-tools {
-  margin: 2em;
-  padding: 6em 2em 2em;
-  border: 1px dashed var(--gg);
-  border-radius: 1em;
-}
-
-.fav-tools-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5em;
-  margin-bottom: 4em;
-}
-
-.fav-tools-header .primary {
-  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
 }
 
-.fav-tools-header .secondary {
-  width: 60%;
-  text-align: center;
-  font-size: 0.95rem;
-  line-height: 1.6;
+/* Skills Section */
+.about-skills {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
+  overflow: visible; /* Permitir ver los objetos caer desde arriba */
+  background-color: #0a0b0b;
+  color: var(--dark-bg-color);
 }
 
-.fav-tools-list {
+.about-skills .container {
   display: flex;
-  flex-direction: column;
-  gap: 2em;
+  gap: 2rem;
+  height: 100%;
+  padding: 2rem;
 }
 
-.fav-tools-list-row {
-  display: flex;
-  gap: 2em;
-}
-
-.fav-tool {
+.about-skills .about-skills-col {
   position: relative;
   flex: 1;
-  padding: 1em;
-  aspect-ratio: 5/2.5;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: visible; /* Permitir ver los objetos caer desde arriba */
+}
+
+.about-skills .about-skills-col:nth-child(1) {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
+}
+
+.about-skills .about-skills-col:nth-child(1) h3 {
+  width: 70%;
+  font-size: clamp(2.8rem, 6vw, 4rem);
+  font-weight: 900;
+  margin: 0;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+}
+
+.about-skills .about-skills-col .object-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #101010;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  overflow: hidden; /* Cambiado a hidden para mantener objetos dentro */
+}
+
+.about-skills .object-container .object {
+  position: absolute;
+  width: max-content;
+  font-size: 2rem;
+  font-weight: 500;
+  background-color: var(--dark-bg-color);
+  color: var(--dark-text-secondary);
+  padding: 2rem 4rem;
+  border-radius: 10px;
+  user-select: none;
+  pointer-events: auto;
+  z-index: 100; /* Alto z-index para estar por encima */
+  border: 2px solid #101010;
+  opacity: 1 !important; /* Forzar visibilidad */
+  visibility: visible !important; /* Forzar visibilidad */
+}
+
+.about-skills .object-container .os-1 {
+  background-color: #b1c0ee; /* Azul/Lavanda claro como en la imagen */
+}
+
+.about-skills .object-container .os-2 {
+  background-color: #ffdc95; /* Amarillo/Beige claro como en la imagen */
+}
+
+.about-skills .object-container .os-3 {
+  background-color: #ffb6c1; /* Rosa/Salmón claro como en la imagen */
+}
+
+.about-skills-copy-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.about-skills-callout p {
+  font-size: 1rem;
+  margin: 0;
+  color: #ffffff;
+}
+
+/* Sticky Cards Section */
+.about-sticky-cards {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  background-color: #fffefe;
+  color: var(--dark-text-secondary);
+}
+
+.about-sticky-cards .sticky-cards-header {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  text-align: center;
+}
+
+.about-sticky-cards .sticky-cards-header h3 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 900;
+  margin: 0;
+}
+
+.about-sticky-cards .gallery-card {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  width: 25%;
+  height: 50%;
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
   gap: 0.5em;
-  border: 1px dashed var(--gg);
-  border-radius: 1em;
+  border-radius: 12px;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.about-sticky-cards .gallery-card-img {
+  flex: 1 1 0;
+  min-height: 0;
+  width: 100%;
+  border-radius: 8px;
   overflow: hidden;
 }
 
-.fav-tool-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;               
-}
-
-.fav-tool-img img {
+.about-sticky-cards .gallery-card-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.6);
 }
 
-.fav-tool h4,
-.fav-tool p {
-  position: relative;       
-  z-index: 1;
-  color: var(--bg);
+.about-sticky-cards .gallery-card-content {
+  flex: 0 0 12px;
+  display: flex;
+  align-items: center;
 }
 
-
-.divider {
-  width: 90%;
-  max-width: 1200px;
-  margin: 2rem auto;
-  border-bottom: 1px solid var(--gg);
+.about-sticky-cards .gallery-card-content p.mono {
+  font-size: 0.8rem;
+  margin: 0;
+  color: #ffffff;
+  text-transform: uppercase;
 }
 
+/* Estilos específicos para los textos de la sección sticky cards */
+.about-sticky-cards .home-spotlight-bottom-bar {
+  z-index: 10;
+}
+
+.about-sticky-cards .home-spotlight-bottom-bar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.about-sticky-cards .home-spotlight-bottom-bar p.mono {
+  color: #000000;
+  font-size: 0.8rem;
+  margin: 0;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+/* Outro Section - Con scroll aplicado */
+.outro {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
+  background-color: #ffffff; /* Fondo blanco */
+  color: #000000; /* Texto negro para mejor visibilidad */
+  overflow: hidden;
+}
+
+.outro .container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 100;
+}
+
+.outro .container h3 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 700; /* Bold como en la imagen */
+  margin: 0 0 2rem 0;
+  color: #000000; /* Texto negro más visible */
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+  z-index: 100;
+  position: relative;
+}
+
+.outro-strips {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.outro-strip {
+  position: absolute;
+  display: flex;
+  gap: 2rem;
+  white-space: nowrap;
+}
+
+/* Distribución orgánica de las cards como en la imagen */
+.outro-strip.os-1 { 
+  top: 8%; 
+  left: 8%;
+  gap: 4rem;
+}
+.outro-strip.os-2 { 
+  top: 18%; 
+  right: 10%;
+  gap: 3.5rem;
+}
+.outro-strip.os-3 { 
+  top: 35%; 
+  left: 5%;
+  gap: 4.2rem;
+}
+.outro-strip.os-4 { 
+  top: 50%; 
+  right: 8%;
+  gap: 3.8rem;
+}
+.outro-strip.os-5 { 
+  top: 65%; 
+  left: 12%;
+  gap: 4.5rem;
+}
+.outro-strip.os-6 { 
+  top: 80%; 
+  right: 5%;
+  gap: 4rem;
+}
+
+.skill {
+  padding: 0.5rem 1rem;
+  border-radius: 6px; /* Bordes ligeramente redondeados como en la imagen */
+  font-size: 0.75rem;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+  white-space: nowrap;
+}
+
+.skill:hover {
+  transform: translateY(-2px);
+}
+
+.skill-var-1 {
+  background-color: #b1c0ee; /* Azul/morado claro */
+  color: #000000; /* Texto negro */
+}
+
+.skill-var-2 {
+  background-color: #ffdc95; /* Amarillo/naranja claro */
+  color: #000000; /* Texto negro */
+}
+
+.skill-var-3 {
+  background-color: #ffb6c1; /* Rosa/rojo claro */
+  color: #000000; /* Texto negro */
+}
+
+.skill p {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: #000000;
+}
+
+/* Responsive */
 @media (max-width: 1000px) {
-  .about-header {
-    padding: 1.25em;
+  .about-sticky-cards .gallery-card {
+    width: 75%;
   }
 
-  .about-hero,
-  .about-banner-img,
-  .fav-tools {
-    margin: 1.25em;
+  .anime-text-container .copy-container h1 {
+    width: 90%;
+    font-size: 2rem;
   }
 
-  .about-me-copy {
-    padding: 4em 1.25em;
-  }
-
-  .about-me-copy-wrapper {
+  .anime-text-container .anime-text {
     width: 100%;
   }
 
-  .about-me-copy-wrapper h3 {
-    font-size: 6vw;
-    line-height: 6vw;
+  .anime-text-container .anime-text p {
+    font-size: 1.3rem;
   }
 
-  .fav-tools {
-    padding: 4em 1.25em 1.25em;
+  .anime-text-container .anime-text .word {
+    margin-right: 0.1rem;
+    margin-bottom: 0.15rem;
+    padding: 0.05rem 0.125rem;
   }
 
-  .fav-tools-header .secondary {
+  .anime-text-container .anime-text .word.keyword-wrapper {
+    margin: 0 0.2rem 0.1rem 0.1rem;
+  }
+
+  .anime-text-container .anime-text .word span.keyword::before {
+    width: calc(100% + 0.35rem);
+    height: calc(100% + 0.075rem);
+  }
+
+  .about-hero .about-header {
+    width: 90%;
+    top: 50%;
+    bottom: unset;
+    transform: translate(-50%, -50%);
+  }
+
+  .about-skills {
+    height: 100svh;
+  }
+
+  .about-skills .about-skills-col:nth-child(1) h3 {
     width: 100%;
   }
 
-  .fav-tools-list-row {
+  .about-skills .container {
     flex-direction: column;
-    gap: 1.25em;
   }
 
-  .fav-tools-list {
-    gap: 1.25em;
+  .about-skills .about-skills-col:nth-child(1) {
+    justify-content: flex-start;
+    gap: 4rem;
   }
 
-  .services {
-    flex-direction: column;
-    margin: 1.25em;
-    padding: 1.25em;
+  .about-skills-callout p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.7rem;
   }
 
-  .services-col:nth-child(1) {
-    aspect-ratio: 5/3;
+  .skills-playground {
+    flex: 2 !important;
   }
 
-  .service-list-row {
-    flex-direction: column;
-    gap: 1em;
+  .about-skills .object-container .object {
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    user-select: none;
+    pointer-events: auto;
+    z-index: 2;
+    border: 2px solid #101010;
+  }
+
+  .about-sticky-cards .gallery-card {
+    top: 50%;
+  }
+
+  .about-sticky-cards .gallery-card {
+    width: 50%;
+    height: 25svh;
+  }
+
+  .about-sticky-cards .sticky-cards-header {
+    width: 90%;
+  }
+
+  /* Responsive para outro */
+  .outro .container h3 {
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+
+  .outro-strip {
+    gap: 1rem;
+  }
+
+  .skill {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Pantallas muy pequeñas */
+@media (max-width: 400px) {
+  .about-skills-callout p {
+    font-size: 0.6rem;
+  }
+  
+  .about-skills .object-container .object {
+    font-size: 0.7rem;
+    padding: 0.5rem 1rem;
+  }
+  
+  .about-skills .about-skills-col:nth-child(1) h3 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    width: 100%;
+  }
+
+  /* Responsive para outro en pantallas muy pequeñas */
+  .outro .container h3 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
+
+  .outro-strip {
+    gap: 0.8rem;
+  }
+
+  .skill {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.7rem;
   }
 }

@@ -13,6 +13,9 @@
   --dark-btn-bg: hsl(0 0% 12.5%);
   --dark-card-bg: hsl(0 0% 10%);
   --dark-card-border: hsl(0 0% 15%);
+  --accent-1: hsl(0 0% 90%);
+  --accent-2: hsl(0 0% 80%);
+  --accent-3: hsl(0 0% 70%);
 }
 
 * {
