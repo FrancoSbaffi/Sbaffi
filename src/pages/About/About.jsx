@@ -487,69 +487,63 @@ const About = () => {
       },
     });
 
-    // Outro section - Con scroll aplicado y animación palabra por palabra
+    // Outro section - Animación mejorada para imagen 2
     const outroHeader = document.querySelector(".outro h3");
-    if (outroHeader) {
-      // Configurar SplitText para animación palabra por palabra
-      const splitText = new SplitText(outroHeader, { type: "words" });
-      const words = splitText.words;
-      
-      // Ocultar todas las palabras inicialmente
-      gsap.set(words, { opacity: 0, y: 50 });
-    }
-
     const outroStrips = document.querySelectorAll(".outro-strip");
     const stripSpeeds = [0.3, 0.4, 0.25, 0.35, 0.2, 0.25];
+    
+    let splitText = null;
+    let words = null;
+    
+    if (outroHeader) {
+      // Configurar SplitText para animación palabra por palabra
+      splitText = new SplitText(outroHeader, { type: "words" });
+      words = splitText.words;
+      
+      // Ocultar todas las palabras inicialmente
+      gsap.set(words, { opacity: 0, y: 30 });
+    }
 
-    // ScrollTrigger para el header del outro con animación palabra por palabra
+    // ScrollTrigger principal para el outro con pin y animaciones
     ScrollTrigger.create({
       trigger: ".outro",
       start: "top top",
-      end: `+=${window.innerHeight * 3}px`,
+      end: `+=${window.innerHeight * 4}px`,
       pin: true,
       pinSpacing: true,
       scrub: 1,
       onUpdate: (self) => {
         const progress = self.progress;
 
+        // Animación del texto del header
         if (outroHeader && words) {
-          if (progress >= 0.2 && progress <= 0.8) {
-            const textProgress = (progress - 0.2) / 0.6;
+          if (progress >= 0.1 && progress <= 0.6) {
+            const textProgress = (progress - 0.1) / 0.5;
             const totalWords = words.length;
             const wordsToShow = Math.floor(textProgress * totalWords);
             
-            // Mostrar palabras progresivamente
+            // Mostrar palabras progresivamente con efecto de fade
             words.forEach((word, index) => {
               if (index < wordsToShow) {
                 gsap.set(word, { opacity: 1, y: 0 });
               } else {
-                gsap.set(word, { opacity: 0, y: 50 });
+                gsap.set(word, { opacity: 0, y: 30 });
               }
             });
-          } else if (progress < 0.2) {
+          } else if (progress < 0.1) {
             // Ocultar todas las palabras
-            gsap.set(words, { opacity: 0, y: 50 });
-          } else if (progress > 0.8) {
+            gsap.set(words, { opacity: 0, y: 30 });
+          } else if (progress > 0.6) {
             // Mostrar todas las palabras
             gsap.set(words, { opacity: 1, y: 0 });
           }
         }
-      },
-    });
 
-    // ScrollTrigger para el movimiento de las strips
-    ScrollTrigger.create({
-      trigger: ".outro",
-      start: "top bottom",
-      end: `+=${window.innerHeight * 6}px`,
-      scrub: 1,
-      onUpdate: (self) => {
-        const progress = self.progress;
-
+        // Animación del movimiento de las strips
         outroStrips.forEach((strip, index) => {
           if (stripSpeeds[index] !== undefined) {
             const speed = stripSpeeds[index];
-            const movement = progress * 100 * speed;
+            const movement = progress * 120 * speed; // Aumentado el rango de movimiento
 
             gsap.set(strip, {
               x: `${movement}%`,
@@ -850,61 +844,53 @@ const About = () => {
       {/* Outro Section */}
       <section className="outro">
         <div className="container">
-          <h3>Thank You for your time</h3>
+          <h3>SCROLL ENDS BUT IDEAS DON'T</h3>
         </div>
         <div className="outro-strips">
           <div className="outro-strip os-1">
-            <div className="skill skill-var-2"><p className="mono">WINDOWS HARDENING</p></div>
-            <div className="skill skill-var-3"><p className="mono">COMMAND FLOW</p></div>
-            <div className="skill skill-var-1"><p className="mono">SECURE CODE</p></div>
-            <div className="skill skill-var-3"><p className="mono">RECON MINDSET</p></div>
-            <div className="skill skill-var-1"><p className="mono">LOG PRECISION</p></div>
-            <div className="skill skill-var-3"><p className="mono">FLOW CONTROL</p></div>
-            <div className="skill skill-var-2"><p className="mono">OPERATOR INSTINCT</p></div>
+            <div className="skill skill-var-1"><p className="mono">Linux Ops</p></div>
+            <div className="skill skill-var-2"><p className="mono">Windows Hardening</p></div>
+            <div className="skill skill-var-3"><p className="mono">Command Flow</p></div>
+            <div className="skill skill-var-1"><p className="mono">Secure Code</p></div>
+            <div className="skill skill-var-3"><p className="mono">Recon Mindset</p></div>
+            <div className="skill skill-var-1"><p className="mono">Log Precision</p></div>
           </div>
           <div className="outro-strip os-2">
-            <div className="skill skill-var-1"><p className="mono">LINUX OPS</p></div>
-            <div className="skill skill-var-3"><p className="mono">PACKET PRECISION</p></div>
-            <div className="skill skill-var-2"><p className="mono">GAUCHO CORE</p></div>
-            <div className="skill skill-var-1"><p className="mono">INFRA BUILDS</p></div>
-            <div className="skill skill-var-3"><p className="mono">CASE LOGS</p></div>
-            <div className="skill skill-var-2"><p className="mono">SCROLL DISCIPLINE</p></div>
-            <div className="skill skill-var-3"><p className="mono">FLOW CRAFT</p></div>
-            <div className="skill skill-var-1"><p className="mono">ROOT MINDSET</p></div>
+            <div className="skill skill-var-2"><p className="mono">Flow Control</p></div>
+            <div className="skill skill-var-3"><p className="mono">Operator Instinct</p></div>
+            <div className="skill skill-var-1"><p className="mono">Protocol Chess</p></div>
           </div>
           <div className="outro-strip os-3">
-            <div className="skill skill-var-3"><p className="mono">SOC VIBES</p></div>
-            <div className="skill skill-var-2"><p className="mono">TSHARK WIZARD</p></div>
-            <div className="skill skill-var-1"><p className="mono">NO FILLER</p></div>
-            <div className="skill skill-var-3"><p className="mono">LIVE ENVIRONMENTS</p></div>
-            <div className="skill skill-var-2"><p className="mono">ARGENTINA MODE</p></div>
-            <div className="skill skill-var-1"><p className="mono">LAUNCH READY</p></div>
-            <div className="skill skill-var-2"><p className="mono">ROOTGRIDOPS</p></div>
+            <div className="skill skill-var-2"><p className="mono">Packet Precision</p></div>
+            <div className="skill skill-var-3"><p className="mono">Gaucho Core</p></div>
+            <div className="skill skill-var-1"><p className="mono">Infra Builds</p></div>
+            <div className="skill skill-var-2"><p className="mono">Case Logs</p></div>
+            <div className="skill skill-var-3"><p className="mono">Scroll Discipline</p></div>
+            <div className="skill skill-var-3"><p className="mono">Flow Craft</p></div>
+            <div className="skill skill-var-1"><p className="mono">Root Mindset</p></div>
           </div>
           <div className="outro-strip os-4">
-            <div className="skill skill-var-1"><p className="mono">PROTOCOL LAYERS</p></div>
-            <div className="skill skill-var-3"><p className="mono">THREAT TIMELINES</p></div>
-            <div className="skill skill-var-2"><p className="mono">OS NERD</p></div>
-            <div className="skill skill-var-1"><p className="mono">QUIETLY LETAL</p></div>
-            <div className="skill skill-var-3"><p className="mono">DEPLOYED</p></div>
+            <div className="skill skill-var-1"><p className="mono">Protocol Layers</p></div>
+            <div className="skill skill-var-2"><p className="mono">Threat Timelines</p></div>
+            <div className="skill skill-var-3">
+              <p className="mono">Ops Lifecycle</p>
+            </div>
           </div>
           <div className="outro-strip os-5">
-            <div className="skill skill-var-1"><p className="mono">MISSIONS</p></div>
-            <div className="skill skill-var-2"><p className="mono">PROTOCOL CHESS</p></div>
-            <div className="skill skill-var-3"><p className="mono">PACKET PRECISION</p></div>
-            <div className="skill skill-var-1"><p className="mono">SECURE CODE</p></div>
-            <div className="skill skill-var-2"><p className="mono">OPERATOR INSTINCT</p></div>
-            <div className="skill skill-var-3"><p className="mono">SCROLL DISCIPLINE</p></div>
+            <div className="skill skill-var-1"><p className="mono">Side Missions</p></div>
+            <div className="skill skill-var-2"><p className="mono">SOC Vibes</p></div>
+            <div className="skill skill-var-3"><p className="mono">TShark Wizard</p></div>
+            <div className="skill skill-var-1"><p className="mono">No Filler</p></div>
+            <div className="skill skill-var-2"><p className="mono">Live Environments</p></div>
+            <div className="skill skill-var-3"><p className="mono">Argentina Mode</p></div>
+            <div className="skill skill-var-1"><p className="mono">Launch Ready</p></div>
+            <div className="skill skill-var-2"><p className="mono">RootgridOPS</p></div>
           </div>
           <div className="outro-strip os-6">
-            <div className="skill skill-var-2"><p className="mono">GAUCHO CORE</p></div>
-            <div className="skill skill-var-1"><p className="mono">INFRA BUILDS</p></div>
-            <div className="skill skill-var-3"><p className="mono">CASE LOGS</p></div>
-            <div className="skill skill-var-2"><p className="mono">FLOW CRAFT</p></div>
-            <div className="skill skill-var-1"><p className="mono">ROOT MINDSET</p></div>
-            <div className="skill skill-var-3"><p className="mono">PROTOCOL LAYERS</p></div>
-            <div className="skill skill-var-2"><p className="mono">NO FILLER</p></div>
-            <div className="skill skill-var-1"><p className="mono">QUIETLY LETAL</p></div>
+            <div className="skill skill-var-3"><p className="mono">OS Nerd</p></div>
+            <div className="skill skill-var-1"><p className="mono">Quietly Letal</p></div>
+            <div className="skill skill-var-2"><p className="mono">Deployed</p></div>
+            <div className="skill skill-var-3"><p className="mono">Real Python</p></div>
           </div>
         </div>
       </section>
