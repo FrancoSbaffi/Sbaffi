@@ -5,14 +5,27 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import Matter from "matter-js";
 import { useScramble } from "use-scramble";
+import * as THREE from "three";
 
 const About = () => {
   const pageRef = useRef(null);
+  const heroImgRef = useRef(null);
   
   // Variables para Matter.js - deben estar en el scope del componente
   let engine = null;
   let runner = null;
   let bodies = [];
+
+  // Variables para el efecto WebGL - optimizadas para evitar múltiples instancias
+  let scene = null;
+  let camera = null;
+  let renderer = null;
+  let uniforms = null;
+  let radiusTween = null;
+  let isMouseInside = false;
+  let targetMouse = null;
+  let lerpedMouse = null;
+  let isWebGLInitialized = false;
 
   // Hooks para animaciones de scramble - inicialmente desactivadas
   const { ref: specsLoadedRef, replay: replaySpecsLoaded } = useScramble({
@@ -77,6 +90,332 @@ const About = () => {
   const [showCredsMode, setShowCredsMode] = React.useState(false);
   const [showSnapshots, setShowSnapshots] = React.useState(false);
 
+  // Shaders para el efecto WebGL
+  const vertexShader = `
+    varying vec2 v_uv;
+    
+    void main() {
+      v_uv = uv;
+      gl_Position = vec4(position, 1.0);
+    }
+  `;
+
+  const fragmentShader = `
+    precision highp float;
+
+    uniform sampler2D u_texture;
+    uniform vec2 u_mouse;
+    uniform float u_time;
+    uniform vec2 u_resolution;
+    uniform float u_radius;
+    uniform float u_speed;
+    uniform float u_imageAspect;
+    uniform float u_turbulenceIntensity;
+
+    varying vec2 v_uv;
+
+    // Hash function for noise
+    vec3 hash33(vec3 p) {
+      p = fract(p * vec3(443.8975, 397.2973, 491.1871));
+      p += dot(p.zxy, p.yxz + 19.27);
+      return fract(vec3(p.x * p.y, p.z * p.x, p.y * p.z));
+    }
+
+    // Simplex noise
+    float simplex_noise(vec3 p) {
+      const float K1 = 0.333333333;
+      const float K2 = 0.166666667;
+      
+      vec3 i = floor(p + (p.x + p.y + p.z) * K1);
+      vec3 d0 = p - (i - (i.x + i.y + i.z) * K2);
+      
+      vec3 e = step(vec3(0.0), d0 - d0.yzx);
+      vec3 i1 = e * (1.0 - e.zxy);
+      vec3 i2 = 1.0 - e.zxy * (1.0 - e);
+      
+      vec3 d1 = d0 - (i1 - K2);
+      vec3 d2 = d0 - (i2 - K2 * 2.0);
+      vec3 d3 = d0 - (1.0 - 3.0 * K2);
+      
+      vec3 x0 = d0;
+      vec3 x1 = d1;
+      vec3 x2 = d2;
+      vec3 x3 = d3;
+      
+      vec4 h = max(0.6 - vec4(dot(x0, x0), dot(x1, x1), dot(x2, x2), dot(x3, x3)), 0.0);
+      vec4 n = h * h * h * h * vec4(
+        dot(x0, hash33(i) * 2.0 - 1.0),
+        dot(x1, hash33(i + i1) * 2.0 - 1.0),
+        dot(x2, hash33(i + i2) * 2.0 - 1.0),
+        dot(x3, hash33(i + 1.0) * 2.0 - 1.0)
+      );
+      
+      return 0.5 + 0.5 * 31.0 * dot(n, vec4(1.0));
+    }
+
+    // Curl noise for fluid motion
+    vec2 curl(vec2 p, float time) {
+      const float epsilon = 0.001;
+      
+      float n1 = simplex_noise(vec3(p.x, p.y + epsilon, time));
+      float n2 = simplex_noise(vec3(p.x, p.y - epsilon, time));
+      float n3 = simplex_noise(vec3(p.x + epsilon, p.y, time));
+      float n4 = simplex_noise(vec3(p.x - epsilon, p.y, time));
+      
+      float x = (n2 - n1) / (2.0 * epsilon);
+      float y = (n4 - n3) / (2.0 * epsilon);
+      
+      return vec2(x, y);
+    }
+
+    // Ink marbling effect
+    float inkMarbling(vec2 p, float time, float intensity) {
+      float result = 0.0;
+      
+      // Base layer
+      vec2 flow = curl(p * 1.5, time * 0.1) * intensity * 2.0;
+      vec2 p1 = p + flow * 0.3;
+      result += simplex_noise(vec3(p1 * 2.0, time * 0.15)) * 0.5;
+      
+      // Medium details
+      vec2 flow2 = curl(p * 3.0 + vec2(sin(time * 0.2), cos(time * 0.15)), time * 0.2) * intensity;
+      vec2 p2 = p + flow2 * 0.2;
+      result += simplex_noise(vec3(p2 * 4.0, time * 0.25)) * 0.3;
+      
+      // Fine details
+      vec2 flow3 = curl(p * 6.0 + vec2(cos(time * 0.3), sin(time * 0.25)), time * 0.3) * intensity * 0.5;
+      vec2 p3 = p + flow3 * 0.1;
+      result += simplex_noise(vec3(p3 * 8.0, time * 0.4)) * 0.2;
+      
+      // Spiral patterns
+      float dist = length(p - vec2(0.5));
+      float angle = atan(p.y - 0.5, p.x - 0.5);
+      float spiral = sin(dist * 15.0 - angle * 2.0 + time * 0.3) * 0.5 + 0.5;
+      
+      result = mix(result, spiral, 0.3);
+      result = result * 0.5 + 0.5;
+      
+      return result;
+    }
+
+    void main() {
+      vec2 uv = v_uv;
+      float screenAspect = u_resolution.x / u_resolution.y;
+      float ratio = u_imageAspect / screenAspect;
+
+      // Simular exactamente object-fit: cover de CSS
+      vec2 texCoord;
+      if (ratio > 1.0) {
+        // Imagen más ancha que el contenedor - recortar horizontalmente
+        float scale = 1.0 / ratio;
+        texCoord = vec2(uv.x * scale + (1.0 - scale) * 0.5, uv.y);
+      } else {
+        // Imagen más alta que el contenedor - recortar verticalmente
+        float scale = ratio;
+        texCoord = vec2(uv.x, uv.y * scale + (1.0 - scale) * 0.5);
+      }
+
+      vec4 tex = texture2D(u_texture, texCoord);
+      vec3 originalColor = tex.rgb;
+      
+      // Calculate ink marbling effect
+      vec2 correctedUV = uv;
+      vec2 correctedMouse = u_mouse;
+      
+      // Ajustar las coordenadas para el efecto según el aspect ratio
+      if (ratio > 1.0) {
+        // Para imágenes más anchas, el efecto debe ajustarse horizontalmente
+        float scale = 1.0 / ratio;
+        correctedUV.x = correctedUV.x * scale + (1.0 - scale) * 0.5;
+        correctedMouse.x = correctedMouse.x * scale + (1.0 - scale) * 0.5;
+      } else {
+        // Para imágenes más altas, el efecto debe ajustarse verticalmente
+        float scale = ratio;
+        correctedUV.y = correctedUV.y * scale + (1.0 - scale) * 0.5;
+        correctedMouse.y = correctedMouse.y * scale + (1.0 - scale) * 0.5;
+      }
+
+      float dist = distance(correctedUV, correctedMouse);
+      
+      float marbleEffect = inkMarbling(uv * 2.0 + u_time * u_speed * 0.1, u_time, u_turbulenceIntensity * 2.0);
+      float jaggedDist = dist + (marbleEffect - 0.5) * u_turbulenceIntensity * 2.0;
+      
+      float mask = u_radius > 0.001 ? step(jaggedDist, u_radius) : 0.0;
+
+      // Invert colors for the effect
+      float gray = dot(originalColor, vec3(0.299, 0.587, 0.114));
+      vec3 invertedColor = vec3(1.0 - gray);
+
+      // Blend between original and inverted (inverse effect)
+      vec3 finalColor = mix(originalColor, invertedColor, mask);
+      
+      gl_FragColor = vec4(finalColor, 1.0);
+    }
+  `;
+
+  // Configuración del efecto
+  const effectConfig = {
+    maskRadius: 0.35,
+    maskSpeed: 0.75,
+    turbulenceIntensity: 0.225,
+    appearDuration: 0.4,
+    disappearDuration: 0.3
+  };
+
+  // Función para inicializar el efecto WebGL - optimizada
+  const initWebGLEffect = () => {
+    if (!heroImgRef.current || isWebGLInitialized) return;
+
+    const container = heroImgRef.current;
+    const img = container.querySelector('img');
+    
+    if (!img) return;
+
+    // Inicializar vectores Three.js solo una vez
+    if (!targetMouse) {
+      targetMouse = new THREE.Vector2(0.5, 0.5);
+      lerpedMouse = new THREE.Vector2(0.5, 0.5);
+    }
+
+    // Crear escena Three.js
+    scene = new THREE.Scene();
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+    camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+
+    // Cargar textura
+    const loader = new THREE.TextureLoader();
+    loader.load(img.src, (texture) => {
+      const imageAspect = texture.image.width / texture.image.height;
+      
+      // Configurar textura
+      texture.minFilter = THREE.LinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      texture.anisotropy = 8;
+      texture.generateMipmaps = false;
+
+      // Uniforms - reutilizar vectores existentes
+      uniforms = {
+        u_texture: { value: texture },
+        u_mouse: { value: targetMouse },
+        u_time: { value: 0.0 },
+        u_resolution: { value: new THREE.Vector2(width, height) },
+        u_radius: { value: 0.0 },
+        u_speed: { value: effectConfig.maskSpeed },
+        u_imageAspect: { value: imageAspect },
+        u_turbulenceIntensity: { value: effectConfig.turbulenceIntensity }
+      };
+
+      // Material y geometría
+      const geometry = new THREE.PlaneGeometry(2, 2);
+      const material = new THREE.ShaderMaterial({
+        uniforms: uniforms,
+        vertexShader: vertexShader,
+        fragmentShader: fragmentShader,
+        depthTest: false,
+        depthWrite: false
+      });
+
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      // Renderer
+      renderer = new THREE.WebGLRenderer({
+        antialias: false,
+        powerPreference: "high-performance",
+        alpha: true
+      });
+      renderer.setPixelRatio(1);
+      renderer.setSize(width, height);
+      
+      // Ocultar imagen original y mostrar canvas
+      img.style.display = 'none';
+      container.appendChild(renderer.domElement);
+
+      // Event listeners
+      setupEventListeners(container);
+      
+      // Marcar como inicializado
+      isWebGLInitialized = true;
+      
+      // Iniciar animación
+      animate();
+    });
+  };
+
+  // Función para configurar event listeners - optimizada
+  const setupEventListeners = (container) => {
+    // Evitar múltiples event listeners
+    if (window.aboutMouseMoveHandler) {
+      document.removeEventListener('mousemove', window.aboutMouseMoveHandler);
+    }
+
+    const handleMouseMove = (e) => {
+      // Verificar que el WebGL esté inicializado
+      if (!isWebGLInitialized || !uniforms || !targetMouse) return;
+
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX;
+      const y = e.clientY;
+      
+      const inside = x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+      
+      if (isMouseInside !== inside) {
+        isMouseInside = inside;
+        
+        if (radiusTween) {
+          radiusTween.kill();
+        }
+        
+        if (inside) {
+          targetMouse.x = (x - rect.left) / rect.width;
+          targetMouse.y = 1.0 - (y - rect.top) / rect.height;
+          
+          radiusTween = gsap.to(uniforms.u_radius, {
+            value: effectConfig.maskRadius,
+            duration: effectConfig.appearDuration,
+            ease: "power2.out"
+          });
+        } else {
+          radiusTween = gsap.to(uniforms.u_radius, {
+            value: 0,
+            duration: effectConfig.disappearDuration,
+            ease: "power2.in"
+          });
+        }
+      }
+      
+      if (inside) {
+        targetMouse.x = (x - rect.left) / rect.width;
+        targetMouse.y = 1.0 - (y - rect.top) / rect.height;
+      }
+    };
+
+    // Guardar referencia para poder remover el listener
+    window.aboutMouseMoveHandler = handleMouseMove;
+    document.addEventListener('mousemove', handleMouseMove, { passive: true });
+  };
+
+  // Función de animación
+  const animate = () => {
+    requestAnimationFrame(animate);
+    
+    // Solo actualizar si hay interacción del mouse
+    if (uniforms && isMouseInside && lerpedMouse && targetMouse) {
+      // Smooth mouse movement
+      lerpedMouse.lerp(targetMouse, 0.1);
+      uniforms.u_mouse.value.copy(lerpedMouse);
+      
+      // Update time solo cuando hay interacción
+      uniforms.u_time.value += 0.01;
+    }
+    
+    // Renderizar solo si todo está inicializado
+    if (renderer && scene && camera && isWebGLInitialized) {
+      renderer.render(scene, camera);
+    }
+  };
+
   useEffect(() => {
     
     // Registrar plugins de GSAP
@@ -88,6 +427,11 @@ const About = () => {
       { opacity: 1, duration: 1, ease: "power2.out" }
     );
 
+    // Inicializar efecto WebGL después de un pequeño delay
+    const webGLTimer = setTimeout(() => {
+      initWebGLEffect();
+    }, 1000);
+
     // Esperar un poco antes de inicializar las animaciones complejas
     const timer = setTimeout(() => {
       initAnimations();
@@ -95,24 +439,60 @@ const About = () => {
 
     return () => {
       clearTimeout(timer);
+      clearTimeout(webGLTimer);
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
       
       // Clean up Matter.js
       if (runner) {
         Matter.Runner.stop(runner);
+        runner = null;
       }
       if (engine) {
         Matter.Engine.clear(engine);
+        engine = null;
+      }
+
+      // Clean up WebGL - optimizado
+      if (renderer) {
+        renderer.dispose();
+        renderer = null;
+      }
+      if (scene) {
+        scene.clear();
+        scene = null;
+      }
+      if (camera) {
+        camera = null;
+      }
+      if (uniforms) {
+        // Limpiar texturas
+        if (uniforms.u_texture && uniforms.u_texture.value) {
+          uniforms.u_texture.value.dispose();
+        }
+        uniforms = null;
+      }
+      if (radiusTween) {
+        radiusTween.kill();
+        radiusTween = null;
+      }
+      
+      // Resetear estado
+      isWebGLInitialized = false;
+      isMouseInside = false;
+      targetMouse = null;
+      lerpedMouse = null;
+      
+      // Remover event listener
+      if (window.aboutMouseMoveHandler) {
+        document.removeEventListener('mousemove', window.aboutMouseMoveHandler);
+        window.aboutMouseMoveHandler = null;
       }
     };
   }, []);
 
   const initAnimations = () => {
-    console.log("Iniciando animaciones del About page...");
-    
     // Verificar que los elementos existan antes de continuar
     const animeTextParagraphs = document.querySelectorAll(".anime-text p");
-    console.log("Párrafos encontrados:", animeTextParagraphs.length);
     
     if (animeTextParagraphs.length === 0) {
       console.warn("No se encontraron párrafos para animar");
@@ -158,7 +538,6 @@ const About = () => {
     });
 
     const animeTextContainers = document.querySelectorAll(".anime-text-container");
-    console.log("Contenedores de texto encontrados:", animeTextContainers.length);
     
     if (animeTextContainers.length === 0) {
       console.warn("No se encontraron contenedores de texto");
@@ -286,7 +665,6 @@ const About = () => {
 
          // FÍSICA - Implementación CORREGIDA para mantener objetos dentro del contenedor
      function initPhysics(container) {
-       console.log("🚀 Inicializando física CORREGIDA para:", container);
        
        const { Engine, Bodies, Composite } = Matter;
        
@@ -297,14 +675,11 @@ const About = () => {
        
        // Obtener objetos
        const objects = container.querySelectorAll(".object");
-       console.log("🎯 Objetos encontrados:", objects.length);
        
        // Obtener dimensiones del contenedor
        const containerRect = container.getBoundingClientRect();
        const containerWidth = containerRect.width;
        const containerHeight = containerRect.height;
-       
-       console.log("📏 Dimensiones del contenedor:", containerWidth, "x", containerHeight);
        
                // Crear paredes que coincidan exactamente con el contenedor
         const wallThickness = 50;
@@ -329,8 +704,6 @@ const About = () => {
          // Posición inicial aleatoria en la parte superior del contenedor
          const startX = wallThickness + objWidth/2 + Math.random() * (containerWidth - wallThickness * 2 - objWidth);
          const startY = -objHeight - Math.random() * 50; // Empezar justo arriba del contenedor
-         
-         console.log(`📦 Objeto ${index}: ${obj.textContent} - Posición inicial: (${startX}, ${startY})`);
          
                    const body = Bodies.rectangle(startX, startY, objWidth, objHeight, {
             restitution: 0.1, // Muy poco rebote para mejor apilamiento
@@ -372,21 +745,15 @@ const About = () => {
            }
          });
        });
-       
-       console.log("✅ Física iniciada correctamente con límites del contenedor");
      }
 
          // Configurar ScrollTrigger para física - SIMPLE
-     console.log("🔍 Configurando ScrollTrigger SIMPLE para física...");
      const skillsSection = document.querySelector(".about-skills");
      if (skillsSection) {
        const container = skillsSection.querySelector(".object-container");
        if (container) {
-         console.log("✅ Contenedor encontrado, creando ScrollTrigger simple...");
-         
          // Inicializar física inmediatamente para debug
          setTimeout(() => {
-           console.log("🚀 Inicializando física inmediatamente...");
            initPhysics(container);
          }, 1000);
          
@@ -395,7 +762,6 @@ const About = () => {
             start: "top center",
             once: true,
             onEnter: () => {
-              console.log("🎯 ScrollTrigger activado - inicializando física...");
               initPhysics(container);
               
               // Activar animación de scramble para esta sección
@@ -409,7 +775,6 @@ const About = () => {
      }
 
     const galleryCards = gsap.utils.toArray(".gallery-card");
-    console.log("Tarjetas de galería encontradas:", galleryCards.length);
     
     const rotations = [-12, 10, -5, 5, -5, -2];
 
@@ -555,7 +920,6 @@ const About = () => {
     
          // Animaciones de line-reveal para elementos con data-animate-type
      const lineRevealElements = document.querySelectorAll('[data-animate-type="line-reveal"]');
-     console.log("Elementos line-reveal encontrados:", lineRevealElements.length);
      
      lineRevealElements.forEach((element) => {
        const delay = parseFloat(element.getAttribute('data-animate-delay')) || 0;
@@ -617,8 +981,6 @@ const About = () => {
           });
        }
      });
-     
-     console.log("✅ Todas las animaciones del About page han sido inicializadas correctamente");
    };
 
   return (
@@ -627,7 +989,7 @@ const About = () => {
       
       {/* Hero Section */}
       <section className="about-hero">
-        <div className="about-hero-img">
+        <div className="about-hero-img" ref={heroImgRef}>
           <img src="/me.jpg" alt="Franco Sbaffi" />
         </div>
         <div className="container">
@@ -635,7 +997,8 @@ const About = () => {
                          <h2 style={{
                fontFamily: "'Barlow Condensed', sans-serif",
                fontWeight: "700",
-               textTransform: "uppercase"
+               textTransform: "uppercase",
+               color: "#000000"
              }}>
                THE ROOT BEHIND IT
              </h2>

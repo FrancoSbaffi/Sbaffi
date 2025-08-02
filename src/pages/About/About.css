@@ -37,6 +37,15 @@
   object-fit: cover;
 }
 
+.about-hero .about-hero-img canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
 .about-hero .about-header {
   position: absolute;
   bottom: 2.75rem;
@@ -45,6 +54,7 @@
   width: 60%;
   text-align: center;
   color: var(--dark-text-color);
+  z-index: 10;
 }
 
 .about-hero .about-header h2 {
