@@ -3,7 +3,7 @@ import "./post.css";
 import { useParams } from "react-router-dom";
 import { FaLink } from "react-icons/fa";
 
-import PostImage2 from "../../assets/work/work-7.jpg";
+// Removed unused image import
 
 const postData = {
   "cyber-security-trends": {
