@@ -6,8 +6,8 @@ import {
   FaHome,
   FaInfoCircle,
   FaPalette,
-  FaFolderOpen,
-  FaBook,
+  FaFlask,
+  FaPen,
   FaEnvelope,
   FaLinkedin,
 } from "react-icons/fa";
@@ -52,8 +52,8 @@ const Dock = ({ isVisible = true }) => {
   const icons = [
     { icon: FaHome, path: "/" },
     { icon: FaInfoCircle, path: "/about" },
-    { icon: FaFolderOpen, path: "/work" },
-    { icon: FaBook, path: "/projects" },
+    { icon: FaFlask, path: "/work" },
+    { icon: FaPen, path: "/projects" },
     {
       icon: FaLinkedin,
       path: "https://www.linkedin.com/in/franco-sbaffi/",

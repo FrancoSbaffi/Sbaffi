@@ -64,7 +64,7 @@ const Work = () => {
     <div className="container page-work" ref={container}>
       <div className="col">
         <WorkItem
-          imgUrl={WorkImage23}
+          videoUrl="/work/flume.mp4"
           containerHeight="300"
           workName="Friday Overtime"
           workDate="December 2024"
@@ -72,7 +72,7 @@ const Work = () => {
           url="/post/friday-overtime"
         />
         <WorkItem
-          imgUrl={WorkImage20}
+          videoUrl="/work/second-video.webm"
           containerHeight="200"
           workName="Password Policy Assessment"
           workDate="April 2024"
@@ -80,7 +80,7 @@ const Work = () => {
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage25}
+          videoUrl="/work/security.mp4"
           containerHeight="500"
           workName="Incident Response Playbook"
           workDate="July 2024"
@@ -88,7 +88,7 @@ const Work = () => {
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage28}
+          videoUrl="/work/graph-slider-2.mp4"
           containerHeight="350"
           workName="Network Traffic Analysis"
           workDate="January 2024"
@@ -96,7 +96,7 @@ const Work = () => {
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage27}
+          videoUrl="/work/peach.mp4"
           containerHeight="250"
           workName="Honeypot Deployment"
           workDate="January 2025"
@@ -104,7 +104,7 @@ const Work = () => {
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage26}
+          imgUrl="/work/win-infra.jpg"
           containerHeight="450"
           workName="Security Policy Creation"
           workDate="April 2024"
@@ -115,23 +115,24 @@ const Work = () => {
 
       <div className="col">
         <WorkItem
-          imgUrl={WorkImage24}
+          videoUrl="/work/vanish-input.mp4"
           containerHeight="200"
           workName="Secure API Testing"
           workDate="November 2024"
           type="img"
           url="/post"
+          playbackRate={0.5}
         />
         <WorkItem
-          imgUrl={WorkImage30}
+          imgUrl="/work/name.jpg"
           containerHeight="350"
-          workName="Basic Pentesting"
+          workName="Windows Server Administration"
           workDate="February 2024"
           type="article"
           url="/post/pentesting"
         />
         <WorkItem
-          imgUrl={WorkImage31}
+          videoUrl="/work/shell.mp4"
           containerHeight="300"
           workName="Dark Web Monitoring"
           workDate="June 2024"
@@ -139,7 +140,7 @@ const Work = () => {
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage32}
+          imgUrl="/work/wireframe.jpg"
           containerHeight="450"
           workName="DNS Security Configuration"
           workDate="December 2024"
@@ -147,7 +148,7 @@ const Work = () => {
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage33}
+          videoUrl="/work/fractional-slider.mp4"
           containerHeight="200"
           workName="Security Policy Gap Analysis"
           workDate="March 2024"
@@ -155,7 +156,7 @@ const Work = () => {
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage34}
+          imgUrl="/work/guy.jpg"
           containerHeight="450"
           workName="Wi-Fi Security Assessment"
           workDate="October 2024"
@@ -163,7 +164,7 @@ const Work = () => {
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage35}
+          videoUrl="/work/buttons1.mp4"
           containerHeight="200"
           workName="Botnet Simulation"
           workDate="February 2024"
@@ -174,7 +175,7 @@ const Work = () => {
 
       <div className="col">
         <WorkItem
-          imgUrl={WorkImage36}
+          imgUrl="/work/og-depth.webp"
           containerHeight="250"
           workName="Log File Analyzer"
           workDate="December 2024"
@@ -182,7 +183,7 @@ const Work = () => {
           url="/post/log-file-analyzer"
         />
         <WorkItem
-          imgUrl={WorkImage37}
+          videoUrl="/work/fifth-video.webm"
           containerHeight="350"
           workName="Network Packet Sniffer"
           workDate="April 2024"
@@ -190,7 +191,7 @@ const Work = () => {
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage38}
+          videoUrl="/work/gooey.mp4"
           containerHeight="400"
           workName="Port Scanner"
           workDate="May 2024"
@@ -198,7 +199,7 @@ const Work = () => {
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage39}
+          videoUrl="/work/flume.mp4"
           containerHeight="200"
           workName="Security Automation Script"
           workDate="August 2024"
@@ -206,7 +207,7 @@ const Work = () => {
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage40}
+          imgUrl="/work/geist-illustration-light.webp"
           containerHeight="500"
           workName="Cybersecurity Quiz Bot"
           workDate="January 2024"
@@ -214,7 +215,7 @@ const Work = () => {
           url="/post"
         />
         <WorkItem
-          imgUrl={WorkImage41}
+          videoUrl="/work/stripes.mp4"
           containerHeight="450"
           workName="Browser History Analyzer"
           workDate="February 2025"

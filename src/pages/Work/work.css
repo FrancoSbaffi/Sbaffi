@@ -41,6 +41,28 @@ p#work-date {
   color: var(--dark-text-tertiary);
 }
 
+/* Estilo específico solo para "Friday Overtime" */
+.col:first-child .work-item:first-child .work-item-info p#work-name {
+  color: #ffffff;
+}
+
+/* Estilo específico solo para "Log File Analyzer" */
+.col:last-child .work-item:first-child .work-item-info p#work-name {
+  color: #000000;
+}
+
+/* Posicionar textos encima solo para "Friday Overtime" - REMOVIDO */
+/* .col:first-child .work-item:first-child .work-item-info {
+  top: 0;
+  bottom: auto;
+} */
+
+/* Asegurar que todos los demás elementos mantengan textos abajo */
+.work-item .work-item-info {
+  top: auto;
+  bottom: 0;
+}
+
 .work-item-img-wrapper {
   width: 100%;
   height: 100%;
@@ -51,42 +73,202 @@ p#work-date {
 
 .work-item-img-wrapper img {
   transform: scale(1.125);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.work-200 img {
+/* Optimización específica para la imagen "guy.jpg" en Wi-Fi Security Assessment */
+.work-item:has(img[src*="guy.jpg"]) .work-item-img-wrapper img {
+  transform: scale(1.05);
+  object-position: center 60%;
+  object-fit: cover;
+}
+
+/* Optimizaciones para videos (como rauno.me/craft) */
+.work-item-img-wrapper video {
+  will-change: transform;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.work-200 img,
+.work-200 video {
   height: 200px;
 }
 
-.work-250 img {
+.work-250 img,
+.work-250 video {
   height: 250px;
 }
 
-.work-300 img {
+.work-300 img,
+.work-300 video {
   height: 300px;
 }
 
-.work-350 img {
+.work-350 img,
+.work-350 video {
   height: 350px;
 }
 
-.work-400 img {
+.work-400 img,
+.work-400 video {
   height: 400px;
 }
 
-.work-450 img {
+.work-450 img,
+.work-450 video {
   height: 450px;
 }
 
-.work-500 img {
+.work-500 img,
+.work-500 video {
   height: 500px;
 }
 
-.work-550 img {
+.work-550 img,
+.work-550 video {
   height: 550px;
 }
 
 @media (max-width: 900px) {
   .page-work {
     flex-direction: column;
+  }
+}
+
+/* Responsive optimizations for videos and images */
+@media (max-width: 768px) {
+  .work-item-img-wrapper video {
+    object-position: center;
+  }
+  
+  /* Optimización específica para "guy.jpg" en tablets */
+  .work-item:has(img[src*="guy.jpg"]) .work-item-img-wrapper img {
+    object-position: center 65%;
+    transform: scale(1.02);
+  }
+  
+  .work-500 video {
+    height: 350px;
+  }
+  
+  .work-450 video {
+    height: 300px;
+  }
+  
+  .work-400 video {
+    height: 280px;
+  }
+  
+  .work-350 video {
+    height: 250px;
+  }
+  
+  .work-300 video {
+    height: 220px;
+  }
+  
+  .work-250 video {
+    height: 200px;
+  }
+  
+  .work-200 video {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .work-item-img-wrapper video {
+    object-position: center;
+  }
+  
+  /* Optimización específica para "guy.jpg" en móviles */
+  .work-item:has(img[src*="guy.jpg"]) .work-item-img-wrapper img {
+    object-position: center 70%;
+    transform: scale(1.0);
+  }
+  
+  .work-500 video {
+    height: 280px;
+  }
+  
+  .work-450 video {
+    height: 240px;
+  }
+  
+  .work-400 video {
+    height: 220px;
+  }
+  
+  .work-350 video {
+    height: 200px;
+  }
+  
+  .work-300 video {
+    height: 180px;
+  }
+  
+  .work-250 video {
+    height: 160px;
+  }
+  
+  .work-200 video {
+    height: 140px;
+  }
+  
+  .work-item-info {
+    padding: 0.75em;
+  }
+  
+  .work-item-info p {
+    font-size: 0.9em;
+  }
+}
+
+/* Optimizations for high-DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .work-item-img-wrapper video {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Landscape orientation on mobile */
+@media (max-width: 900px) and (orientation: landscape) {
+  /* Optimización específica para "guy.jpg" en landscape */
+  .work-item:has(img[src*="guy.jpg"]) .work-item-img-wrapper img {
+    object-position: center 55%;
+    transform: scale(1.1);
+  }
+  
+  .work-500 video {
+    height: 200px;
+  }
+  
+  .work-450 video {
+    height: 180px;
+  }
+  
+  .work-400 video {
+    height: 160px;
+  }
+  
+  .work-350 video {
+    height: 140px;
+  }
+  
+  .work-300 video {
+    height: 120px;
+  }
+  
+  .work-250 video {
+    height: 100px;
+  }
+  
+  .work-200 video {
+    height: 80px;
   }
 }
