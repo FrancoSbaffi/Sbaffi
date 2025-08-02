@@ -12,7 +12,8 @@
   "dependencies": {
     "@fontsource/geist-sans": "^5.2.5",
     "@gsap/react": "^2.1.1",
-    "@splinetool/react-spline": "^2.2.6",
+    "@splinetool/react-spline": "^4.1.0",
+    "@splinetool/runtime": "^1.10.39",
     "framer-motion": "^11.1.7",
     "geist": "^1.4.2",
     "gsap": "^3.13.0",

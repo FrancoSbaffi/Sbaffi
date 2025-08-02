@@ -14,9 +14,11 @@ import About from "./pages/About/About";
 
 function App() {
   const location = useLocation();
+  const isHomePage = location.pathname === "/";
+  
   return (
     <>
-      <Dock />
+      {!isHomePage && <Dock />}
       <Routes location={location} key={location.pathname}>
         <Route index element={<Home />} />
         <Route path="/work" element={<Work />} />
