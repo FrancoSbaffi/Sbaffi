@@ -33,7 +33,7 @@ const Work = () => {
         <WorkItem
           videoUrl="/work/second-video.webm"
           containerHeight="200"
-          workName="Password Policy Assessment"
+          workName="Biohazard"
           workDate="April 2024"
           type="img"
           url="/post"
@@ -41,7 +41,7 @@ const Work = () => {
         <WorkItem
           videoUrl="/work/security.mp4"
           containerHeight="500"
-          workName="Incident Response Playbook"
+          workName="Dockerized Multi-Service Application"
           workDate="July 2024"
           type="img"
           url="/post"
@@ -57,7 +57,7 @@ const Work = () => {
         <WorkItem
           videoUrl="/work/peach.mp4"
           containerHeight="250"
-          workName="Honeypot Deployment"
+          workName="Monday Monitor"
           workDate="January 2025"
           type="img"
           url="/post"
@@ -65,7 +65,7 @@ const Work = () => {
         <WorkItem
           imgUrl="/work/win-infra.jpg"
           containerHeight="450"
-          workName="Security Policy Creation"
+          workName="Mr Robot CTF"
           workDate="April 2024"
           type="img"
           url="/post"
@@ -76,7 +76,7 @@ const Work = () => {
         <WorkItem
           videoUrl="/work/vanish-input.mp4"
           containerHeight="200"
-          workName="Secure API Testing"
+          workName="Uranium CTF"
           workDate="November 2024"
           type="img"
           url="/post"
@@ -93,7 +93,7 @@ const Work = () => {
         <WorkItem
           videoUrl="/work/shell.mp4"
           containerHeight="300"
-          workName="Dark Web Monitoring"
+          workName="Jacob The Boss"
           workDate="June 2024"
           type="img"
           url="/post"
@@ -101,7 +101,7 @@ const Work = () => {
         <WorkItem
           imgUrl="/work/wireframe.jpg"
           containerHeight="450"
-          workName="DNS Security Configuration"
+          workName="NahamStore"
           workDate="December 2024"
           type="img"
           url="/post"
@@ -109,7 +109,7 @@ const Work = () => {
         <WorkItem
           videoUrl="/work/fractional-slider.mp4"
           containerHeight="200"
-          workName="Security Policy Gap Analysis"
+          workName="Bounty Hacker"
           workDate="March 2024"
           type="img"
           url="/post"
@@ -117,7 +117,7 @@ const Work = () => {
         <WorkItem
           imgUrl="/work/guy.jpg"
           containerHeight="450"
-          workName="Wi-Fi Security Assessment"
+          workName="Attacktive Directory"
           workDate="October 2024"
           type="img"
           url="/post"
@@ -125,7 +125,7 @@ const Work = () => {
         <WorkItem
           videoUrl="/work/buttons1.mp4"
           containerHeight="200"
-          workName="Botnet Simulation"
+          workName="Gatekeeper"
           workDate="February 2024"
           type="img"
           url="/post"
@@ -136,7 +136,7 @@ const Work = () => {
         <WorkItem
           imgUrl="/work/og-depth.webp"
           containerHeight="250"
-          workName="Log File Analyzer"
+          workName="Tropic Trooper Investigation"
           workDate="December 2024"
           type="article"
           url="/post/log-file-analyzer"
@@ -144,7 +144,7 @@ const Work = () => {
         <WorkItem
           videoUrl="/work/fifth-video.webm"
           containerHeight="350"
-          workName="Network Packet Sniffer"
+          workName="Python Port Scanner"
           workDate="April 2024"
           type="img"
           url="/post"
@@ -152,7 +152,7 @@ const Work = () => {
         <WorkItem
           videoUrl="/work/gooey.mp4"
           containerHeight="400"
-          workName="Port Scanner"
+          workName="Anthem"
           workDate="May 2024"
           type="img"
           url="/post"
@@ -160,7 +160,7 @@ const Work = () => {
         <WorkItem
           videoUrl="/work/flume.mp4"
           containerHeight="200"
-          workName="Security Automation Script"
+          workName="hc0n Christmas CTF"
           workDate="August 2024"
           type="img"
           url="/post"
@@ -168,7 +168,7 @@ const Work = () => {
         <WorkItem
           imgUrl="/work/geist-illustration-light.webp"
           containerHeight="500"
-          workName="Cybersecurity Quiz Bot"
+          workName="Mother's Secret"
           workDate="January 2024"
           type="img"
           url="/post"
@@ -176,7 +176,7 @@ const Work = () => {
         <WorkItem
           videoUrl="/work/stripes.mp4"
           containerHeight="450"
-          workName="Browser History Analyzer"
+          workName="Develpy"
           workDate="February 2025"
           type="img"
           url="/post"
