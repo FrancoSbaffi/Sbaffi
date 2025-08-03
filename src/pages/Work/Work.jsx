@@ -139,7 +139,7 @@ const Work = () => {
           workName="Tropic Trooper Investigation"
           workDate="December 2024"
           type="article"
-          url="/post/log-file-analyzer"
+          url="/post/tropic-trooper"
         />
         <WorkItem
           videoUrl="/work/fifth-video.webm"

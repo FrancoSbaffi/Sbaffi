@@ -107,8 +107,9 @@
 }
 
 .toc-item.toc-level-3 {
-  margin-left: 0;
-  font-size: 13px;
+  margin-left: 1rem;
+  font-size: 12px;
+  opacity: 0.8;
 }
 
 .sidebar-nav a.active {

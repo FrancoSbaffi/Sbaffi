@@ -240,34 +240,96 @@ const postData = {
        }
      ]
    },
-  "log-file-analyzer": {
-    title: "Log File Analyzer",
+  "tropic-trooper": {
+    title: "Tropic Trooper Investigation",
     date: "December 2024",
-    content: [
-      "Development of an automated log analysis system for security monitoring and threat detection.",
+         content: [
+       "This write-up reflects my experience completing the \"Tropic Trooper\" room on TryHackMe — an interactive simulation designed to showcase the responsibilities, tools, and mindset required to succeed in an entry-level cybersecurity role. Rather than focusing on technical flags, this article highlights how I approached each scenario, what I learned about working in a SOC environment, and how this training supports my path into cybersecurity.",
+       "",
+       "![Tropic Trooper Investigation](/work/articles/trooper/trooper1.jpg)",
       "",
-      "## Project Scope",
+             "## Introduction: Stepping into the SOC",
+       "",
+       "The Junior Security Analyst Intro room puts you in the shoes of an entry-level analyst working in a Security Operations Center (SOC). From the start, the goal is clear: experience a real-world shift — receiving alerts, reviewing logs, and responding to potential threats — just like you would in an actual job.",
+       "",
+       "This lab doesn't throw overly technical puzzles at you. Instead, it emphasizes something even more important: contextual thinking. It teaches you how to process alerts, analyze patterns, and make decisions based on incomplete data — all while using common tools like SIEM platforms, ticketing systems, and log viewers.",
+       "",
+       "For me, this was an eye-opening experience. It helped connect the dots between theory and practice, showing how foundational knowledge is applied in day-to-day security operations. The tasks were simple, but the concepts behind them — triaging alerts, understanding log sources, recognizing indicators of compromise — are exactly what makes the difference in a real SOC environment.",
+       "",
+             "## Understanding the Role: What Does a Junior Security Analyst Do?",
+       "",
+       "A Junior Security Analyst is often the first line of defense in a security team. Their main responsibility is to monitor and respond to alerts — filtering out false positives, identifying real threats, and escalating when necessary. While they may not perform advanced forensics or incident response at this stage, their work is crucial in maintaining visibility and ensuring timely reactions.",
+       "",
+       "This role requires a blend of technical awareness and analytical thinking. You don't need to know every exploit in detail, but you do need to spot anomalies, recognize suspicious patterns, and follow procedures for investigation.",
+       "",
+       "The TryHackMe lab simulates this by assigning a variety of tasks you'd typically find in an actual SOC shift, such as:",
+       "",
+       "• Reviewing alerts from SIEM tools.",
+       "• Analyzing logs from endpoints and firewalls.",
+       "• Correlating evidence across multiple sources.",
+       "• Deciding whether to escalate, dismiss, or investigate further.",
+       "",
+       "What stood out to me was how even simple alerts required a methodical, evidence-based approach. Rather than jumping to conclusions, it was about asking the right questions: Is this normal behavior? Has this IP appeared before? Does this process make sense on this host?",
+       "",
+       "The experience helped me better understand the junior analyst's critical role in maintaining the integrity of the monitoring process and acting as a filter between noise and real threats.",
+       "",
+             "## The SOC Environment: People, Processes, and Tools",
+       "",
+       "Working in a Security Operations Center (SOC) isn't just about tech — it's about collaboration, structure, and accountability. This part of the lab did a great job simulating that environment, giving insight into how SOCs operate in the real world.",
+       "",
+       "You're not working in isolation. A SOC typically includes multiple tiers of analysts (Level 1, 2, 3), incident responders, and sometimes even threat hunters. As a Junior Analyst, you're the first responder, but everything you do contributes to the bigger picture.",
+       "",
+       "The lab emphasized:",
+       "",
+       "• Ticketing workflows, where each alert is documented, categorized, and handled according to severity.",
+       "• The use of SIEM tools to collect and analyze logs from various sources — firewalls, endpoint protection tools, servers, and more.",
+       "• Importance of standard operating procedures (SOPs) and runbooks to guide decisions and escalation.",
+       "",
+       "One thing that stood out to me is how much of the work depends on precision and consistency. Even if a task seems repetitive, the accuracy of your log review, tagging, and documentation impacts how quickly the rest of the team can act.",
+       "",
+       "This simulation made it clear: technical skills matter, but understanding the flow of information and knowing how to work within the SOC structure is just as important.",
       "",
-      "This project involved creating a comprehensive log analysis tool capable of processing multiple log formats and identifying potential security threats in real-time.",
+             "## Hands-on Simulation: A Day in the Life",
+       "",
+       "This was the core of the lab — stepping through a simulated workday as a Junior Security Analyst. Rather than isolated tasks, the room guided me through a narrative flow: receiving alerts, investigating suspicious activity, and making decisions based on the evidence.",
+       "",
+       "The day started with a typical SIEM alert, pointing to potentially malicious behavior. From there, I followed the breadcrumbs: analyzing logs, reviewing timestamps, checking IP addresses, and examining command-line activity. Each alert was a chance to practice triaging — is this a false positive, or is it something to escalate?",
+       "",
+       "Some situations required correlation across multiple data sources, like linking a suspicious login attempt to a strange process execution on an endpoint. It wasn't about exploiting a vulnerability; it was about interpreting events and identifying what's normal versus what's not.",
+       "",
+       "What I appreciated most was the realism:",
+       "",
+       "• Having to check log integrity.",
+       "• Making judgment calls under time constraints.",
+       "• Writing brief justifications for why an alert should be escalated or closed.",
+       "",
+       "This exercise simulated the mental workflow of an analyst, which often involves dealing with partial information and prioritizing what matters most. It gave me practical insight into the kinds of decisions I'd be expected to make on the job — and the importance of clear documentation in a SOC environment.",
       "",
-      "### Technical Implementation",
+             "## Key Skills and Takeaways",
+       "",
+       "While the lab was short, it covered a surprising number of essential skills that every aspiring Security Analyst should master. It wasn't about exploiting systems — it was about detecting, analyzing, and responding to potential threats in a structured, responsible way.",
+       "",
+       "Here are the main takeaways I got from the experience:",
+       "",
+       "• Log Analysis is foundational: Knowing how to read and interpret logs from different systems (endpoints, firewalls, authentication services) is at the heart of threat detection.",
+       "",
+       "• Critical thinking beats tool mastery: The most valuable moments came from asking the right questions — not from knowing a specific tool, but from understanding what to look for.",
+       "",
+       "• Documentation matters: Writing clear notes on your findings, reasoning, and decisions is crucial for communication within the SOC and future investigations.",
+       "",
+       "• Not everything is an attack: Learning to spot false positives and reduce noise is just as important as catching real threats.",
+       "",
+       "• Confidence in escalation: Knowing when to escalate — and being able to justify it — is part of what makes an analyst effective and trustworthy.",
+       "",
+       "This room reaffirmed that cybersecurity isn't just about technical depth — it's about mindset, process, and consistency.",
       "",
-      "1. **Log Parsing:** Implemented parsers for various log formats (Syslog, Windows Event Logs, Apache, etc.).",
-      "2. **Pattern Recognition:** Developed algorithms to identify suspicious patterns and anomalies.",
-      "3. **Alert System:** Created automated alerting mechanisms for immediate threat notification.",
-      "4. **Dashboard:** Built a web-based dashboard for real-time monitoring and analysis.",
-      "",
-      "### Key Features",
-      "",
-      "- Real-time log processing and analysis",
-      "- Customizable alert rules and thresholds",
-      "- Historical data analysis and trending",
-      "- Integration with existing security tools",
-      "- Automated report generation",
-      "",
-      "## Results",
-      "",
-      "The system successfully reduced manual log review time by **85%** and improved threat detection accuracy by **40%** compared to traditional manual methods."
+             "## Final Thoughts: Preparing for the Real World",
+       "",
+       "The \"Junior Security Analyst Intro\" room isn't flashy — there are no reverse shells, no complex exploits, no CTF-style flags. But that's exactly why it's valuable. It mirrors the real work of entry-level analysts, where success comes from consistency, attention to detail, and strong decision-making under uncertainty.",
+       "",
+       "This simulation helped me internalize what it really means to work in a SOC. It reinforced that tools and alerts are only as useful as the analyst interpreting them — and that being effective means knowing when to dig deeper, when to escalate, and when to trust the process.",
+       "",
+       "As I continue preparing for a career in cybersecurity, this room gave me a solid foundation for what to expect in a junior role. It's not about having all the answers — it's about staying curious, being methodical, and learning from every case."
     ],
     images: []
   },
@@ -343,12 +405,6 @@ const Post = () => {
             id: `section-${index}`,
             title: item.substring(3),
             level: 2
-          });
-        } else if (item.startsWith('### ')) {
-          toc.push({
-            id: `section-${index}`,
-            title: item.substring(4),
-            level: 3
           });
         }
       }
@@ -458,13 +514,13 @@ const Post = () => {
                   // Remover el bullet point y mostrar solo el título
                   const title = paragraph.substring(2); // Remover "• " o "* "
                   return <strong key={index} style={{ color: 'white' }}>{title}</strong>;
-                                 } else if (paragraph === 'Google Dorking, WHOIS lookups, and DNS analysis using nslookup, dig, and online tools like crt.sh.' ||
-                            paragraph === 'Ghidra, cutter, strings, and manual static analysis. Dynamic behavior was tested via sandboxing and debugging.' ||
-                            paragraph === 'Burp Suite, browser dev tools, manual payload crafting, cookie and session manipulation, and logic flaw testing.' ||
-                            paragraph === 'Bash and Python scripts to parse files, decode obfuscated data, or automate repetitive tasks.' ||
-                            paragraph === 'Basic forensic analysis with tools like grep, binwalk, volatility, and analyzing pcap or image dumps.') {
-                   // Aplicar subrayado a herramientas técnicas específicas y agregar margen superior
-                   const tools = ['nslookup', 'dig', 'Ghidra', 'cutter', 'strings', 'grep', 'binwalk', 'volatility', 'file', 'ltrace', 'base64', 'Burp Suite'];
+                                                  } else if (paragraph === 'Google Dorking, WHOIS lookups, and DNS analysis using nslookup, dig, and online tools like crt.sh.' ||
+                             paragraph === 'Ghidra, cutter, strings, and manual static analysis. Dynamic behavior was tested via sandboxing and debugging.' ||
+                             paragraph === 'Burp Suite, browser dev tools, manual payload crafting, cookie and session manipulation, and logic flaw testing.' ||
+                             paragraph === 'Bash and Python scripts to parse files, decode obfuscated data, or automate repetitive tasks.' ||
+                             paragraph === 'Basic forensic analysis with tools like grep, binwalk, volatility, and analyzing pcap or image dumps.') {
+                    // Aplicar subrayado a herramientas técnicas específicas y agregar margen superior
+                    const tools = ['nslookup', 'dig', 'Ghidra', 'cutter', 'strings', 'grep', 'binwalk', 'volatility', 'file', 'ltrace', 'base64', 'Burp Suite', 'Junior Security Analyst Intro'];
                   let processedText = paragraph;
                   
                   tools.forEach(tool => {
@@ -473,9 +529,9 @@ const Post = () => {
                   });
                   
                   return <span key={index} style={{ marginTop: '0.5rem', display: 'block' }} dangerouslySetInnerHTML={{ __html: processedText }} />;
-                                                  } else if (paragraph.includes('nslookup') || paragraph.includes('dig') || paragraph.includes('Ghidra') || paragraph.includes('cutter') || paragraph.includes('strings') || paragraph.includes('grep') || paragraph.includes('binwalk') || paragraph.includes('volatility') || paragraph.includes('file') || paragraph.includes('ltrace') || paragraph.includes('base64') || paragraph.includes('Burp Suite')) {
-                   // Aplicar subrayado a herramientas técnicas específicas
-                   const tools = ['nslookup', 'dig', 'Ghidra', 'cutter', 'strings', 'grep', 'binwalk', 'volatility', 'file', 'ltrace', 'base64', 'Burp Suite'];
+                                                                     } else if (paragraph.includes('nslookup') || paragraph.includes('dig') || paragraph.includes('Ghidra') || paragraph.includes('cutter') || paragraph.includes('strings') || paragraph.includes('grep') || paragraph.includes('binwalk') || paragraph.includes('volatility') || paragraph.includes('file') || paragraph.includes('ltrace') || paragraph.includes('base64') || paragraph.includes('Burp Suite') || paragraph.includes('Junior Security Analyst Intro')) {
+                    // Aplicar subrayado a herramientas técnicas específicas
+                    const tools = ['nslookup', 'dig', 'Ghidra', 'cutter', 'strings', 'grep', 'binwalk', 'volatility', 'file', 'ltrace', 'base64', 'Burp Suite', 'Junior Security Analyst Intro'];
                    let processedText = paragraph;
                    
                    tools.forEach(tool => {
@@ -509,14 +565,29 @@ const Post = () => {
                     <span style={{ color: '#a3ea26 !important', marginRight: '8px' }}>•</span>
                     <span dangerouslySetInnerHTML={{ __html: processedText }} />
                   </li>;
-                } else if (paragraph === '• Process matters as much as the outcome — documenting steps, forming hypotheses, testing, and iterating is what leads to sustainable problem-solving.' ||
-                           paragraph === '• Security is interdisciplinary — real-world challenges rarely fit into a single category. The best solutions came from combining multiple techniques and perspectives.') {
-                  // Bullet points verdes para las lecciones aprendidas
-                  const text = paragraph.substring(2); // Remover el "• " del texto
-                  return <li key={index} style={{ listStyle: 'none' }}>
-                    <span style={{ color: '#a3ea26 !important', marginRight: '8px' }}>•</span>
-                    <span>{text}</span>
-                  </li>;
+                                                  } else if (paragraph === '• Process matters as much as the outcome — documenting steps, forming hypotheses, testing, and iterating is what leads to sustainable problem-solving.' ||
+                             paragraph === '• Security is interdisciplinary — real-world challenges rarely fit into a single category. The best solutions came from combining multiple techniques and perspectives.' ||
+                             paragraph === '• Reviewing alerts from SIEM tools.' ||
+                             paragraph === '• Analyzing logs from endpoints and firewalls.' ||
+                             paragraph === '• Correlating evidence across multiple sources.' ||
+                             paragraph === '• Deciding whether to escalate, dismiss, or investigate further.' ||
+                             paragraph === '• Ticketing workflows, where each alert is documented, categorized, and handled according to severity.' ||
+                             paragraph === '• The use of SIEM tools to collect and analyze logs from various sources — firewalls, endpoint protection tools, servers, and more.' ||
+                             paragraph === '• Importance of standard operating procedures (SOPs) and runbooks to guide decisions and escalation.' ||
+                             paragraph === '• Having to check log integrity.' ||
+                             paragraph === '• Making judgment calls under time constraints.' ||
+                             paragraph === '• Writing brief justifications for why an alert should be escalated or closed.' ||
+                             paragraph === '• Log Analysis is foundational: Knowing how to read and interpret logs from different systems (endpoints, firewalls, authentication services) is at the heart of threat detection.' ||
+                             paragraph === '• Critical thinking beats tool mastery: The most valuable moments came from asking the right questions — not from knowing a specific tool, but from understanding what to look for.' ||
+                             paragraph === '• Documentation matters: Writing clear notes on your findings, reasoning, and decisions is crucial for communication within the SOC and future investigations.' ||
+                             paragraph === '• Not everything is an attack: Learning to spot false positives and reduce noise is just as important as catching real threats.' ||
+                             paragraph === '• Confidence in escalation: Knowing when to escalate — and being able to justify it — is part of what makes an analyst effective and trustworthy.') {
+                    // Bullet points verdes para las lecciones aprendidas y elementos de lista importantes
+                    const text = paragraph.substring(2); // Remover el "• " del texto
+                    return <li key={index} style={{ listStyle: 'none' }}>
+                      <span style={{ color: '#a3ea26 !important', marginRight: '8px' }}>•</span>
+                      <span>{text}</span>
+                    </li>;
                 } else if (paragraph.startsWith('1. ') || paragraph.startsWith('2. ') || paragraph.startsWith('3. ') || paragraph.startsWith('4. ')) {
                   // Buscar si hay más elementos numerados consecutivos
                   const listItems = [];
