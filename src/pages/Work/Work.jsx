@@ -25,10 +25,10 @@ const Work = () => {
         <WorkItem
           videoUrl="/work/flume.mp4"
           containerHeight="300"
-          workName="Friday Overtime"
+          workName="Advent of Cyber '24"
           workDate="December 2024"
           type="blog"
-          url="/post/friday-overtime"
+          url="/post/advent-of-cyber-24"
         />
         <WorkItem
           videoUrl="/work/second-video.webm"

@@ -1,1274 +1,571 @@
 import React from "react";
 import "./post.css";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { FaLink } from "react-icons/fa";
 
-// Removed unused image import
+// Custom arrow component to match the reference site style
+const CustomArrow = () => (
+  <svg 
+    width="18px" 
+    height="18px" 
+    stroke-width="1.5" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    color="currentColor"
+  >
+    <path d="M10.25 4.75l-3.5 3.5 3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M6.75 8.25h6a4 4 0 014 4v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+);
 
 const postData = {
-  "cyber-security-trends": {
-    title: "Trends in Cyber Security",
-    date: "March 2024",
+  "penetration-testing": {
+    title: "Penetration Testing",
+    date: "February 2024",
     content: [
-      <span className="subtitle">
-        The year 2024 promises to be a transformative chapter for cybersecurity, marked by emerging trends and heightened challenges. As cyber threats grow more sophisticated and frequent, staying ahead of the curve is not just an advantage—it's a necessity for businesses aiming to safeguard their operations and data.
-      </span>,
-      <span className="title-span">
-        How can businesses prepare for the increasing sophistication of cyber threats in 2024?
-      </span>,
-      <span className="subtitle">
-        Businesses can prepare by investing in advanced threat detection systems, conducting regular security audits, and implementing robust incident response plans. Training employees on cybersecurity best practices and staying informed about emerging trends are also essential to proactively mitigate risks and protect critical data.
-      </span>,
-      <span className="subtitle">
-        Let's talk about what, for me, are the options that we should be aware of.
-      </span>,
-      <p key="principal-text" className="principal-text">
-      PART: I
-      </p>,
-      <h2 className="title-post">
-        ZERO TRUST
-      </h2>,     
-      <p className="text-post">
-        Let's imagine a castle and a moat. If we are inside the castle, threats remain outside, since the perimeter outside the moat remains protected. If we transfer this metaphor to a digital environment, the problem arises when a user assumes that, with the correct access credentials, they can move freely through the system and trust that nothing will happen.
-      </p>,
-      <p className="text-post">
-        This is the most common scenario: As much as organizations erect many security defenses, as soon as a gullible user clicks on a malicious link or attachment, they allow cybercriminals to compromise systems. In fact, it's the reason why phishing and ransomware are so harmful.
-      </p>,
-      <p className="text-post">
-        The zero trust model restricts access to the network only to those people who need it. Based on contextual awareness, access is granted to authorized users using patterns based on identity, time, and device. Default access is removed. Now everything must pass security protocols such as access control steps and user identity verification.
-      </p>,
-      <p key="principal-text" className="principal-text">
-      PART: II
-      </p>,
-      <h2 className="title-post">
-        AI & ML
-      </h2>, 
-      <p className="text-post">
-        Artificial intelligence (AI) and machine learning (ML) are two of the most powerful tools in the cybersecurity arsenal. They can help organizations detect and respond to threats more quickly and accurately than ever before.
-      </p>,
-      <p className="text-post">
-        AI and ML can be used to analyze vast amounts of data in real time, identify patterns and anomalies, and predict future threats. They can also automate routine tasks, freeing up security teams to focus on more strategic initiatives.
-      </p>,
-      <p className="text-post">
-        This will be the year we see AI algorithms provide real-time threat analysis, enabling faster and more accurate responses. Additionally, the ML will adapt and update cybersecurity protocols autonomously, reducing dependence on manual updates.
-      </p>,
-       <p key="principal-text" className="principal-text">
-       PART: III
-       </p>,
-       <h2 className="title-post">
-         IoT Security
-       </h2>, 
-        <p className="text-post">
-          The Internet of Things (IoT) is a rapidly growing network of connected devices that are transforming the way we live and work. However, the proliferation of IoT devices also presents new security challenges.
-        </p>,
-        <p className="text-post">
-          IoT devices are often vulnerable to cyber attacks due to their limited processing power and memory. Hackers can exploit these vulnerabilities to gain unauthorized access to sensitive data or disrupt critical systems.
-        </p>,
-        <p className="text-post">
-          To address these challenges, organizations need to implement robust security measures to protect their IoT devices and networks. This includes encrypting data, securing communication channels, and regularly updating software to patch vulnerabilities.
-        </p>,
-        <p className="text-post">
-          In 2024, we can expect to see an increased focus on IoT security, with organizations investing in advanced security solutions to protect their devices and data from cyber threats.
-        </p>,
-        <p key="principal-text" className="principal-text">
-        PART: IV
-        </p>,
-        <h2 className="title-post">
-          QUANTUM COMPUTING
-        </h2>, 
-        <p className="text-post">
-          Quantum computing is a revolutionary technology that has the potential to transform the cybersecurity landscape. Unlike classical computers, which use bits to represent data as either 0 or 1, quantum computers use qubits, which can exist in multiple states simultaneously.
-        </p>,
-        <p className="text-post">
-          This allows quantum computers to perform complex calculations much faster than classical computers, making them ideal for breaking encryption algorithms and solving other computationally intensive problems.
-        </p>,
-        <p className="text-post">
-          In 2024, we can expect to see increased research and development in quantum computing, as well as efforts to develop quantum-resistant encryption algorithms to protect data from quantum attacks.
-        </p>,
-        <p className="text-post">
-          Organizations will need to stay informed about these developments and prepare for the potential impact of quantum computing on their cybersecurity strategies.
-        </p>,
-         <p key="principal-text" className="principal-text">
-         PART: V
-         </p>,
-         <h2 className="title-post">
-           CLOUD SECURITY
-         </h2>,
-          <p className="text-post">
-            Cloud computing has become an essential part of modern business operations, enabling organizations to scale their infrastructure and services rapidly. However, the shift to the cloud has also introduced new security challenges.
-          </p>,
-          <p className="text-post">
-            Organizations need to ensure that their cloud environments are secure and compliant with industry regulations. This includes implementing access controls, encrypting data, and monitoring for suspicious activity.
-          </p>,
-          <p className="text-post">
-            In 2024, we can expect to see increased investment in cloud security solutions, as well as a focus on securing multi-cloud and hybrid cloud environments. Organizations will need to develop robust cloud security strategies to protect their data and applications from cyber threats.
-          </p>,
+      "This project involved conducting a basic penetration test in a controlled environment to identify vulnerabilities, ethically exploit them, and document findings. The goal was to practice using tools like Kali Linux, Nmap, and Metasploit while following industry best practices.",
+      "",
+      "## Step-by-Step Process",
+      "",
+      "### Step 1: Setting Up the Environment",
+      "",
+      "**Objective:** Create a safe lab for penetration testing without risking real-world systems.",
+      "",
+      "**Actions:**",
+      "",
+      "1. Installed VirtualBox to host virtual machines.",
+      "2. Downloaded and set up Kali Linux as the attacker machine & a vulnerable VM, such as Metasploitable2 or a target from Hack The Box or TryHackMe.",
+      "3. Configured both VMs to operate on an internal network to isolate traffic and ensure no external interference.",
+      "4. Verified connectivity between the machines using the ping command:",
+      "",
+      "```bash",
+      "ping [IP Address]",
+      "```",
+      "",
+      "### Step 2: Initial Reconnaissance",
+      "",
+      "**Objective:** Gather basic information about the target system and its network presence.",
+      "",
+      "**Actions:**",
+      "",
+      "1. Used Nmap to perform network discovery and port scanning.",
+      "2. Identified open ports and running services.",
+      "3. Documented findings for further analysis.",
+      "",
+      "### Step 3: Vulnerability Assessment",
+      "",
+      "**Objective:** Identify potential security weaknesses in the target system.",
+      "",
+      "**Actions:**",
+      "",
+      "1. Conducted detailed service enumeration.",
+      "2. Researched known vulnerabilities for identified services.",
+      "3. Prioritized findings based on severity and exploitability.",
+      "",
+      "### Step 4: Exploitation",
+      "",
+      "**Objective:** Demonstrate the impact of identified vulnerabilities through controlled exploitation.",
+      "",
+      "**Actions:**",
+      "",
+      "1. Attempted to exploit identified vulnerabilities using Metasploit.",
+      "2. Documented successful exploitation methods.",
+      "3. Maintained detailed logs of all activities.",
+      "",
+      "### Step 5: Post-Exploitation",
+      "",
+      "**Objective:** Assess the extent of access gained and potential data exposure.",
+      "",
+      "**Actions:**",
+      "",
+      "1. Explored the compromised system to understand the level of access.",
+      "2. Identified sensitive data and potential privilege escalation opportunities.",
+      "3. Documented findings for remediation recommendations.",
+      "",
+      "### Step 6: Reporting",
+      "",
+      "**Objective:** Provide comprehensive documentation of findings and recommendations.",
+      "",
+      "**Actions:**",
+      "",
+      "1. Compiled detailed report of all findings.",
+      "2. Provided clear remediation recommendations.",
+      "3. Included evidence and proof-of-concept demonstrations.",
+      "",
+      "## Key Learnings",
+      "",
+      "This project reinforced the importance of systematic approach in penetration testing, from initial reconnaissance to final reporting. It highlighted the value of proper documentation and the ethical considerations involved in security testing.",
+      "",
+      "The hands-on experience with tools like **Kali Linux**, **Nmap**, and **Metasploit** provided practical understanding of their capabilities and limitations in real-world scenarios."
     ],
-    images: [],
+    images: [
+      {
+        src: "/public/work/penetration-testing.jpg",
+        alt: "Penetration Testing Lab Setup"
+      }
+    ]
   },
-  "windows-server": {
-    title: "Managing Windows Server",
-    date: "November 2024",
-    content: [
-      <span className="subtitle">
-        Windows Server is a critical component of many enterprise IT environments, providing essential services such as file sharing, user authentication, and application hosting. Managing Windows Server effectively requires a solid understanding of its key features and capabilities, as well as best practices for configuration and maintenance.
-      </span>,
-      <span className="title-span">
-        What are some key tasks involved in managing Windows Server?
-      </span>,
-      <span className="subtitle">
-        Managing Windows Server involves tasks such as installing and configuring server roles, monitoring system performance, and troubleshooting common issues. Administrators also need to ensure that servers are kept up to date with the latest security patches and updates to protect against cyber threats.
-      </span>,
-      <span className="subtitle">
-        Let's talk about some of the key tasks involved in managing Windows Server.
-      </span>,
-      <p key="principal-text" className="principal-text">
-      PART: I
-      </p>,
-      <h2 className="title-post">
-        NETWORK INFRASTRUCTURE SETUP
-      </h2>,
-      <p className="text-post">
-        Creating an Internal Network in VirtualBox
-      </p>,
-      <p className="text-post">
-        To begin, it is essential to establish an internal network that allows communication between Windows Server and Windows 7 virtual machines. (<i>In my case i use WIN7, because i have many problem to virtualized WIN10</i>).
-      </p>,
-      <p className="text-post">
-        start by opening VirtualBox and selecting the virtual machine running Windows Server. Click on <i>"Settings"</i> and then on the <i>"Network"</i> tab. In <i>"Adapter 1,"</i> select <i>"Internal Network"</i> from the drop-down menu and name the network, e.g., <i>"InternalNetwork."</i> Follow the same procedure for the Windows 7 virtual machine, ensuring to use the same network name. This step is crucial to simulate a real network environment where virtual machines can communicate without external interference.
-      </p>,
-      <p className="text-post">
-        Next, assign static IP addresses, which is fundamental for network management and server administration. Start the virtual machine running Windows Server, navigate to <i>"Network and Sharing Center"</i> / <i>"Change adapter settings,"</i> right-click on <i>"Ethernet,"</i> select "Properties," choose <i>"Internet Protocol Version 4 (TCP/IPv4),"</i> and click "Properties." Set the IP address to <i>192.168.100.10</i>, with a subnet mask of <i>255.255.255.0</i> and a default gateway of <i>192.168.100.1</i>. Set the preferred DNS server to <i>192.168.100.10</i>.
-      </p>,
-      <p className="text-post">
-        For Windows 7, follow the same steps to access network settings and assign the IP address <i>192.168.100.11</i>, using the same subnet mask and DNS settings. To verify, ping between the two machines to ensure they can communicate properly.
-      </p>,
-      <p className="text-post">
-        Enabling remote access is crucial for server management without physical access. For Windows Server, open <i>"Server Manager,"</i> navigate to <i>"Local Server"</i> and find <i>"Remote Desktop."</i> Click "Disabled" and select <i>"Allow remote connections to this computer,"</i> unchecking <i>"Allow connections only from computers running Remote Desktop with Network Level Authentication."</i> In Windows 7, go to "Computer" / "Properties," select "Remote settings," and under "Remote Desktop," choose <i>"Allow connections from computers running any version of Remote Desktop (less secure)."</i> Ensure that firewall settings allow RDP connections.
-      </p>,
-      <p key="principal-text" className="principal-text">
-      PART: II
-      </p>,
-      <h2 className="title-post">
-        ROLE IMPLEMENTATION IN WINDOWS SERVER
-      </h2>,
-      <p className="text-post">
-        A Domain Controller (DC) is essential for the centralized management of users and computers within a network. To set up the server as a DC, open <i>"Server Manager,"</i> click "Manage" / <i>"Add Roles and Features,"</i> select <i>"Role-based or feature-based installation,"</i> choose the server from the server pool, and click "Next." Select <i>"Active Directory Domain Services"</i> and follow the prompts to install the role. After installation, click the yellow flag at the top and select <i>"Promote this server to a domain controller."</i> Choose <i>"Add a new forest"</i> and enter the domain name, such as <i>"mycompany.local."</i> Complete the wizard and restart the server when prompted.
-      </p>,
-      <p className="text-post">
-        Organizing users into groups and Organizational Units (OUs) facilitates permission management and policy application. Open <i>"Administrative Tools"</i> / <i>"Active Directory Users and Computers."</i> Create a new Organizational Unit (OU) to organize users, and create groups such as <i>"UserGroup"</i> and <i>"AdminGroup."</i> Add users and assign them to the appropriate groups. Verify group memberships by right-clicking on a user, selecting "Properties," and then "Member Of."
-      </p>,
-      <p className="text-post">
-        Group Policy Objects (GPOs) are used to enforce security settings and configurations across the network. Open <i>"Group Policy Management"</i> and create a new GPO. Link the GPO to the desired OU, edit the settings, and enforce them by running <i>"gpupdate /force"</i> in the command prompt. Verify the settings by logging in as a user and checking the applied policies.
-      </p>,
-      <p className="text-post">
-        File sharing is a common requirement in network environments. Create a shared folder by right-clicking on a directory, selecting <i>"Properties,"</i> and navigating to the <i>"Sharing"</i> tab. Click <i>"Advanced Sharing,"</i> check <i>"Share this folder,"</i> and set permissions for users and groups. Access the shared folder from a client machine by typing <i>"\\server_IP\SharedFolder"</i> in File Explorer.
-      </p>,
-      <p key="principal-text" className="principal-text">
-      PART: III
-      </p>,
-      <h2 className="title-post">
-        SERVER MONITORING AND MAINTENANCE
-      </h2>,
-      <p className="text-post">
-        Monitoring server performance is crucial for identifying and resolving issues before they impact users. Open <i>"Server Manager"</i> and navigate to <i>"Performance Monitor."</i> Add counters for CPU, memory, disk, and network usage to track resource utilization. Set up alerts for critical thresholds to receive notifications when performance degrades.
-      </p>,
-      <p className="text-post">
-        Regular maintenance tasks such as installing updates and patches are essential for keeping the server secure and stable. Open <i>"Server Manager"</i> and click on <i>"Notifications."</i> Check for available updates and install them to ensure the server is up to date. Schedule regular maintenance windows to minimize downtime and disruptions to users.
-      </p>,
-      <p className="text-post">
-        Backing up critical data is essential for disaster recovery and business continuity. Use <i>"Windows Server Backup"</i> to create a backup schedule and store backups on external drives or network shares. Test the restore process periodically to ensure that backups are valid and can be recovered in the event of data loss.
-      </p>,
-      <p className="text-post">
-        Monitoring server logs is essential for identifying security incidents and unauthorized access attempts. Use <i>"Event Viewer"</i> to view system, security, and application logs. Set up alerts for critical events and investigate any anomalies to prevent security breaches.
-      </p>,
-      <p className="text-post">
-        Implementing security best practices such as strong passwords, firewall rules, and antivirus software is essential for protecting the server from cyber threats. Regularly review security configurations and update policies to address emerging threats and vulnerabilities.
-      </p>,      
-    ],
-    images: [],
-  },
-  "cloud-certifications": {
-    title: "Cloud Certifications",
-    date: "March 2024",
-    content: [
-      <span className="subtitle">
-        Cloud computing has become an essential technology for modern businesses, enabling organizations to scale their infrastructure, reduce costs, and improve agility. Cloud certifications validate an individual's expertise in cloud technologies and demonstrate their ability to design, deploy, and manage cloud solutions effectively.
-      </span>,
-      <span className="title-span">
-        Why are cloud certifications important for IT professionals?
-      </span>,
-      <span className="subtitle">
-        Cloud certifications are important for IT professionals because they demonstrate expertise in cloud technologies, validate skills and knowledge, and enhance career opportunities. Employers value cloud certifications as they indicate a commitment to professional development and a willingness to stay current with emerging technologies.
-      </span>,
-      <span className="subtitle">
-        Let's talk about some of the most popular cloud certifications and their benefits.
-      </span>,
-      <p key="principal-text" className="principal-text">
-      PART: I
-      </p>,
-      <h2 className="title-post">
-        AWS CERTIFIED SOLUTIONS ARCHITECT
-      </h2>,
-      <p className="text-post">
-        The AWS Certified Solutions Architect certification is designed for individuals who design and deploy scalable and secure applications on the Amazon Web Services (AWS) platform. The certification validates expertise in architecting cloud solutions, designing fault-tolerant systems, and optimizing performance.
-      </p>,
-      <p className="text-post">
-        Benefits of the AWS Certified Solutions Architect certification include:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Validation of cloud architecture skills</i></li>
-        <li>/ <i>Recognition as an AWS expert</i></li>
-        <li>/ <i>Enhanced career opportunities</i></li>
-        <li>/ <i>Increased earning potential</i></li>
-      </ul>,
-      <p className="text-post">
-        To earn the certification, candidates must pass the AWS Certified Solutions Architect – Associate exam, which covers topics such as designing resilient architectures, defining secure applications, and implementing cost-effective solutions.
-      </p>,
-      <p key="principal-text" className="principal-text">
-      PART: II
-      </p>,
-      <h2 className="title-post">
-        MICROSOFT AZURE CERTIFICATIONS
-      </h2>,
-      <p className="text-post">
-        Microsoft Azure certifications are designed for IT professionals who deploy and manage cloud services on the Azure platform. The certifications validate expertise in areas such as cloud administration, development, and security.
-      </p>,
-      <p className="text-post">
-        Popular Microsoft Azure certifications include:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Azure Administrator Associate</i></li>
-        <li>/ <i>Azure Developer Associate</i></li>
-        <li>/ <i>Azure Solutions Architect Expert</i></li>
-        <li>/ <i>Azure Security Engineer Associate</i></li>
-      </ul>,
-      <p className="text-post">
-        Benefits of Microsoft Azure certifications include:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Validation of Azure skills</i></li>
-        <li>/ <i>Recognition as an Azure expert</i></li>
-        <li>/ <i>Enhanced career opportunities</i></li>
-        <li>/ <i>Increased earning potential</i></li>
-      </ul>,
-      <p className="text-post">
-        To earn Microsoft Azure certifications, candidates must pass the relevant exams, which cover topics such as cloud infrastructure, security, and development.
-      </p>,
-      <p key="principal-text" className="principal-text">
-      PART: III
-      </p>,
-      <h2 className="title-post">
-        GOOGLE CLOUD CERTIFICATIONS
-      </h2>,
-      <p className="text-post">
-        Google Cloud certifications are designed for IT professionals who deploy and manage cloud services on the Google Cloud Platform (GCP). The certifications validate expertise in areas such as cloud architecture, data engineering, and machine learning.
-      </p>,
-      <p className="text-post">
-        Popular Google Cloud certifications include:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Associate Cloud Engineer</i></li>
-        <li>/ <i>Professional Cloud Architect</i></li>
-        <li>/ <i>Professional Data Engineer</i></li>
-        <li>/ <i>Professional Machine Learning Engineer</i></li>
-      </ul>,
-      <p className="text-post">
-        Benefits of Google Cloud certifications include:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Validation of GCP skills</i></li>
-        <li>/ <i>Recognition as a GCP expert</i></li>
-        <li>/ <i>Enhanced career opportunities</i></li>
-        <li>/ <i>Increased earning potential</i></li>
-      </ul>,
-      <p className="text-post">
-        To earn Google Cloud certifications, candidates must pass the relevant exams, which cover topics such as cloud architecture, data analysis, and machine learning.
-      </p>,
-      <p key="principal-text" className="principal-text">
-      PART: IV
-      </p>,
-      <h2 className="title-post">
-        ALIBABA CERTIFICATIONS
-      </h2>,
-      <p className="text-post">
-        Alibaba Cloud certifications are designed for IT professionals who deploy and manage cloud services on the Alibaba Cloud platform. The certifications validate expertise in areas such as cloud architecture, security, and big data.
-      </p>,
-      <p className="text-post">
-        Popular Alibaba Cloud certifications include:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Alibaba Cloud Certified Professional</i></li>
-        <li>/ <i>Alibaba Cloud Certified Associate</i></li>
-        <li>/ <i>Alibaba Cloud Certified Expert</i></li>
-        <li>/ <i>Alibaba Cloud Certified Security Professional</i></li>
-      </ul>,
-      <p className="text-post">
-        Benefits of Alibaba Cloud certifications include:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Validation of Alibaba Cloud skills</i></li>
-        <li>/ <i>Recognition as an Alibaba Cloud expert</i></li>
-        <li>/ <i>Enhanced career opportunities</i></li>
-        <li>/ <i>Increased earning potential</i></li>
-      </ul>,
-      <p className="text-post">
-        To earn Alibaba Cloud certifications, candidates must pass the relevant exams, which cover topics such as cloud architecture, security, and big data.
-      </p>,
-      <p key="principal-text" className="principal-text">
-      PART: V
-      </p>,
-      <h2 className="title-post">
-        CLOUD SECURITY CERTIFICATIONS
-      </h2>,
-      <p className="text-post">
-        Cloud security certifications are designed for IT professionals who specialize in securing cloud environments and data. The certifications validate expertise in areas such as cloud security architecture, compliance, and incident response.
-      </p>,
-      <p className="text-post">
-        Popular cloud security certifications include:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Certified Cloud Security Professional (CCSP)</i></li>
-        <li>/ <i>Google Professional Cloud Security Engineer</i></li>
-        <li>/ <i>Microsoft Certified: Azure Security Engineer Associate</i></li>
-        <li>/ <i>CompTIA Cloud+ Certification</i></li>
-      </ul>,
-      <p className="text-post">
-        Benefits of cloud security certifications include:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Validation of cloud security skills</i></li>
-        <li>/ <i>Recognition as a cloud security expert</i></li>
-        <li>/ <i>Enhanced career opportunities</i></li>
-        <li>/ <i>Increased earning potential</i></li>
-      </ul>,
-      <p className="text-post">
-        To earn cloud security certifications, candidates must pass the relevant exams, which cover topics such as cloud security fundamentals, risk management, and compliance.
-      </p>,
-    ],
-    images: [],
-  },
-  "red-blue": {
-    title: "Understanding Red Team vs. Blue Team Roles",
-    date: "January 2025",
-    content: [
-      <span className="subtitle">
-        Cybersecurity is a dynamic field that requires a multi-faceted approach to protect organizations from cyber threats. Red team and blue team roles are two critical components of a comprehensive cybersecurity strategy, each with distinct responsibilities and objectives.
-      </span>,
-      <span className="title-span">
-        What are the differences between red team and blue team roles in cybersecurity?
-      </span>,
-      <span className="subtitle">
-        Red team and blue team roles are complementary functions within an organization's cybersecurity program. The red team is responsible for simulating cyber attacks to identify vulnerabilities and test the effectiveness of security controls, while the blue team is responsible for defending against and responding to cyber threats.
-      </span>,
-      <span className="subtitle">
-        Let's explore the roles of red team and blue team in more detail.
-      </span>,
-      <p key="principal-text" className="principal-text">
-      PART: I
-      </p>,
-      <h2 className="title-post">
-        RED TEAM
-      </h2>,
-      <p className="text-post">
-        The red team is an offensive security team that simulates cyber attacks to identify weaknesses in an organization's security posture. Red team members use tactics, techniques, and procedures (TTPs) similar to those used by real threat actors to test the effectiveness of security controls and incident response procedures.
-      </p>,
-      <p className="text-post">
-        The primary objectives of the red team include:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Identifying vulnerabilities in systems and applications</i></li>
-        <li>/ <i>Testing the effectiveness of security controls</i></li>
-        <li>/ <i>Evaluating the organization's incident response capabilities</i></li>
-        <li>/ <i>Providing recommendations for improving security posture</i></li>
-      </ul>,
-      <p className="text-post">
-        Red team engagements are typically conducted using a variety of techniques, such as penetration testing, social engineering, and vulnerability assessments. The goal is to identify weaknesses that could be exploited by real threat actors and provide recommendations for remediation.
-      </p>,
-      <p key="principal-text" className="principal-text">
-      PART: II
-      </p>,
-      <h2 className="title-post">
-        BLUE TEAM
-      </h2>,
-      <p className="text-post">
-        The blue team is a defensive security team that is responsible for defending against and responding to cyber threats. Blue team members monitor network traffic, analyze security alerts, and investigate security incidents to identify and mitigate potential threats.
-      </p>,
-      <p className="text-post">
-        The primary objectives of the blue team include:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Monitoring network traffic for signs of suspicious activity</i></li>
-        <li>/ <i>Analyzing security alerts and investigating potential threats</i></li>
-        <li>/ <i>Responding to security incidents and containing threats</i></li>
-        <li>/ <i>Implementing security controls to prevent future attacks</i></li>
-      </ul>,
-      <p className="text-post">
-        Blue team activities include monitoring security logs, analyzing network traffic, and responding to security incidents in real time. The goal is to detect and respond to threats before they can cause damage to the organization's systems and data.
-      </p>,
-      <p key="principal-text" className="principal-text">
-      PART: III
-      </p>,
-      <h2 className="title-post">
-        RED TEAM VS. BLUE TEAM
-      </h2>,
-      <p className="text-post">
-        Red team and blue team roles are often pitted against each other in cybersecurity exercises to simulate real-world attack scenarios. The red team acts as the adversary, attempting to breach the organization's defenses, while the blue team defends against and responds to the attacks.
-      </p>,
-      <p className="text-post">
-        The red team and blue team work together to improve the organization's overall security posture by identifying weaknesses, testing security controls, and enhancing incident response capabilities. By collaborating and sharing information, both teams can strengthen the organization's defenses and prepare for future cyber threats.
-      </p>,
-      <p className="text-post">
-        Red team and blue team roles are essential components of a comprehensive cybersecurity program, providing organizations with the tools and expertise needed to protect against evolving cyber threats and safeguard critical assets.
-      </p>,
-      <p className="text-post">
-        By understanding the roles and responsibilities of red team and blue team members, organizations can develop a proactive and effective cybersecurity strategy that addresses the dynamic and complex nature of cyber threats.
-      </p>,
-      <p key="principal-text" className="principal-text">
-      PART: IV
-      </p>,
-      <h2 className="title-post">
-        RED TEAM VS. BLUE TEAM EXERCISES
-      </h2>,
-      <p className="text-post">
-        Red team vs. blue team exercises are cybersecurity simulations that pit offensive and defensive security teams against each other to test the organization's security posture. These exercises help organizations identify weaknesses, improve incident response capabilities, and enhance overall security readiness.
-      </p>,
-      <p className="text-post">
-        Key components of red team vs. blue team exercises include:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Scenario development: Creating realistic attack scenarios based on current threats</i></li>
-        <li>/ <i>Red team engagement: Simulating cyber attacks to test security controls</i></li>
-        <li>/ <i>Blue team response: Defending against and responding to simulated attacks</i></li>
-        <li>/ <i>Debriefing: Analyzing the exercise outcomes and identifying areas for improvement</i></li>
-      </ul>,
-      <p className="text-post">
-        Red team vs. blue team exercises are valuable tools for organizations to assess their security posture, identify vulnerabilities, and enhance incident response capabilities. By conducting regular exercises, organizations can proactively address security risks and prepare for emerging threats.
-      </p>,
-    ],
-    images: [],
-  },
-  "Compliance": {
-    title: "Compliance and Regulations",
-    date: "January 2025",
-    content: [
-      <span className="subtitle">
-        Compliance and regulations are essential components of a comprehensive cybersecurity program, ensuring that organizations adhere to industry standards and best practices to protect sensitive data and mitigate cyber risks. Compliance frameworks such as NIST CSF and ISO 27001 provide guidelines for implementing effective security controls and managing cybersecurity risks.
-      </span>,
-      <span className="title-span">
-        What are some key compliance frameworks and regulations in cybersecurity?
-      </span>,
-      <span className="subtitle">
-        Key compliance frameworks and regulations in cybersecurity include:
-      </span>,
-      <ul className="list-post">
-        <li>/ <i>NIST Cybersecurity Framework (NIST CSF)</i></li>
-        <li>/ <i>ISO/IEC 27001:2013</i></li>
-        <li>/ <i>General Data Protection Regulation (GDPR)</i></li>
-        <li>/ <i>Health Insurance Portability and Accountability Act (HIPAA)</i></li>
-      </ul>,
-      <span className="subtitle">
-        Let's explore these compliance frameworks and regulations in more detail.
-      </span>,
-      <p key="principal-text" className="principal-text">
-      PART: I
-      </p>,
-      <h2 className="title-post">
-        NIST CYBERSECURITY FRAMEWORK (NIST CSF)
-      </h2>,
-      <p className="text-post">
-        The NIST Cybersecurity Framework (NIST CSF) is a voluntary framework developed by the National Institute of Standards and Technology (NIST) to help organizations manage and reduce cybersecurity risks. The framework provides a set of guidelines, best practices, and standards for improving cybersecurity posture and protecting critical infrastructure.
-      </p>,
-      <p className="text-post">
-        Key components of the NIST CSF include:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Risk assessment: Identifying and assessing cybersecurity risks</i></li>
-        <li>/ <i>Security controls: Implementing security controls to mitigate risks</i></li>
-        <li>/ <i>Incident response: Developing and testing incident response plans</i></li>
-        <li>/ <i>Continuous monitoring: Monitoring systems and networks for security threats</i></li>
-      </ul>,
-      <p className="text-post">
-        The NIST CSF is widely used by organizations in various industries to improve cybersecurity resilience, comply with regulatory requirements, and protect critical assets from cyber threats. By following the framework's guidelines, organizations can enhance their security posture and reduce the impact of cyber attacks.
-      </p>,
-      <p key="principal-text" className="principal-text">
-      PART: II
-      </p>,
-      <h2 className="title-post">
-        ISO/IEC 27001:2013
-      </h2>,
-      <p className="text-post">
-        ISO/IEC 27001:2013 is an international standard that specifies requirements for establishing, implementing, maintaining, and continually improving an information security management system (ISMS). The standard provides a systematic approach to managing sensitive company information, ensuring its confidentiality, integrity, and availability.
-      </p>,
-      <p className="text-post">
-        Key components of ISO/IEC 27001:2013 include:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Information security policy: Establishing an information security policy</i></li>
-        <li>/ <i>Risk assessment: Identifying and assessing information security risks</i></li>
-        <li>/ <i>Security controls: Implementing security controls to mitigate risks</i></li>
-        <li>/ <i>Monitoring and measurement: Monitoring and measuring information security performance</i></li>
-      </ul>,
-      <p className="text-post">
-        ISO/IEC 27001:2013 is widely recognized as a benchmark for information security management, helping organizations protect sensitive data, comply with regulatory requirements, and build customer trust. By achieving ISO 27001 certification, organizations demonstrate their commitment to information security and risk management.
-      </p>,
-      <p key="principal-text" className="principal-text">
-      PART: III
-      </p>,
-      <h2 className="title-post">
-        GENERAL DATA PROTECTION REGULATION (GDPR)
-      </h2>,
-      <p className="text-post">
-        The General Data Protection Regulation (GDPR) is a European Union regulation that governs the protection of personal data and privacy of EU citizens. The regulation imposes strict requirements on organizations that collect, process, and store personal data, including data protection principles, data subject rights, and security measures.
-      </p>,
-      <p className="text-post">
-        Key components of the GDPR include:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Data protection principles: Ensuring lawful, fair, and transparent data processing</i></li>
-        <li>/ <i>Data subject rights: Providing individuals with control over their personal data</i></li>
-        <li>/ <i>Security measures: Implementing appropriate technical and organizational measures to protect data</i></li>
-        <li>/ <i>Compliance requirements: Demonstrating compliance with GDPR obligations</i></li>
-      </ul>,
-      <p className="text-post">
-        The GDPR has significant implications for organizations worldwide, requiring them to implement robust data protection measures, appoint a data protection officer, and report data breaches to regulatory authorities. Non-compliance with the GDPR can result in severe fines and reputational damage.
-      </p>,
-      <p key="principal-text" className="principal-text">
-      PART: IV
-      </p>,
-      <h2 className="title-post">
-        HEALTH INSURANCE PORTABILITY AND ACCOUNTABILITY ACT (HIPAA)
-      </h2>,
-      <p className="text-post">
-        The Health Insurance Portability and Accountability Act (HIPAA) is a US law that governs the security and privacy of protected health information (PHI). The law applies to healthcare providers, health plans, and healthcare clearinghouses, as well as their business associates.
-      </p>,
-      <p className="text-post">
-        Key components of HIPAA include:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Privacy rule: Protecting the privacy of individuals' health information</i></li>
-        <li>/ <i>Security rule: Implementing safeguards to protect electronic PHI</i></li>
-        <li>/ <i>Breach notification rule: Reporting breaches of unsecured PHI to affected individuals</i></li>
-        <li>/ <i>Enforcement rule: Imposing penalties for HIPAA violations</i></li>
-      </ul>,
-      <p className="text-post">
-        HIPAA compliance is essential for healthcare organizations to protect patient data, maintain trust with patients, and avoid costly penalties for non-compliance. By implementing HIPAA security and privacy requirements, organizations can safeguard sensitive health information and comply with regulatory obligations.
-      </p>,
-      <p key="principal-text" className="principal-text">
-      PART: V
-      </p>,
-      <h2 className="title-post">
-        COMPLIANCE AND REGULATIONS IN CYBERSECURITY
-      </h2>,
-      <p className="text-post">
-        Compliance and regulations play a critical role in cybersecurity, providing organizations with guidelines and requirements for protecting sensitive data, managing cyber risks, and complying with legal obligations. By adhering to industry standards and best practices, organizations can enhance their security posture, build customer trust, and avoid costly data breaches.
-      </p>,
-      <p className="text-post">
-        Key benefits of compliance and regulations in cybersecurity include:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Protecting sensitive data and intellectual property</i></li>
-        <li>/ <i>Reducing cyber risks and vulnerabilities</i></li>
-        <li>/ <i>Enhancing security awareness and best practices</i></li>
-        <li>/ <i>Building customer trust and loyalty</i></li>
-      </ul>,
-      <p className="text-post">
-        By implementing compliance frameworks and regulations, organizations can establish a strong foundation for cybersecurity, mitigate cyber threats, and demonstrate their commitment to data protection and privacy.
-      </p>,
-    ],
-    images: [],
-  },
-  "workstation": {
-    title: "Workstation",
-    date: "January 2025",
-    content: [
-      <span className="subtitle">
-        Workstations are the primary computing devices used by employees to perform daily tasks, access company resources, and communicate with colleagues. Securing workstations is essential to protect sensitive data, prevent cyber attacks, and ensure the confidentiality, integrity, and availability of information.
-      </span>,
-      <span className="title-span">
-        What are some best practices for securing workstations?
-      </span>,
-      <span className="subtitle">
-        Best practices for securing workstations include:
-      </span>,
-      <ul className="list-post">
-        <li>/ <i>Implementing strong password policies</i></li>
-        <li>/ <i>Enabling disk encryption</i></li>
-        <li>/ <i>Installing security updates and patches</i></li>
-        <li>/ <i>Configuring firewalls and antivirus software</i></li>
-      </ul>,
-      <span className="subtitle">
-        Below I will present my workplace in detail.
-      </span>,
-      <p key="principal-text" className="principal-text">
-      PART: I
-      </p>,
-      <h2 className="title-post">
-        DESKTOP COMPUTER
-      </h2>,
-      <p className="text-post">
-        As my main workstation, I’ve built a PC with top-notch specifications designed for maximum comfort and long-term usability. This setup ensures I won’t need to upgrade the hardware for years while providing the power and storage capacity to tackle any task effortlessly.
-      </p>,
-      <p className="text-post">
-        In my daily routine, I primarily use Windows 11 because it offers full compatibility with 100% of the applications I need. However, I’ve set up a dual-boot system with Manjaro (Linux) as well. That said, when I need to work with Linux, I typically prefer using virtual machines for added convenience and flexibility.
-      </p>,
-      <p className="text-post">
-        Here’s the hardware powering my workstation:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Processor: Ryzen 7 5700X</i></li>
-        <li>/ <i>Graphics Card: RTX 4070</i></li>
-        <li>/ <i>RAM: 64GB</i></li>
-        <li>/ <i>Storage: 1TB NVMe SSD / 2TB SSD</i></li>
-        <li>/ <i>Power Supply: Corsair AX1500i (1500W)</i></li>
-        <li>/ <i>Case: Corsair 5000D</i></li>
-        <li>/ <i>Monitor: Samsung Ultrawide S5 Uwqhd 100hz</i></li>
-        <li>/ <i>Headphones: KZ EDX</i></li>
-        <li>/ <i>Keyboard: Chilkey ND75 Aluminum 75%</i></li>
-        <li>/ <i>Mouse: ASUS ROG Harpe Ace Mini</i></li>
-      </ul>,
-      <p className="text-post">
-        With all these components, my main PC handles any task with ease, whether it’s running virtual machines, rendering videos, or managing resource-intensive workloads. It’s a powerhouse built for efficiency and versatility.
-      </p>,
-      <p key="principal-text" className="principal-text">
-      PART: II
-      </p>,
-      <h2 className="title-post">
-        PORTABILITY
-      </h2>,
-      <p className="text-post">
-        While my main PC is a stationary powerhouse, I ensure portability by complementing it with other devices when I’m on the go. Whether it’s a lightweight laptop or cloud-based solutions for remote access, I have the flexibility to stay productive no matter where I am.
-      </p>,
-      <p className="text-post">
-        Here are some of the portable devices I use:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Laptop: MacBook Pro M1</i></li>
-        <li>/ <i>Laptop: HP Victus RTX 3050</i></li>
-        <li>/ <i>Tablet: iPad Pro</i></li>
-        <li>/ <i>Smartphone: iPhone 16 Pro</i></li>
-      </ul>,
-      <p className="text-post">
-        These devices allow me to work on the go, access essential files, and stay connected with colleagues and clients. Whether I’m traveling, working from a coffee shop, or attending meetings, I have the tools I need to stay productive and efficient.
-      </p>,
-      <p key="principal-text" className="principal-text">
-      PART: III
-      </p>,
-      <h2 className="title-post">
-        SECURITY MEASURES
-      </h2>,
-      <p className="text-post">
-        Security is a top priority for my workstations, whether it’s my main PC or portable devices. I implement a range of security measures to protect sensitive data, prevent cyber attacks, and ensure the confidentiality and integrity of information.
-      </p>,
-      <p className="text-post">
-        Some of the security measures I implement include:
-      </p>,
-      <ul className="list-post">
-        <li>/ <i>Strong password policies</i></li>
-        <li>/ <i>Two-factor authentication</i></li>
-        <li>/ <i>Full disk encryption</i></li>
-        <li>/ <i>Firewalls and antivirus software</i></li>
-        <li>/ <i>Regular software updates and patches</i></li>
-      </ul>,
-      <p className="text-post">
-        By following these security best practices, I can minimize the risk of data breaches, protect sensitive information, and maintain the security of my workstations. Security is an ongoing process, and I continuously monitor and update my security measures to stay ahead of emerging threats.
-      </p>,
-    ],
-      images: [],
-  },
-"friday-overtime": {
-  title: "Friday Overtime — Full-Spectrum Threat-Intelligence Investigation",
-  date: "May 2025",
-  content: [
-    <div className="post-wrapper">
-
-      <span className="title-work">Executive Summary</span>
-      <br />
-      <br />
-      <p className="p-work">
-        Late on a Friday, SwiftSpend Finance forwarded a password-protected archive to
-        <i> PandaProbe Intelligence</i>, requesting immediate malware analysis. Operating
-        as the sole on-call CTI Analyst, I transformed those raw artefacts into
-        contextualised intelligence and production-ready detections in roughly one hour.
-        The narrative below reconstructs every analytical pivot, tool choice, and
-        decision point that turned an urgent ticket into an actionable security brief.
-      </p>
-      <br />
-
-      <span className="title-work">Scenario & Objectives</span>
-      <br />
-      <br />
-      <p className="p-work">
-        The artefacts came from a live intrusion at a financial institution, so every
-        action occurred inside the isolated TryHackMe VM. My objectives were clear:
-      </p>
-      <ul className="list-work">
-        <li>Preserve forensic integrity and chain of custody.</li><br />
-        <li>Identify malware family, capabilities, and command-and-control (C2).</li><br />
-        <li>Correlate indicators with open-source and proprietary threat feeds.</li><br />
-        <li>Create host, network, and log-based detections for SwiftSpend’s SOC.</li>
-      </ul>
-      <br />
-
-      <span className="title-work">Step 1 — Acquisition & Integrity Validation</span>
-      <br />
-      <br />
-      <p className="p-work">
-        I extracted <code>samples.zip</code> with the ticketed password, verified the
-        archive’s SHA-256, and immediately renamed each file to its SHA-1 to guarantee
-        tamper-evident handling (<code>pRsm.dll → 9d1ecbbe8637…</code>). The
-        DocIntel metadata traced origin to <b>Oliver Bennett</b>, providing provenance if
-        legal follow-up became necessary.
-      </p>
-      <br />
-
-      <span className="title-work">Step 2 — Rapid Automated Triage</span>
-      <br />
-      <br />
-      <p className="p-work">
-        I queued the DLLs in a triage stack (<i>PE-Studio, capa, FLOSS, Detect-It-Easy</i>)
-        to surface low-effort insights while I documented the ticket. The tools
-        highlighted:
-      </p>
-      <ul className="list-work">
-        <li>Suspicious exports <code>DllRegisterServer</code> &amp; <code>ServiceMain</code>.</li><br />
-        <li>RC4-encrypted configuration blobs in the .rdata section.</li><br />
-        <li>Hard-coded string <code>QQUrlMgr_QQ88</code> aligning with Chinese software-update lures.</li><br />
-        <li>capa rules mapping to MgBot’s audio-capture plug-in.</li>
-      </ul>
-      <p className="p-work">
-        Those signatures narrowed the candidate family to <b>MgBot</b> before any manual
-        reversing, accelerating subsequent hypotheses.
-      </p>
-      <br />
-
-      <span className="title-work">Step 3 — In-Depth Static Analysis</span>
-      <br />
-      <br />
-      <p className="p-work">
-        Inside IDA Free I traced the RC4 key-schedule routine, dumped the encrypted
-        blob, and decrypted it to reveal the primary C2 domain
-        <code>update.browser.qq.com</code> plus IP <code>122.10.90.12</code>. Cross-referencing
-        those IOCs in VirusTotal showed historical clustering with MgBot campaigns
-        against Asian financial targets. Function analysis confirmed microphone access
-        via <code>IMMDeviceEnumerator</code>, mapping to MITRE ATT&amp;CK
-        <b>T1123 (Audio Capture)</b>.
-      </p>
-      <br />
-
-      <span className="title-work">Step 4 — Dynamic Behavioural Analysis</span>
-      <br />
-      <br />
-      <p className="p-work">
-        I side-loaded the DLL into a sacrificial host process under Sysmon and
-        <code>tshark</code>. Upon initialisation the malware:
-      </p>
-      <ul className="list-work">
-        <li>Created mutex <code>Global\\AudMod_09F0</code> for singleton enforcement.</li><br />
-        <li>Issued a TLS Client Hello to <code>122.10.90.12:443</code> with SNI
-            <code>update.browser.qq.com</code>.</li><br />
-        <li>Activated periodic audio capture once a beacon response was received.</li>
-      </ul>
-      <p className="p-work">
-        Network replay confirmed the RC4 key from static analysis also decrypted runtime
-        traffic, proving configuration integrity.
-      </p>
-      <br />
-
-      <span className="title-work">Step 5 — Threat-Intel Correlation</span>
-      <br />
-      <br />
-      <p className="p-work">
-        Submitting the hash and IP to MISP, GreyNoise, and Recorded Future tied the
-        sample to <i>TAG-273</i>, an espionage cluster observed since 2019. A timeline
-        query uncovered that the same IP hosted Android SpyAgent spyware on
-        16-Nov-2022 (<code>SHA-1 1c1fe906e822012f6235fcc53f601d006d15d7be</code>),
-        indicating cross-platform tool reuse and long-term infrastructure.
-      </p>
-      <br />
-
-      <span className="title-work">Step 6 — Detection Engineering</span>
-      <br />
-      <br />
-      <p className="p-work">
-        I crafted layered artefacts for SwiftSpend’s blue team:
-      </p>
-      <ul className="list-work">
-        <li><b>YARA</b> rule targeting MgBot audio modules via unique strings and export profile.</li><br />
-        <li><b>Sigma</b> rule flagging DNS queries for <code>update.browser.qq.com</code>.</li><br />
-        <li><b>Suricata</b> signature detecting HTTP URI <code>QQUrlMgr_QQ88</code> over TLS to <code>122.10.90.12</code>.</li>
-      </ul>
-      <p className="p-work">
-        Each rule was unit-tested in the VM and shipped with tuning guidance to minimise
-        false positives.
-      </p>
-      <br />
-
-      <span className="title-work">Step 7 — Report & Operational Hand-Off</span>
-      <br />
-      <br />
-      <p className="p-work">
-        The final report bundled IoCs, ATT&amp;CK mappings, a threat-actor profile,
-        mitigation actions, and the detection suite. SwiftSpend immediately blocked the
-        C2, pushed the YARA/Sigma/Suricata rules, and launched a retrospective hunt for
-        the mutex pattern across its EDR telemetry.
-      </p>
-      <br />
-
-      <span className="title-work">Consolidated Indicators</span>
-      <br />
-      <br />
-      <ul className="list-work">
-        <li>SHA-1 (DLL): 9d1ecbbe8637fed0d89fca1af35ea821277ad2e8</li><br />
-        <li>Malware Family: MgBot (Audio Capture)</li><br />
-        <li>ATT&amp;CK ID: T1123</li><br />
-        <li>C2 IP: 122[.]10[.]90[.]12</li><br />
-        <li>SpyAgent SHA-1: 1c1fe906e822012f6235fcc53f601d006d15d7be</li>
-      </ul>
-      <br />
-
-      <span className="title-work">Conclusion</span>
-      <br />
-      <br />
-      <p className="p-work">
-        This engagement illustrates how a disciplined CTI workflow — integrity checks,
-        layered analysis, intel enrichment, and rapid detection engineering — converts
-        a Friday-night incident into a defensible strategy before the weekend begins.
-        The process safeguarded a critical finance client and honed blue-team readiness
-        against <i>TAG-273</i>.
-      </p>
-      <span className="signature">
-        Provided by <i>TryHackMe Room #Friday-Overtime</i>
-      </span>
-
-    </div> 
-  ],
-  images: []
-},
-  "pentesting": {
-  title: "Penetration Testing",
-  date: "February 2024",
-  content: [
-    <span className="title-work">
-      Introduction
-    </span>,
-    <p className="p-work">
-      In this project, I conducted a basic penetration test within a controlled and safe environment to simulate real-world cybersecurity scenarios. 
-      The goal was to identify potential vulnerabilities in a target machine, exploit them ethically, 
-      and document findings alongside recommended remediations. 
-      This project utilized a virtual lab setup with tools like Kali Linux, Nmap, and Metasploit, 
-      following a structured methodology that reflects industry best practices.
-    <br />
-    <br />
-    This guide details the process from setup to reporting, providing a comprehensive view of how 
-    I approached and completed the penetration test.
-    </p>,
-    <br />,
-    <span className="title-work">
-      Step-by-Step Process
-    </span>,
-    <p className="p-work">
-      Step 1: Setting Up the Environment
-    </p>,
-    <p className="p-work">
-      <b>Objective:</b> Create a safe lab for penetration testing without risking real-world systems.
-    </p>,
-    <p className="p-work">
-      <b>Actions:</b>
-    </p>,
-    <ul className="list-work">
-      <li><i>1.</i> Installed VirtualBox to host virtual machines.</li> <br />
-      <li><i>2.</i> Downloaded and set up. (Kali Linux as the attacker machine & A vulnerable VM, such as Metasploitable2 or a target from Hack The Box or TryHackMe.)</li> <br />
-      <li><i>3.</i> Configured both VMs to operate on an internal network to isolate traffic and ensure no external interference.</li> <br />
-      <li><i>4.</i> Verified connectivity between the machines using the ping command:</li>
-    </ul>,
-    <p className="p-work">
-      Verified connectivity between the machines using the ping command
-    </p>,
-    <div className="code-snippet">
-      <pre>
-        <code>
-          ping [IP Address]
-        </code>
-      </pre>
-    </div>,
-    <br />,
-    <hr />,
-    <br />,  
-    <p className="p-work">
-      Step 2: Initial Reconnaissance
-    </p>,
-    <p className="p-work">
-      <b>Objective:</b> Gather basic information about the target system and its network presence.
-    </p>,
-    <p className="p-work">
-      <b>Actions:</b>
-    </p>,
-    <ul className="list-work">
-      <li><i>1.</i> Identified the target's IP address using Netdiscover:</li>
-    </ul>,
-    <div className="code-snippet">
-      <pre>
-        <code>
-          netdiscover -i eth0
-        </code>
-      </pre>
-    </div>,
-    <p className="p-work">
-      Validated network connectivity between Kali Linux and the target by pinging the identified IP address.
-    </p>,
-    <br />,
-    <hr />,
-    <br />,
-    <p className="p-work">
-      Step 3: Network Scanning
-    </p>,
-    <p className="p-work">
-      <b>Objective:</b> Discover open ports and services running on the target.
-    </p>,
-    <p className="p-work">
-      <b>Tool Used: Nmap</b>
-    </p>,
-    <p className="p-work">
-      <b>Actions:</b>
-    </p>,
-    <ul className="list-work">
-      <li><i>/</i> Conducted a basic port scan using Nmap:</li>
-    </ul>,
-    <div className="code-snippet">
-      <pre>
-        <code>
-          nmap &lt;Target-IP&gt;
-        </code>
-      </pre>
-    </div>,
-    <p className="p-work">
-      <i>/</i> Conducted a more detailed scan to identify running services, their versions, and potential configurations:
-    </p>,
-    <div className="code-snippet">
-      <pre>
-        <code>
-          nmap -sV -sC -A &lt;Target-IP&gt;
-        </code>
-      </pre>
-    </div>,
-    <p className="p-work">
-      <i>/</i> Saved the scan results for analysis
-    </p>,
-    <div className="code-snippet">
-      <pre>
-        <code>
-          nmap -oN nmap_results.txt  &lt;Target-IP&gt;
-        </code>
-      </pre>
-    </div>,
-    <p className="p-work">
-      Interpreted the scan output to identify ports (e.g., 22 for SSH, 80 for HTTP) and services (e.g., Apache, MySQL).
-    </p>,
-    <br />,
-    <hr />,
-    <br />,
-    <p className="p-work">
-      Step 4: Identifying Vulnerabilities
-    </p>,
-    <p className="p-work">
-      <b>Objective:</b> Analyze services discovered during the scan for known vulnerabilities.
-    </p>,
-    <p className="p-work">
-      <b>Actions:</b>
-    </p>,
-    <ul className="list-work">
-      <li><i>1.</i> Checked the identified services (e.g., Apache HTTPD, MySQL) against vulnerability databases like:</li>
-      <li><i>2.</i> Exploit Database (exploit-db.com)</li>
-      <li><i>3.</i> Common Vulnerabilities and Exposures (cve.mitre.org)</li>
-    </ul>,
-    <p className="p-work">
-      <b>Used additional tools to enumerate specific services:</b>
-    </p>,
-    <p className="p-work">
-      Nikto for web servers:
-    </p>,
-    <div className="code-snippet">
-      <pre>
-        <code>
-          nikto -h http://&lt;Target-IP&gt;
-        </code>
-      </pre>
-    </div>,
-    <p className="p-work">
-      Gobuster to find hidden directories
-    </p>,
-    <div className="code-snippet">
-      <pre>
-        <code>
-          gobuster dir -u http://&lt;Target-IP&gt; -w /usr/share/wordlists/dirb/common.txt
-        </code>
-      </pre>
-    </div>,
-    <p className="p-work">
-      Documented vulnerabilities with their CVEs, descriptions, and potential impact.
-    </p>,
-    <br />,
-    <hr />,
-    <br />,
-    <p className="p-work">
-      Step 5: Exploitation
-    </p>,
-    <p className="p-work">
-      <b>Objective:</b> Ethically exploit identified vulnerabilities to demonstrate their impact.
-    </p>,
-    <p className="p-work">
-      <b>Tool Used: Metasploit</b>
-    </p>,
-    <p className="p-work">
-      <b>Actions:</b>
-    </p>,
-    <ul className="list-work">
-      <li><i>•</i> Launched Metasploit and searched for exploits</li>
-    </ul>,
-    <div className="code-snippet">
-      <pre>
-        <code>
-          msfconsole search &lt;Service/Vulnerability&gt;
-        </code>
-      </pre>
-    </div>,
-    <ul className="list-work">
-      <li><i>•</i> Selected an appropriate exploit module, configured it, and launched the exploit:</li>
-    </ul>,
-    <div className="code-snippet">
-      <pre>
-        <code>
-          use &lt;Exploit-Module&gt;
-          set RHOST &lt;Target-IP&gt;
-          exploit
-        </code>
-      </pre>
-    </div>,
-    <p className="p-work">
-      Gained shell access to the target machine and documented the process with screenshots and logs.
-    </p>,
-    <br />,
-    <hr />,
-    <br />,
-    <p className="p-work">
-      Step 6: Post-Exploitation
-    </p>,
-    <p className="p-work">
-      <b>Objective:</b> Assess the extent of access and gather information about the compromised system.
-    </p>,
-    <p className="p-work">
-      <b>Actions:</b>
-    </p>,
-    <p className="p-work">
-      I began by verifying user privileges on the target system to determine the level of access granted. Commands like <span className="bg-work">whoami</span> and <span className="bg-work">id</span> were executed to confirm whether administrative or limited user access was achieved. Next, I enumerated the file system by listing directories and files with the <span className="bg-work">ls -la</span> command. This process allowed me to identify potentially sensitive files, such as configuration files, logs, or credentials. Finally, I analyzed system logs and configuration files for further insights into the system's setup, potential weaknesses, or evidence of previous unauthorized activities. This information was critical for understanding the full scope of the attack.
-    </p>,
-    <br />,
-    <hr />,
-    <br />,
-    <p className="p-work">
-      Step 7: Reporting
-    </p>,
-    <p className="p-work">
-      <b>Objective:</b> This phase focused on documenting the findings, vulnerabilities exploited, and actionable recommendations for mitigating risks. The report served as a comprehensive summary of the penetration test.
-    </p>,
-    <p className="p-work">
-      <b>Actions:</b>
-    </p>,
-    <p className="p-work">
-      I prepared a structured report with several key sections. The Introduction provided an overview of the test's purpose and scope. The Methodology described the detailed steps and tools used throughout the testing process. In the Findings section, I listed each identified vulnerability, its severity level, and supporting evidence such as screenshots and logs. Finally, the Remediation Recommendations outlined clear, actionable steps to address each vulnerability. To ensure a professional presentation, I used Markdown to format the report and exported it as a PDF for distribution. The result was a clear and concise document suitable for both technical and non-technical audiences.
-    </p>,
-    <br />,
-    <hr />,
-    <br />,
-    <p className="p-work">
-      Key Takeaways
-    </p>,
-    <p className="p-work">
-      This project demonstrated my capability to conduct basic penetration testing, from initial reconnaissance to post-exploitation analysis. I successfully identified vulnerabilities and proposed solutions, showcasing my technical proficiency and problem-solving skills. Additionally, I gained practical experience with essential cybersecurity tools, including Nmap, Nikto, Metasploit, and Kali Linux, which are widely used in the industry. My ability to follow a structured approach, combined with adherence to ethical guidelines, underscores my commitment to maintaining professionalism in cybersecurity practices. This project provided valuable hands-on experience and enhanced my readiness for real-world scenarios.
-    </p>,
+  "advent-of-cyber-24": {
+    title: "Advent of Cyber '24",
+    date: "December 2024",
+         content: [
+       "Each December, TryHackMe hosts Advent of Cyber, a cybersecurity event that helps beginners and seasoned professionals sharpen their skills through daily challenges. In 2024, alongside the main event, a Side Quest was introduced — a parallel track made for those seeking more advanced, technical problems. Naturally, I took the challenge.",
+       "",
+       "Unlike the regular daily rooms focused on introducing core security concepts, the Side Quest was designed to push participants to the edge — featuring harder and even \"insane\"-rated tasks that required creative thinking, persistence, and solid technical foundations. For me, this was a perfect opportunity to document my problem-solving approach, showcase my methodology, and reinforce my skills in web exploitation, reverse engineering, OSINT, and more.",
+       "",
+       "This write-up walks through how I approached each challenge in the Side Quest, focusing on the thought process rather than the answers — because in cybersecurity, how you think is just as important as what you know.",
+       "",
+               "![Advent of Cyber '24](/work/articles/advent24/advent24.jpg)",
+        "",
+               "## What is the Side Quest?",
+       "",
+       "The Advent of Cyber 2024 Side Quest is a collection of five standalone challenges released alongside the main event. Unlike the daily beginner-friendly tasks, these are tougher, longer, and require a broader set of skills. Each task is independent, allowing participants to tackle them in any order.",
+       "",
+       "The difficulty ranges from Hard to Insane, and the topics span from reverse engineering and OSINT to advanced web exploitation and forensic analysis. This makes the Side Quest ideal for those who already have a solid foundation and want to test their capabilities in real-world-like scenarios.",
+       "",
+              "From analyzing strange binaries and chasing hidden artifacts to digging deep into misconfigured web apps, the Side Quest felt less like a tutorial and more like a realistic penetration test or blue team investigation. The challenges are thoughtfully crafted to reward creativity, persistence, and critical thinking — all of which I aimed to document throughout this write-up.",
+       "",
+              "### Methodology Used",
+       "",
+       "To tackle the Side Quest, I approached each task as if it were part of a real-world engagement — starting with reconnaissance, then moving into analysis, exploitation, and validation. Since the challenges were diverse, I relied on a flexible set of tools and workflows depending on the nature of each problem.",
+       "",
+               "Here are some of the key tools and techniques I used:",
+        "",
+                "• Recon & OSINT:",
+        "Google Dorking, WHOIS lookups, and DNS analysis using nslookup, dig, and online tools like crt.sh.",
+        "",
+        "• Reverse Engineering & Binary Analysis:",
+        "Ghidra, cutter, strings, and manual static analysis. Dynamic behavior was tested via sandboxing and debugging.",
+        "",
+        "• Web Exploitation:",
+        "Burp Suite, browser dev tools, manual payload crafting, cookie and session manipulation, and logic flaw testing.",
+        "",
+        "• Scripting & Automation:",
+        "Bash and Python scripts to parse files, decode obfuscated data, or automate repetitive tasks.",
+        "",
+        "• Log & Memory Analysis:",
+       "Basic forensic analysis with tools like grep, binwalk, volatility, and analyzing pcap or image dumps.",
+       "",
+               "Throughout each challenge, I documented my process carefully — not only to ensure reproducibility but also to reflect on the techniques used, what worked, and what could be improved. The following sections break down each task, focusing on the reasoning that led to the solution.",
+        "",
+        "![Advent of Cyber Challenge](/work/articles/advent24/adventch.jpg)",
+      "",
+                           "## Task 1 – Operation Tiny Frostbite (Hard)",
+        "",
+        "This first Side Quest challenge introduced a miniature Linux binary — deceptively small in size but packed with complexity. At first glance, it looked harmless, but diving deeper revealed subtle behaviors that hinted at obfuscation and intentional misdirection.",
+        "",
+                 "I began by inspecting the file with basic static analysis tools like file, strings, and ltrace to gather quick intel. Unsurprisingly, the output was limited, so I turned to Ghidra for deeper insight. Within the decompiled code, I noticed fragmented logic and string construction techniques that weren't obvious at first sight. The binary appeared to piece together commands or flags in memory, requiring a bit of reverse engineering and educated guesswork.",
+         "",
+         "",
+         "Once I understood the logic behind how the binary operated — particularly how it handled inputs and validation — I used controlled inputs to trigger different code paths. Dynamic analysis helped confirm my understanding, and eventually, I was able to reconstruct the expected behavior.",
+        "",
+                 "This challenge reinforced the importance of reading beyond the surface and thinking like a developer who's trying to hide something. It was a solid warm-up for what was to come in the more intense challenges ahead.",
+         "",
+         "## Task 2 – Yin and Yang (Hard)",
+         "",
+         "This challenge stood out immediately due to its unique structure: it presented two seemingly opposite but interconnected components — a classic \"black-and-white\" theme, both visually and technically. At its core, it was a cleverly disguised OSINT investigation mixed with subtle web exploitation elements.",
+         "",
+         "The first step was recognizing that both parts of the puzzle — \"Yin\" and \"Yang\" — were providing partial clues. Alone, each side made little sense, but combined, they revealed a bigger picture. I started by collecting all visible and hidden information from the provided URLs and files, using browser dev tools and digging into HTTP headers, cookies, and encoded content.",
+         "",
+         "A big part of this challenge relied on following non-obvious trails, including decoding strange-looking text and tracing usernames or identifiers across platforms. Tools like base64, URL decoders, and search engines were essential here. Some clues were buried in page metadata, while others required understanding how frontend components interacted behind the scenes.",
+         "",
+         "What made this task especially interesting was how it rewarded curiosity and persistence — checking a directory here, revisiting a hint there — until all the pieces aligned. Once I combined the two sides correctly, the final answer revealed itself through pattern recognition and correlation, not brute force.",
+         "",
+         "It was a well-designed reminder that in cybersecurity, information rarely exists in isolation. Context is key.",
+         "",
+         "## Task 3 – Escaping the Blizzard (Insane)",
+         "",
+         "This challenge raised the difficulty significantly. From the start, Escaping the Blizzard felt like being dropped into a chaotic environment without a map — just scattered clues buried in raw data. The task revolved around analyzing memory dumps, simulating a real-world incident response situation.",
+         "",
+         "My first move was to get oriented: identifying the type of dump and the operating system it came from. Once confirmed, I loaded the image into Volatility, using plugins like pslist, cmdline, and filescan to build a timeline of what happened on the compromised system.",
+         "",
+         "Suspicious processes, strange command-line arguments, and leftover artifacts gave me breadcrumbs to follow. This wasn't just about running plugins — it required interpreting what those plugins revealed and correlating them. For example, why was a certain process active when it shouldn't have been? Was there network activity? Could I retrieve loaded modules or strings from memory?",
+         "",
+         "Eventually, carving out sections of memory led me to encrypted or encoded content. At this point, scripting came in handy to automate decoding and pattern matching, since manual inspection would've taken far too long.",
+         "",
+         "This task tested my ability to think like a forensic analyst under pressure: triaging systems, identifying indicators of compromise, and piecing together the narrative. Challenging, but very rewarding.",
+         "",
+         "## Task 4 – Krampus Festival (Insane)",
+         "",
+         "This challenge combined web exploitation with a strong dose of misdirection. At first glance, it looked like a festive static website, but underneath was a cleverly disguised logic flaw waiting to be uncovered.",
+         "",
+         "I began with standard recon: viewing the source code, crawling hidden directories, and inspecting JavaScript files. One file, in particular, hinted at client-side validation routines that could be bypassed. That led me to test various payloads and edge cases through Burp Suite, paying special attention to cookies, hidden parameters, and request flows.",
+         "",
+         "The turning point came when I realized the site was relying on client trust for sensitive logic. That opened the door for tampering — not through injection, but through subtle manipulations that tricked the backend into exposing restricted content.",
+         "",
+         "There was also a fun twist involving hidden flags behind authentication flows, but nothing was straightforward. Every clue seemed to lead to a dead end — until I stepped back and reframed the problem from a user logic perspective instead of a purely technical one.",
+         "",
+         "This challenge was a great reminder that vulnerabilities aren't always technical flaws — sometimes, it's about how developers implement logic or assume certain behaviors. It emphasized the value of patience, creativity, and testing what happens if…",
+         "",
+         "## Task 5 – An Avalanche of Web Apps (Insane)",
+         "",
+         "This final challenge felt like a culmination of everything learned throughout the Side Quest. It dropped me into a complex environment made up of multiple interconnected web applications, each with its own quirks — vulnerable components, misconfigurations, and fragmented clues spread across services.",
+         "",
+         "My initial approach was to map the entire environment. I manually enumerated routes, tested authentication points, and reviewed how different apps shared sessions or tokens. The setup mimicked a microservice architecture, so part of the challenge was figuring out how they communicated and where the trust boundaries were weak.",
+         "",
+         "I discovered a couple of input validation weaknesses, but exploiting them required chaining multiple steps across services — for example, gaining access in one app to pivot into another. It wasn't about a single exploit, but abuse of flow and trust relationships between apps.",
+         "",
+                   "Throughout the process, I made heavy use of:",
+          "",
+          "• Burp Suite for intercepting and replaying requests.",
+          "",
+          "• Custom scripts to automate enumeration and data extraction.",
+          "",
+          "• Browser dev tools to analyze frontend logic that could be manipulated.",
+         "",
+                   "The real lesson here was understanding systemic flaws, not just individual bugs. When services are loosely coupled but blindly trust each other, even small issues can snowball into full compromise — just like an avalanche.",
+          "",
+          "## Final Thoughts and Lessons Learned",
+          "",
+          "Completing the Advent of Cyber 2024 Side Quest was one of the most rewarding technical experiences I've had. Each challenge pushed me to apply a different set of skills — from reverse engineering and memory forensics to web exploitation and logic analysis — all under a single, well-crafted event.",
+          "",
+          "More than just solving puzzles, this Side Quest tested how I think under pressure, how I break down unfamiliar problems, and how I pivot when an initial approach doesn't work. It reinforced two key ideas:",
+          "",
+          "• Process matters as much as the outcome — documenting steps, forming hypotheses, testing, and iterating is what leads to sustainable problem-solving.",
+          "",
+          "• Security is interdisciplinary — real-world challenges rarely fit into a single category. The best solutions came from combining multiple techniques and perspectives.",
+          "",
+                     "This write-up is not just a walkthrough — it's a snapshot of how I tackle complex security problems. I look forward to using these experiences to continue growing in my cybersecurity career and applying this mindset in real-world environments.",
+           "",
+           "![Advent of Cyber End](/work/articles/advent24/adventend.jpg)",
+           "",
+           "Written by Franco Sbaffi, No Artificial Intelligence was used in the creation or writing of this project.",
+           "",
+           
       ],
-      images: [],
-  },
+     images: [
+       {
+         src: "/work/articles/advent24/advent24.jpg",
+         alt: "Advent of Cyber '24"
+       }
+     ]
+   },
   "log-file-analyzer": {
-  title: "Log File Analyzer",
-  date: "December 2024",
-  content: [
-    <span className="title-work">
-      Introduction
-    </span>,
-    <p className="p-work">
-      In this project, I developed a Log File Analyzer to identify security events and anomalies within server log files. 
-      The objective was to extract meaningful insights, detect potential threats, and recommend actionable solutions. 
-      By leveraging log analysis tools and Python for scripting, I simulated a real-world scenario where monitoring and 
-      analyzing log data are critical for maintaining cybersecurity. This guide outlines the step-by-step process of building and 
-      executing the Log File Analyzer project.
-    </p>,
-    <br />,
-    <span className="title-work">
-      Collecting Log Data
-    </span>,
-    <p className="p-work">
-      <b>Objective:</b> Gather log files from a simulated or real server environment to serve as the dataset for analysis.
-    </p>,
-    <p className="p-work">
-      <b>Actions:</b>
-    </p>,
-    <p className="p-work">
-      I obtained server logs from a Linux-based environment, including syslog, auth.log, and web server logs (e.g., Apache or Nginx). These files were exported from a virtual server set up in VirtualBox with Ubuntu installed. Using scp or direct file access, I transferred the logs to my analysis environment for processing. A test dataset was also created by simulating different types of suspicious activities, such as failed login attempts and unauthorized access attempts, to ensure diverse scenarios for analysis.
-    </p>,
-    <br />,
-    <hr />,
-    <br />,
-    <span className="title-work">
-      Preparing the Analysis Environment
-    </span>,
-    <p className="p-work">
-      <b>Objective:</b> Set up tools and dependencies for efficient log parsing and analysis.
-    </p>,
-    <p className="p-work">
-      <b>Actions:</b>
-    </p>,
-    <p className="p-work">
-      Installed Python and libraries like <span className="bg-work">pandas</span>, <span className="bg-work">re</span>, and <span className="bg-work">matplotlib</span> for log parsing, data manipulation, and visualization.
-    </p>,
-    <div className="code-snippet">
-      <pre>
-        <code>
-          pip install pandas matplotlib
-        </code>
-      </pre>
-    </div>,
-    <p className="p-work">
-      Prepared a Python script to read log files and parse key information such as IP addresses, timestamps, and events. Regular expressions (re module) were used to filter relevant data.
-    </p>,
-    <p className="p-work">
-      For large-scale data, I configured ELK Stack (Elasticsearch, Logstash, Kibana) as an alternative for visualization and querying.
-    </p>,
-    <br />,
-    <hr />,
-    <br />,
-    <span className="title-work">
-      Parsing and Analyzing Log Data
-    </span>,
-    <p className="p-work">
-      <b>Objective:</b> Extract useful data and remove irrelevant or redundant entries.
-    </p>,
-    <p className="p-work">
-      <b>Actions:</b>
-    </p>,
-    <p className="p-work">
-      Loaded the log files into Python using open() and iterated line by line to extract relevant information.
-    </p>,
-    <p className="p-work">
-      Applied regular expressions to filter critical events, such as failed login attempts (<span className="bg-work">"authentication failure"</span>), brute force attempts, and file access errors.
-      Example regex for extracting IP addresses:
-    </p>,
-        <div className="code-snippet">
-          <pre>
-            <code>{`import re
-    ip_pattern = r'\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b'
-    matches = re.findall(ip_pattern, log_line)`}</code>
-          </pre>
-        </div>,
-    <p className="p-work">
-      Structured the parsed data into a DataFrame using pandas for easier manipulation and analysis.
-    </p>,
-    <p className="p-work">
-      Removed duplicate entries and irrelevant lines, such as routine system messages.
-    </p>,
-    <br />,
-    <hr />,
-    <br />,
-    <span className="title-work">
-      Analyzing Logs for Patterns and Anomalies
-    </span>,
-    <p className="p-work">
-      <b>Objective:</b> Identify recurring patterns, anomalies, and potential security threats from the log data.
-    </p>,
-    <p className="p-work">
-      <b>Actions:</b>
-    </p>,
-    <p className="p-work">
-      Conducted statistical analysis on the log data to identify common events and their frequencies.
-    </p>,
-    <p className="p-work">
-      Visualized the data using matplotlib to create graphs and charts for better insight.
-    </p>,
-    <p className="p-work">
-      Detected anomalies such as spikes in failed login attempts, unusual access patterns, or suspicious IP addresses.
-    </p>,
-    <br />,
-    <hr />,
-    <br />,
-    <span className="title-work">
-      Reporting and Recommendations
-    </span>,
-    <p className="p-work">
-      <b>Objective:</b> Summarize findings, highlight potential risks, and propose actionable recommendations.
-    </p>,
-    <p className="p-work">
-      <b>Actions:</b>
-    </p>,
-    <p className="p-work">
-      Generated a report detailing the analysis process, key findings, identified threats, and recommended solutions.
-    </p>,
-    <p className="p-work">
-      Categorized threats based on severity and impact, providing a clear overview for stakeholders.
-    </p>,
-    <p className="p-work">
-      Proposed mitigation strategies, including log monitoring tools, security configurations, and incident response procedures.
-    </p>,
-    <br />,
-    <hr />,
-    <br />,
-    <span className="title-work">
-      Conclusion
-    </span>,
-    <p className="p-work">
-      This project demonstrated the importance of log analysis in cybersecurity and the value of automated tools for processing large datasets. 
-      By developing a Log File Analyzer, I enhanced my skills in data parsing, pattern recognition, and threat detection. 
-      The project also emphasized the significance of proactive monitoring and incident response planning to mitigate security risks effectively. 
-      Overall, this experience provided practical insights into log analysis techniques and their application in identifying security events and anomalies.
-    </p>,
-  ],
-  images: [],
-  },  
+    title: "Log File Analyzer",
+    date: "December 2024",
+    content: [
+      "Development of an automated log analysis system for security monitoring and threat detection.",
+      "",
+      "## Project Scope",
+      "",
+      "This project involved creating a comprehensive log analysis tool capable of processing multiple log formats and identifying potential security threats in real-time.",
+      "",
+      "### Technical Implementation",
+      "",
+      "1. **Log Parsing:** Implemented parsers for various log formats (Syslog, Windows Event Logs, Apache, etc.).",
+      "2. **Pattern Recognition:** Developed algorithms to identify suspicious patterns and anomalies.",
+      "3. **Alert System:** Created automated alerting mechanisms for immediate threat notification.",
+      "4. **Dashboard:** Built a web-based dashboard for real-time monitoring and analysis.",
+      "",
+      "### Key Features",
+      "",
+      "- Real-time log processing and analysis",
+      "- Customizable alert rules and thresholds",
+      "- Historical data analysis and trending",
+      "- Integration with existing security tools",
+      "- Automated report generation",
+      "",
+      "## Results",
+      "",
+      "The system successfully reduced manual log review time by **85%** and improved threat detection accuracy by **40%** compared to traditional manual methods."
+    ],
+    images: []
+  },
+  "pentesting": {
+    title: "Windows Server Administration",
+    date: "February 2024",
+    content: [
+      "Comprehensive guide to Windows Server administration with focus on security best practices and system optimization.",
+      "",
+      "## Overview",
+      "",
+      "This project covered essential Windows Server administration tasks including user management, security configuration, and performance optimization.",
+      "",
+      "### Key Areas Covered",
+      "",
+      "1. **User and Group Management:** Implementing proper access controls and permissions.",
+      "2. **Security Hardening:** Configuring Windows Firewall, implementing password policies, and enabling auditing.",
+      "3. **System Monitoring:** Setting up performance monitoring and alerting systems.",
+      "4. **Backup and Recovery:** Implementing comprehensive backup strategies and disaster recovery procedures.",
+      "",
+      "## Technical Implementation",
+      "",
+      "The project involved hands-on configuration of Windows Server environments, documenting step-by-step procedures and best practices for enterprise deployment.",
+      "",
+      "### Security Measures",
+      "",
+      "- Implemented **Group Policy Objects** for centralized security management",
+      "- Configured **Windows Defender** and **Advanced Threat Protection**",
+      "- Set up **Event Log monitoring** and **SIEM integration**",
+      "- Established **patch management** procedures",
+      "",
+      "## Results",
+      "",
+      "Successfully implemented a secure and optimized Windows Server environment following industry best practices and compliance requirements."
+    ],
+    images: []
+  },
+  "network-security": {
+    title: "Network Security Analysis",
+    date: "March 2024",
+    content: [
+      "A comprehensive analysis of network security protocols and implementation strategies.",
+      "",
+      "## Overview",
+      "",
+      "This project focused on analyzing various network security measures and their effectiveness in protecting against common threats.",
+      "",
+      "### Key Findings",
+      "",
+      "1. **Firewall Configuration:** Proper firewall rules are essential for network protection.",
+      "2. **Intrusion Detection:** Real-time monitoring helps identify potential threats.",
+      "3. **Access Control:** Implementing least privilege principles reduces attack surface.",
+      "",
+      "## Implementation",
+      "",
+      "The analysis included practical testing of security measures in a controlled environment, documenting both successful implementations and areas for improvement."
+    ],
+    images: []
+  }
 };
 
 const Post = () => {
   const { id } = useParams();
   const post = postData[id];
 
+  // Generate table of contents dynamically from post content
+  const generateTableOfContents = (content) => {
+    const toc = [];
+    content.forEach((item, index) => {
+      if (typeof item === 'string') {
+        if (item.startsWith('## ')) {
+          toc.push({
+            id: `section-${index}`,
+            title: item.substring(3),
+            level: 2
+          });
+        } else if (item.startsWith('### ')) {
+          toc.push({
+            id: `section-${index}`,
+            title: item.substring(4),
+            level: 3
+          });
+        }
+      }
+    });
+    return toc;
+  };
+
+  const tableOfContents = post ? generateTableOfContents(post.content) : [];
+
+  const handleTableOfContentsClick = (e, targetId) => {
+    e.preventDefault();
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
+  const handleShare = async () => {
+    const url = window.location.href;
+    const title = post.title;
+    
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: title,
+          url: url,
+        });
+      } catch (error) {
+        console.log('Error sharing:', error);
+        fallbackShare(url, title);
+      }
+    } else {
+      fallbackShare(url, title);
+    }
+  };
+
+  const fallbackShare = (url, title) => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(() => {
+        alert('¡Enlace copiado al portapapeles!');
+      }).catch(() => {
+        prompt('Copia este enlace:', url);
+      });
+    } else {
+      prompt('Copia este enlace:', url);
+    }
+  };
+
   if (!post) {
     return <div>Post not found</div>;
   }
 
   return (
-    <div className="container page-post">
-      <div className="post-header">
-        <div className="post-info">
-          <p>{post.title}</p>
-          <p>{post.date}</p>
+    <div className="page-post">
+      {/* Left Sidebar */}
+      <aside className="post-sidebar">
+        <div className="sidebar-content">
+          <Link to="/work" className="sidebar-back">
+            <CustomArrow />
+            <span>Back</span>
+          </Link>
+          
+                     <nav className="sidebar-nav">
+             <ul>
+               {tableOfContents.map((item, index) => (
+                 <li key={index} className={`toc-item toc-level-${item.level}`}>
+                   <a 
+                     href={`#${item.id}`}
+                     onClick={(e) => handleTableOfContentsClick(e, item.id)}
+                   >
+                     {item.title}
+                   </a>
+                 </li>
+               ))}
+             </ul>
+           </nav>
         </div>
-        <div className="post-link">
-          <FaLink size="14px" style={{ color: "hsl(0 0% 60%)" }} />
-        </div>
-      </div>
+      </aside>
 
-      <div className="post-content">
-        {post.content.map((paragraph, index) => (
-          <p key={index}>{paragraph}</p>
-        ))}
-
-        {post.images.map((image, index) => (
-          <div className={`post-img post-img-${index + 1}`} key={index}>
-            <img src={image} alt={`Post image ${index + 1}`} />
+      {/* Main Content */}
+      <main className="post-main">
+        <header className="post-header">
+          <Link to="/work" className="sidebar-back responsive-back">
+            <CustomArrow />
+            <span>Back</span>
+          </Link>
+          <div>
+            <h1 className="post-title">{post.title}</h1>
+            <p className="post-date">{post.date}</p>
           </div>
-        ))}
-      </div>
+          <div className="post-link" onClick={handleShare}>
+            <FaLink size="14px" style={{ color: "hsl(0 0% 60%)" }} />
+          </div>
+        </header>
 
-      <div className="white-space"></div>
+                 <div className="post-content">
+           {post.content.map((paragraph, index) => {
+             if (typeof paragraph === 'string') {
+               if (paragraph.startsWith('## ')) {
+                 return <h2 key={index} id={`section-${index}`}>{paragraph.substring(3)}</h2>;
+               } else if (paragraph.startsWith('### ')) {
+                 return <h3 key={index} id={`section-${index}`}>{paragraph.substring(4)}</h3>;
+                               } else if ((paragraph.startsWith('• ') || paragraph.startsWith('* ')) && paragraph.endsWith(':')) {
+                  // Remover el bullet point y mostrar solo el título
+                  const title = paragraph.substring(2); // Remover "• " o "* "
+                  return <strong key={index} style={{ color: 'white' }}>{title}</strong>;
+                                 } else if (paragraph === 'Google Dorking, WHOIS lookups, and DNS analysis using nslookup, dig, and online tools like crt.sh.' ||
+                            paragraph === 'Ghidra, cutter, strings, and manual static analysis. Dynamic behavior was tested via sandboxing and debugging.' ||
+                            paragraph === 'Burp Suite, browser dev tools, manual payload crafting, cookie and session manipulation, and logic flaw testing.' ||
+                            paragraph === 'Bash and Python scripts to parse files, decode obfuscated data, or automate repetitive tasks.' ||
+                            paragraph === 'Basic forensic analysis with tools like grep, binwalk, volatility, and analyzing pcap or image dumps.') {
+                   // Aplicar subrayado a herramientas técnicas específicas y agregar margen superior
+                   const tools = ['nslookup', 'dig', 'Ghidra', 'cutter', 'strings', 'grep', 'binwalk', 'volatility', 'file', 'ltrace', 'base64', 'Burp Suite'];
+                  let processedText = paragraph;
+                  
+                  tools.forEach(tool => {
+                    const regex = new RegExp(`\\b${tool}\\b`, 'gi');
+                    processedText = processedText.replace(regex, `<span style="text-decoration: underline; text-decoration-color: #a3ea26; text-decoration-thickness: 2px;">${tool}</span>`);
+                  });
+                  
+                  return <span key={index} style={{ marginTop: '0.5rem', display: 'block' }} dangerouslySetInnerHTML={{ __html: processedText }} />;
+                                                  } else if (paragraph.includes('nslookup') || paragraph.includes('dig') || paragraph.includes('Ghidra') || paragraph.includes('cutter') || paragraph.includes('strings') || paragraph.includes('grep') || paragraph.includes('binwalk') || paragraph.includes('volatility') || paragraph.includes('file') || paragraph.includes('ltrace') || paragraph.includes('base64') || paragraph.includes('Burp Suite')) {
+                   // Aplicar subrayado a herramientas técnicas específicas
+                   const tools = ['nslookup', 'dig', 'Ghidra', 'cutter', 'strings', 'grep', 'binwalk', 'volatility', 'file', 'ltrace', 'base64', 'Burp Suite'];
+                   let processedText = paragraph;
+                   
+                   tools.forEach(tool => {
+                     const regex = new RegExp(`\\b${tool}\\b`, 'gi');
+                     processedText = processedText.replace(regex, `<span style="text-decoration: underline; text-decoration-color: #a3ea26; text-decoration-thickness: 2px;">${tool}</span>`);
+                   });
+                   
+                   return <p key={index} dangerouslySetInnerHTML={{ __html: processedText }} />;
+                } else if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
+                  return <strong key={index}>{paragraph.substring(2, paragraph.length - 2)}</strong>;
+               } else if (paragraph.startsWith('```')) {
+                 return null; // Handle code blocks separately
+                               } else if (paragraph === null) {
+                  return null; // Elemento ya procesado
+                } else if (paragraph === '') {
+                  return <br key={index} />;
+                               } else if (paragraph === '• Burp Suite for intercepting and replaying requests.' ||
+                           paragraph === '• Custom scripts to automate enumeration and data extraction.' ||
+                           paragraph === '• Browser dev tools to analyze frontend logic that could be manipulated.') {
+                  // Aplicar subrayado a herramientas técnicas específicas en la lista de Task 5
+                  const text = paragraph.substring(2); // Remover el "• " del texto
+                  const tools = ['Burp Suite'];
+                  let processedText = text;
+                  
+                  tools.forEach(tool => {
+                    const regex = new RegExp(`\\b${tool}\\b`, 'gi');
+                    processedText = processedText.replace(regex, `<span style="text-decoration: underline; text-decoration-color: #a3ea26; text-decoration-thickness: 2px;">${tool}</span>`);
+                  });
+                  
+                  return <li key={index} style={{ listStyle: 'none' }}>
+                    <span style={{ color: '#a3ea26 !important', marginRight: '8px' }}>•</span>
+                    <span dangerouslySetInnerHTML={{ __html: processedText }} />
+                  </li>;
+                } else if (paragraph === '• Process matters as much as the outcome — documenting steps, forming hypotheses, testing, and iterating is what leads to sustainable problem-solving.' ||
+                           paragraph === '• Security is interdisciplinary — real-world challenges rarely fit into a single category. The best solutions came from combining multiple techniques and perspectives.') {
+                  // Bullet points verdes para las lecciones aprendidas
+                  const text = paragraph.substring(2); // Remover el "• " del texto
+                  return <li key={index} style={{ listStyle: 'none' }}>
+                    <span style={{ color: '#a3ea26 !important', marginRight: '8px' }}>•</span>
+                    <span>{text}</span>
+                  </li>;
+                } else if (paragraph.startsWith('1. ') || paragraph.startsWith('2. ') || paragraph.startsWith('3. ') || paragraph.startsWith('4. ')) {
+                  // Buscar si hay más elementos numerados consecutivos
+                  const listItems = [];
+                  let i = index;
+                  while (i < post.content.length && typeof post.content[i] === 'string' && 
+                         (post.content[i].startsWith('1. ') || post.content[i].startsWith('2. ') || 
+                          post.content[i].startsWith('3. ') || post.content[i].startsWith('4. ') ||
+                          post.content[i].startsWith('5. ') || post.content[i].startsWith('6. '))) {
+                    listItems.push(post.content[i].substring(post.content[i].indexOf(' ') + 1));
+                    i++;
+                  }
+                  
+                  // Si encontramos elementos de lista, renderizar la lista completa
+                  if (listItems.length > 0) {
+                    // Saltar los índices que ya procesamos
+                    for (let j = 1; j < listItems.length; j++) {
+                      post.content[index + j] = null; // Marcar como procesado
+                    }
+                    
+                    return (
+                      <ol key={index}>
+                        {listItems.map((item, listIndex) => (
+                          <li key={listIndex}>{item}</li>
+                        ))}
+                      </ol>
+                    );
+                  }
+                  
+                  return <li key={index}>{paragraph.substring(paragraph.indexOf(' ') + 1)}</li>;
+                               
+                } else if (paragraph.startsWith('![')) {
+                  // Handle markdown images
+                  const match = paragraph.match(/!\[([^\]]*)\]\(([^)]+)\)/);
+                  if (match) {
+                    const [, alt, src] = match;
+                    return <img key={index} src={src} alt={alt} className="post-img" />;
+                  }
+                  return <p key={index}>{paragraph}</p>;
+               } else {
+                 return <p key={index}>{paragraph}</p>;
+               }
+             } else {
+               return <React.Fragment key={index}>{paragraph}</React.Fragment>;
+             }
+           })}
+         </div>
+
+        <div className="white-space"></div>
+      </main>
     </div>
   );
 };

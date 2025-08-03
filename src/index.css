@@ -87,6 +87,11 @@ button {
   outline: none;
   border: none;
   color: var(--dark-text-color);
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: hsl(0 0% 15%);
 }
 
 @media (max-width: 900px) {
