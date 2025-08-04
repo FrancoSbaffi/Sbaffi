@@ -21,7 +21,7 @@ const CustomArrow = () => (
 const postData = {
   "penetration-testing": {
     title: "Penetration Testing",
-    date: "February 2024",
+    date: "February 2025",
     content: [
       "This project involved conducting a basic penetration test in a controlled environment to identify vulnerabilities, ethically exploit them, and document findings. The goal was to practice using tools like Kali Linux, Nmap, and Metasploit while following industry best practices.",
       "",
@@ -100,7 +100,7 @@ const postData = {
     ],
     images: [
       {
-        src: "/public/work/penetration-testing.jpg",
+        src: "/work/penetration-testing.jpg",
         alt: "Penetration Testing Lab Setup"
       }
     ]
@@ -240,10 +240,10 @@ const postData = {
        }
      ]
    },
-  "tropic-trooper": {
-    title: "Tropic Trooper Investigation",
+  "junior-security-analyst": {
+    title: "Junior Security Analyst",
     date: "December 2024",
-         content: [
+    content: [
        "This write-up reflects my experience completing the \"Tropic Trooper\" room on TryHackMe — an interactive simulation designed to showcase the responsibilities, tools, and mindset required to succeed in an entry-level cybersecurity role. Rather than focusing on technical flags, this article highlights how I approached each scenario, what I learned about working in a SOC environment, and how this training supports my path into cybersecurity.",
        "",
        "![Tropic Trooper Investigation](/work/articles/trooper/trooper1.jpg)",
@@ -333,43 +333,111 @@ const postData = {
     ],
     images: []
   },
-  "pentesting": {
-    title: "Windows Server Administration",
-    date: "February 2024",
+           "borderlands": {
+      title: "Borderlands",
+    date: "February 2025",
     content: [
-      "Comprehensive guide to Windows Server administration with focus on security best practices and system optimization.",
-      "",
-      "## Overview",
-      "",
-      "This project covered essential Windows Server administration tasks including user management, security configuration, and performance optimization.",
-      "",
-      "### Key Areas Covered",
-      "",
-      "1. **User and Group Management:** Implementing proper access controls and permissions.",
-      "2. **Security Hardening:** Configuring Windows Firewall, implementing password policies, and enabling auditing.",
-      "3. **System Monitoring:** Setting up performance monitoring and alerting systems.",
-      "4. **Backup and Recovery:** Implementing comprehensive backup strategies and disaster recovery procedures.",
-      "",
-      "## Technical Implementation",
-      "",
-      "The project involved hands-on configuration of Windows Server environments, documenting step-by-step procedures and best practices for enterprise deployment.",
-      "",
-      "### Security Measures",
-      "",
-      "- Implemented **Group Policy Objects** for centralized security management",
-      "- Configured **Windows Defender** and **Advanced Threat Protection**",
-      "- Set up **Event Log monitoring** and **SIEM integration**",
-      "- Established **patch management** procedures",
-      "",
-      "## Results",
-      "",
-      "Successfully implemented a secure and optimized Windows Server environment following industry best practices and compliance requirements."
+        "The Borderlands room on TryHackMe is an advanced red-team simulation that challenges users to breach a segmented network, pivot across multiple systems, and extract sensitive information scattered across internal services. Designed by professionals at Context Information Security for the HackBack2 event, this lab reflects real-world scenarios where perimeter breaches evolve into full-blown compromises through persistence, privilege escalation, and lateral movement.",
+        "",
+                 "In this write-up, I'll walk through the techniques and tools I used to gain initial access, enumerate internal assets, pivot through the network, and collect key data without disclosing the exact flags. The focus is on process, decision-making, and methodology — not just answers. This room offered an excellent opportunity to practice post-exploitation strategies, custom enumeration, and multi-host exploitation under realistic constraints.",
+        "",
+                 "![Borderlands](/work/articles/borderlands/borderlands.jpg)",
+        "",
+                "## Introduction: Beyond the Border",
+        "",
+        "Borderlands sets the stage for a realistic post-compromise scenario. Unlike beginner rooms that focus on single-host exploitation, this challenge simulates a segmented infrastructure where breaching the first machine is only the beginning. Once inside, you're expected to map internal assets, chain exploits, and use tunneling techniques to move laterally — much like a real attacker would inside a corporate network.",
+        "",
+        "From the start, it was clear this room would require strong fundamentals in network pivoting, manual enumeration, and a good grasp of Linux and web exploitation. No pre-built tools or hand-holding — just raw logs, open ports, and your ability to analyze what's really going on. The structure reminded me of a red team assessment where every next step depends on fully understanding the one before.",
+       "",
+               "## Initial Recon and Entry Point",
+        "",
+        "The first step in Borderlands was traditional external reconnaissance. I began by scanning the exposed host using tools like nmap to enumerate open ports and detect running services. Right away, I identified a few common ports that hinted at a web service and potentially some custom API endpoints.",
+        "",
+        "Upon closer inspection of the web interface, I noticed subtle hints in the responses and URLs that suggested deeper functionality — perhaps an internal admin panel or API endpoints not listed publicly. A combination of directory fuzzing (ffuf) and manual browsing helped uncover hidden resources, leading to an exposed endpoint that returned structured data — a great candidate for injection or enumeration.",
+        "",
+        "Once I understood how the application processed input, I was able to craft specific requests that allowed me to extract sensitive information, such as API keys or user details. This became the foothold — a way to authenticate or interact with the backend and set the stage for deeper compromise.",
+       "",
+               "## Breaking In: Gaining a Foothold",
+        "",
+        "After identifying the vulnerable endpoint, the next step was to exploit it to gain initial access to the host. The application logic wasn't obviously broken, but subtle misconfigurations and exposed keys hinted at deeper flaws. By combining what I gathered during enumeration — particularly leaked credentials and overlooked input validation — I was able to interact with backend components in unintended ways.",
+        "",
+        "Eventually, I landed a shell on the perimeter host. It wasn't a full interactive shell at first, but through techniques like reverse shell execution or command injection via the web interface, I managed to upgrade it into a more stable environment using tools like python or socat.",
+        "",
+        "At this point, I had low-privileged access to the first system. The goal wasn't just exploitation — it was positioning. From here, I began preparing to enumerate internal routes, identify lateral movement opportunities, and establish persistence. Getting the initial foothold was just the beginning — the real challenge was about to start.",
+       "",
+               "## Enumeration and Credential Discovery",
+        "",
+        "With access to the first machine, I shifted my focus to internal enumeration. The environment was segmented, so the first objective was to understand the network topology. Running tools like ip a, netstat, and inspecting /etc/hosts gave me hints about other reachable services and machines not exposed externally.",
+        "",
+        "I also searched local configuration files, browsing common locations like .bash_history, .ssh, and application directories. This phase required a careful, manual approach — some credentials were stored in plain text, while others were embedded in service configs or environment variables.",
+        "",
+        "One useful trick was analyzing how internal scripts or services authenticated with one another. This led to API keys and SSH credentials that became crucial for the next pivot. At this stage, attention to small details — like leftover development files or verbose error logs — paid off significantly.",
+        "",
+        "The takeaway here was clear: privilege escalation often starts with patient local enumeration. The more context I gathered, the more pathways opened for lateral movement and access to new targets.",
+       "",
+               "## Pivoting: Reaching Deeper into the Network",
+        "",
+        "With internal credentials and basic network visibility in hand, it was time to pivot. Since the environment was segmented, direct access to internal machines wasn't possible — everything had to go through the compromised perimeter host.",
+        "",
+        "I set up SSH tunneling to forward local ports and access services that were otherwise unreachable. Tools like ssh -L and proxychains helped route my traffic through the initial host, effectively treating it as a bridge into the internal network.",
+        "",
+        "Once inside, I continued enumeration on the next reachable targets. Each hop revealed a bit more: internal web services, routers, and a flag transmission system. Pivoting required balancing stealth and persistence — setting up stable tunnels while maintaining shell access and avoiding breaking the chain.",
+        "",
+        "This phase really reinforced the concept of living off the land — using built-in tools, carefully chaining access, and treating each compromised machine as a stepping stone to the next.",
+       "",
+               "## Web Application Exploitation",
+        "",
+        "One of the internal pivots led me to a web application hosted deeper in the network. This service wasn't accessible from the outside and seemed to be part of an internal dashboard or management interface. Thanks to the previous tunnel, I could now interact with it as if I were inside the local network.",
+        "",
+        "The application itself appeared minimal, but as usual, the real value was beneath the surface. I began with manual exploration to understand its structure, then followed up with content discovery tools like gobuster to enumerate hidden paths. That revealed endpoints which weren't linked on the UI — likely used for API calls or administrative functions.",
+        "",
+        "Careful testing of input fields and headers eventually revealed a weakness that allowed command execution or code inclusion. Once exploited, I was able to interact with the underlying system, navigate the file structure, and retrieve an internal flag stored within the /var/www directory.",
+        "",
+        "This reinforced the importance of never trusting internal apps just because they're \"not public.\" Many of them lack basic hardening, and once you're inside the perimeter, they become easy targets.",
+       "",
+               "## Router Compromise and Root Access",
+        "",
+        "One of the most interesting targets in Borderlands was an internal router system. After pivoting into the deeper layers of the network, I discovered a device that acted as a gateway between different subnets. While most CTF-style rooms avoid dealing with networking hardware, this one leaned into it — and it paid off.",
+        "",
+        "Enumeration revealed that the router ran a lightweight Linux-based OS, exposing a limited set of services. With previously gathered credentials and some intelligent file inspection, I found a way to access the system — initially with limited privileges. From there, I checked for misconfigurations, running processes, and any custom scripts.",
+        "",
+        "Privilege escalation required a mix of manual analysis and a strong understanding of Linux internals. I didn't rely on automated tools like linpeas or les, as the environment was locked down. Instead, I used native commands and logical reasoning to identify a privilege escalation vector — eventually gaining access to /root/, where another key flag was stored.",
+        "",
+        "This stage pushed me to treat network infrastructure not as passive routing logic, but as a fully exploitable attack surface — a valuable lesson for real-world red teaming.",
+       "",
+               "## Flag Interception: TCP and UDP Forensics",
+        "",
+        "One of the final and most creative components of Borderlands involved intercepting flags transmitted across the network using custom TCP and UDP protocols. This wasn't just about scanning — it was about traffic analysis and packet capture.",
+        "",
+        "After identifying the flag_server and flag_client components within the network, I set up packet sniffing using tcpdump and tshark through my pivoted access. I captured traffic on specific ports and interfaces, carefully filtering for relevant payloads based on size, content, and timing.",
+        "",
+        "The UDP transmission was more straightforward, as the traffic was stateless and easier to capture. However, the TCP transmission required more effort — including reassembling the stream and decoding a custom protocol format. Once I reconstructed the data, I found a hidden flag embedded in the payload.",
+        "",
+        "This part of the challenge highlighted the importance of network forensics in offensive security. It required patience, scripting, and a deep understanding of how communication flows across internal systems — a fitting final step in an already complex engagement.",
+       "",
+               "## Key Lessons from Borderlands",
+        "",
+        "Borderlands was more than just a CTF challenge — it was a hands-on simulation of what real-world adversaries face when breaching and navigating segmented infrastructures. From initial foothold to internal pivoting, and from device exploitation to traffic interception, every stage demanded critical thinking, attention to detail, and layered problem-solving.",
+        "",
+        "Some of the key takeaways for me were:",
+        "",
+        "• Don't rush enumeration — thorough inspection of services and configs revealed most paths forward.",
+        "",
+        "• Pivoting is essential — the ability to route traffic and establish tunnels made deeper access possible.",
+        "",
+        "• Credentials hide in plain sight — and are often the keys to lateral movement.",
+        "",
+        "• Network traffic holds secrets — especially in custom protocols and segmented environments.",
+        "",
+        "• Think like an attacker, act like an analyst — balance offensive creativity with methodical investigation.",
+        "",
+        "This room was an excellent exercise in advanced red teaming techniques and a great addition to my portfolio to demonstrate how I approach real-world, multi-stage compromises."
     ],
     images: []
   },
   "network-security": {
     title: "Network Security Analysis",
-    date: "March 2024",
+    date: "March 2025",
     content: [
       "A comprehensive analysis of network security protocols and implementation strategies.",
       "",
@@ -506,6 +574,15 @@ const Post = () => {
                  <div className="post-content">
            {post.content.map((paragraph, index) => {
              if (typeof paragraph === 'string') {
+              // Renderizar imágenes Markdown antes que cualquier otra condición
+              if (paragraph.startsWith('![')) {
+                const match = paragraph.match(/!\[([^\]]*)\]\(([^)]+)\)/);
+                if (match) {
+                  const [, alt, src] = match;
+                  return <img key={index} src={src} alt={alt} className="post-img" />;
+                }
+                return <p key={index}>{paragraph}</p>;
+              }
                if (paragraph.startsWith('## ')) {
                  return <h2 key={index} id={`section-${index}`}>{paragraph.substring(3)}</h2>;
                } else if (paragraph.startsWith('### ')) {
@@ -514,13 +591,13 @@ const Post = () => {
                   // Remover el bullet point y mostrar solo el título
                   const title = paragraph.substring(2); // Remover "• " o "* "
                   return <strong key={index} style={{ color: 'white' }}>{title}</strong>;
-                                                  } else if (paragraph === 'Google Dorking, WHOIS lookups, and DNS analysis using nslookup, dig, and online tools like crt.sh.' ||
-                             paragraph === 'Ghidra, cutter, strings, and manual static analysis. Dynamic behavior was tested via sandboxing and debugging.' ||
-                             paragraph === 'Burp Suite, browser dev tools, manual payload crafting, cookie and session manipulation, and logic flaw testing.' ||
-                             paragraph === 'Bash and Python scripts to parse files, decode obfuscated data, or automate repetitive tasks.' ||
-                             paragraph === 'Basic forensic analysis with tools like grep, binwalk, volatility, and analyzing pcap or image dumps.') {
-                    // Aplicar subrayado a herramientas técnicas específicas y agregar margen superior
-                    const tools = ['nslookup', 'dig', 'Ghidra', 'cutter', 'strings', 'grep', 'binwalk', 'volatility', 'file', 'ltrace', 'base64', 'Burp Suite', 'Junior Security Analyst Intro'];
+                                 } else if (paragraph === 'Google Dorking, WHOIS lookups, and DNS analysis using nslookup, dig, and online tools like crt.sh.' ||
+                            paragraph === 'Ghidra, cutter, strings, and manual static analysis. Dynamic behavior was tested via sandboxing and debugging.' ||
+                            paragraph === 'Burp Suite, browser dev tools, manual payload crafting, cookie and session manipulation, and logic flaw testing.' ||
+                            paragraph === 'Bash and Python scripts to parse files, decode obfuscated data, or automate repetitive tasks.' ||
+                            paragraph === 'Basic forensic analysis with tools like grep, binwalk, volatility, and analyzing pcap or image dumps.') {
+                   // Aplicar subrayado a herramientas técnicas específicas y agregar margen superior
+                   const tools = ['nslookup', 'dig', 'Ghidra', 'cutter', 'strings', 'grep', 'binwalk', 'volatility', 'file', 'ltrace', 'base64', 'Burp Suite', 'Junior Security Analyst Intro', 'HackBack2 event', 'nmap', 'ffuf', 'python', 'socat', 'ip a', 'netstat', '/etc/hosts', '.bash_history', '.ssh', 'ssh -L', 'proxychains', 'gobuster', '/var/www', 'linpeas', 'les', '/root/', 'tcpdump', 'tshark', 'flag_server', 'flag_client'];
                   let processedText = paragraph;
                   
                   tools.forEach(tool => {
@@ -529,13 +606,15 @@ const Post = () => {
                   });
                   
                   return <span key={index} style={{ marginTop: '0.5rem', display: 'block' }} dangerouslySetInnerHTML={{ __html: processedText }} />;
-                                                                     } else if (paragraph.includes('nslookup') || paragraph.includes('dig') || paragraph.includes('Ghidra') || paragraph.includes('cutter') || paragraph.includes('strings') || paragraph.includes('grep') || paragraph.includes('binwalk') || paragraph.includes('volatility') || paragraph.includes('file') || paragraph.includes('ltrace') || paragraph.includes('base64') || paragraph.includes('Burp Suite') || paragraph.includes('Junior Security Analyst Intro')) {
-                    // Aplicar subrayado a herramientas técnicas específicas
-                    const tools = ['nslookup', 'dig', 'Ghidra', 'cutter', 'strings', 'grep', 'binwalk', 'volatility', 'file', 'ltrace', 'base64', 'Burp Suite', 'Junior Security Analyst Intro'];
+                                                                     } else if (paragraph.includes('nslookup') || paragraph.includes('dig') || paragraph.includes('Ghidra') || paragraph.includes('cutter') || paragraph.includes('strings') || paragraph.includes('grep') || paragraph.includes('binwalk') || paragraph.includes('volatility') || paragraph.includes('file') || paragraph.includes('ltrace') || paragraph.includes('base64') || paragraph.includes('Burp Suite') || paragraph.includes('Junior Security Analyst Intro') || paragraph.includes('HackBack2 event') || paragraph.includes('nmap') || paragraph.includes('ffuf') || paragraph.includes('python') || paragraph.includes('socat') || paragraph.includes('ip a') || paragraph.includes('netstat') || paragraph.includes('/etc/hosts') || paragraph.includes('.bash_history') || paragraph.includes('.ssh') || paragraph.includes('ssh -L') || paragraph.includes('proxychains') || paragraph.includes('gobuster') || paragraph.includes('/var/www') || paragraph.includes('linpeas') || paragraph.includes('les') || paragraph.includes('/root/') || paragraph.includes('tcpdump') || paragraph.includes('tshark') || paragraph.includes('flag_server') || paragraph.includes('flag_client')) {
+                   // Aplicar subrayado a herramientas técnicas específicas
+                     const tools = ['nslookup', 'dig', 'Ghidra', 'cutter', 'strings', 'grep', 'binwalk', 'volatility', 'file', 'ltrace', 'base64', 'Burp Suite', 'Junior Security Analyst Intro', 'HackBack2 event', 'nmap', 'ffuf', 'python', 'socat', 'ip a', 'netstat', '/etc/hosts', '.bash_history', '.ssh', 'ssh -L', 'proxychains', 'gobuster', '/var/www', 'linpeas', 'les', '/root/', 'tcpdump', 'tshark', 'flag_server', 'flag_client'];
                    let processedText = paragraph;
                    
                    tools.forEach(tool => {
-                     const regex = new RegExp(`\\b${tool}\\b`, 'gi');
+                     // Escapar caracteres especiales para las expresiones regulares
+                     const escapedTool = tool.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                     const regex = new RegExp(`\\b${escapedTool}\\b`, 'gi');
                      processedText = processedText.replace(regex, `<span style="text-decoration: underline; text-decoration-color: #a3ea26; text-decoration-thickness: 2px;">${tool}</span>`);
                    });
                    
@@ -557,7 +636,9 @@ const Post = () => {
                   let processedText = text;
                   
                   tools.forEach(tool => {
-                    const regex = new RegExp(`\\b${tool}\\b`, 'gi');
+                    // Escapar caracteres especiales para las expresiones regulares
+                    const escapedTool = tool.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    const regex = new RegExp(`\\b${escapedTool}\\b`, 'gi');
                     processedText = processedText.replace(regex, `<span style="text-decoration: underline; text-decoration-color: #a3ea26; text-decoration-thickness: 2px;">${tool}</span>`);
                   });
                   
@@ -565,29 +646,34 @@ const Post = () => {
                     <span style={{ color: '#a3ea26 !important', marginRight: '8px' }}>•</span>
                     <span dangerouslySetInnerHTML={{ __html: processedText }} />
                   </li>;
-                                                  } else if (paragraph === '• Process matters as much as the outcome — documenting steps, forming hypotheses, testing, and iterating is what leads to sustainable problem-solving.' ||
-                             paragraph === '• Security is interdisciplinary — real-world challenges rarely fit into a single category. The best solutions came from combining multiple techniques and perspectives.' ||
-                             paragraph === '• Reviewing alerts from SIEM tools.' ||
-                             paragraph === '• Analyzing logs from endpoints and firewalls.' ||
-                             paragraph === '• Correlating evidence across multiple sources.' ||
-                             paragraph === '• Deciding whether to escalate, dismiss, or investigate further.' ||
-                             paragraph === '• Ticketing workflows, where each alert is documented, categorized, and handled according to severity.' ||
-                             paragraph === '• The use of SIEM tools to collect and analyze logs from various sources — firewalls, endpoint protection tools, servers, and more.' ||
-                             paragraph === '• Importance of standard operating procedures (SOPs) and runbooks to guide decisions and escalation.' ||
-                             paragraph === '• Having to check log integrity.' ||
-                             paragraph === '• Making judgment calls under time constraints.' ||
-                             paragraph === '• Writing brief justifications for why an alert should be escalated or closed.' ||
-                             paragraph === '• Log Analysis is foundational: Knowing how to read and interpret logs from different systems (endpoints, firewalls, authentication services) is at the heart of threat detection.' ||
-                             paragraph === '• Critical thinking beats tool mastery: The most valuable moments came from asking the right questions — not from knowing a specific tool, but from understanding what to look for.' ||
-                             paragraph === '• Documentation matters: Writing clear notes on your findings, reasoning, and decisions is crucial for communication within the SOC and future investigations.' ||
-                             paragraph === '• Not everything is an attack: Learning to spot false positives and reduce noise is just as important as catching real threats.' ||
-                             paragraph === '• Confidence in escalation: Knowing when to escalate — and being able to justify it — is part of what makes an analyst effective and trustworthy.') {
+                } else if (paragraph === '• Process matters as much as the outcome — documenting steps, forming hypotheses, testing, and iterating is what leads to sustainable problem-solving.' ||
+                              paragraph === '• Security is interdisciplinary — real-world challenges rarely fit into a single category. The best solutions came from combining multiple techniques and perspectives.' ||
+                              paragraph === '• Reviewing alerts from SIEM tools.' ||
+                              paragraph === '• Analyzing logs from endpoints and firewalls.' ||
+                              paragraph === '• Correlating evidence across multiple sources.' ||
+                              paragraph === '• Deciding whether to escalate, dismiss, or investigate further.' ||
+                              paragraph === '• Ticketing workflows, where each alert is documented, categorized, and handled according to severity.' ||
+                              paragraph === '• The use of SIEM tools to collect and analyze logs from various sources — firewalls, endpoint protection tools, servers, and more.' ||
+                              paragraph === '• Importance of standard operating procedures (SOPs) and runbooks to guide decisions and escalation.' ||
+                              paragraph === '• Having to check log integrity.' ||
+                              paragraph === '• Making judgment calls under time constraints.' ||
+                              paragraph === '• Writing brief justifications for why an alert should be escalated or closed.' ||
+                              paragraph === '• Log Analysis is foundational: Knowing how to read and interpret logs from different systems (endpoints, firewalls, authentication services) is at the heart of threat detection.' ||
+                              paragraph === '• Critical thinking beats tool mastery: The most valuable moments came from asking the right questions — not from knowing a specific tool, but from understanding what to look for.' ||
+                              paragraph === '• Documentation matters: Writing clear notes on your findings, reasoning, and decisions is crucial for communication within the SOC and future investigations.' ||
+                              paragraph === '• Not everything is an attack: Learning to spot false positives and reduce noise is just as important as catching real threats.' ||
+                              paragraph === '• Confidence in escalation: Knowing when to escalate — and being able to justify it — is part of what makes an analyst effective and trustworthy.' ||
+                              paragraph === '• Don\'t rush enumeration — thorough inspection of services and configs revealed most paths forward.' ||
+                              paragraph === '• Pivoting is essential — the ability to route traffic and establish tunnels made deeper access possible.' ||
+                              paragraph === '• Credentials hide in plain sight — and are often the keys to lateral movement.' ||
+                              paragraph === '• Network traffic holds secrets — especially in custom protocols and segmented environments.' ||
+                              paragraph === '• Think like an attacker, act like an analyst — balance offensive creativity with methodical investigation.') {
                     // Bullet points verdes para las lecciones aprendidas y elementos de lista importantes
-                    const text = paragraph.substring(2); // Remover el "• " del texto
-                    return <li key={index} style={{ listStyle: 'none' }}>
-                      <span style={{ color: '#a3ea26 !important', marginRight: '8px' }}>•</span>
-                      <span>{text}</span>
-                    </li>;
+                  const text = paragraph.substring(2); // Remover el "• " del texto
+                  return <li key={index} style={{ listStyle: 'none' }}>
+                    <span style={{ color: '#a3ea26 !important', marginRight: '8px' }}>•</span>
+                    <span>{text}</span>
+                  </li>;
                 } else if (paragraph.startsWith('1. ') || paragraph.startsWith('2. ') || paragraph.startsWith('3. ') || paragraph.startsWith('4. ')) {
                   // Buscar si hay más elementos numerados consecutivos
                   const listItems = [];
@@ -617,15 +703,6 @@ const Post = () => {
                   }
                   
                   return <li key={index}>{paragraph.substring(paragraph.indexOf(' ') + 1)}</li>;
-                               
-                } else if (paragraph.startsWith('![')) {
-                  // Handle markdown images
-                  const match = paragraph.match(/!\[([^\]]*)\]\(([^)]+)\)/);
-                  if (match) {
-                    const [, alt, src] = match;
-                    return <img key={index} src={src} alt={alt} className="post-img" />;
-                  }
-                  return <p key={index}>{paragraph}</p>;
                } else {
                  return <p key={index}>{paragraph}</p>;
                }
