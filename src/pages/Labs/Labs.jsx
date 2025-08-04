@@ -1,5 +1,5 @@
 import React from "react";
-import "./work.css";
+import "./labs.css";
 
 import { useRef } from "react";
 import gsap from "gsap";
@@ -9,7 +9,7 @@ import WorkItem from "./WorkItem";
 
 gsap.registerPlugin(useGSAP);
 
-const Work = () => {
+const Labs = () => {
   const container = useRef();
 
   useGSAP(
@@ -20,7 +20,7 @@ const Work = () => {
   );
 
   return (
-    <div className="container page-work" ref={container}>
+    <div className="container page-labs" ref={container}>
       <div className="col">
         <WorkItem
           videoUrl="/work/flume.mp4"
@@ -186,4 +186,4 @@ const Work = () => {
   );
 };
 
-export default Work;
+export default Labs;

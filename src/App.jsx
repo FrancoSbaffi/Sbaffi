@@ -6,7 +6,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 
 import Dock from "./components/Dock/Dock";
 import Home from "./pages/Home/Home";
-import Work from "./pages/Work/Work";
+import Labs from "./pages/Labs/Labs";
 import Projects from "./pages/Projects/Projects";
 
 import Post from "./pages/Post/Post";
@@ -21,7 +21,7 @@ function App() {
       {!isHomePage && <Dock />}
       <Routes location={location} key={location.pathname}>
         <Route index element={<Home />} />
-        <Route path="/work" element={<Work />} />
+        <Route path="/labs" element={<Labs />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/post/:id" element={<Post />} />
 

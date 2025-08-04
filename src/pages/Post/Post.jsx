@@ -533,7 +533,7 @@ const Post = () => {
       {/* Left Sidebar */}
       <aside className="post-sidebar">
         <div className="sidebar-content">
-          <Link to="/work" className="sidebar-back">
+          <Link to="/labs" className="sidebar-back">
             <CustomArrow />
             <span>Back</span>
           </Link>
@@ -558,7 +558,7 @@ const Post = () => {
       {/* Main Content */}
       <main className="post-main">
         <header className="post-header">
-          <Link to="/work" className="sidebar-back responsive-back">
+          <Link to="/labs" className="sidebar-back responsive-back">
             <CustomArrow />
             <span>Back</span>
           </Link>

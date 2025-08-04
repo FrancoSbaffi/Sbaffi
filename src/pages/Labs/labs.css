@@ -1,4 +1,4 @@
-.page-work {
+.page-labs {
   width: 100%;
   display: flex;
   gap: 0.5em;
@@ -134,7 +134,7 @@ p#work-date {
 }
 
 @media (max-width: 900px) {
-  .page-work {
+  .page-labs {
     flex-direction: column;
   }
 }

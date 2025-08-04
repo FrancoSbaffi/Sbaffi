@@ -52,7 +52,7 @@ const Dock = ({ isVisible = true }) => {
   const icons = [
     { icon: FaHome, path: "/" },
     { icon: FaInfoCircle, path: "/about" },
-    { icon: FaFlask, path: "/work" },
+            { icon: FaFlask, path: "/labs" },
     { icon: FaPen, path: "/projects" },
     {
       icon: FaLinkedin,
