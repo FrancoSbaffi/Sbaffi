@@ -48,7 +48,7 @@ img {
   object-fit: cover;
 }
 
-.container.page-projects,
+.container.page-writings,
 .container.page-post {
   padding: 0.5em;
   width: 50%;
@@ -95,7 +95,7 @@ button:hover {
 }
 
 @media (max-width: 900px) {
-  .container.page-projects,
+  .container.page-writings,
   .container,
   .container.page-post {
     width: 100%;

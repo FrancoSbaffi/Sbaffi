@@ -1,5 +1,5 @@
 import React from "react";
-import "./projects.css";
+import "./writings.css";
 import { Link } from "react-router-dom";
 import { useScramble } from "use-scramble";
 
@@ -17,44 +17,25 @@ const useMultipleScrambles = (projects) => {
   });
 };
 
-const Projects = () => {
+const Writings = () => {
   const projectData = [
     {
+      id: "cybersecurity-roles",
+      title: "Understanding Cybersecurity Roles",
+      copy: "Where Should Juniors Start and Specialize?",
+      year: "2025",
+    },
+    {
       id: "workstation",
-      title: "My Workstations",
-      copy: "Introduction to my workstations",
-      year: "2025",
-    },
-    {
-      id: "Compliance",
-      title: "Compliance and Regulations",
-      copy: "NIST CSF, ISO 27001",
-      year: "2025",
-    },
-    {
-      id: "red-blue",
-      title: "Red Team vs. Blue Team",
-      copy: "Differences and Similarities",
-      year: "2025",
-    },
-    {
-      id: "cyber-security-trends",
-      title: "Trends in Cyber Security",
-      copy: "Insights and Innovations",
+      title: "Workstation",
+      copy: "What you need?",
       year: "2024",
     },
-    {
-      id: "windows-server",
-      title: "Managing Windows Server",
-      copy: "Setup, Roles, and Policies",
-      year: "2024",
-    },
-    {
-      id: "cloud-certifications",
-      title: "Cloud Certifications",
-      copy: "Decide the best one for you",
-      year: "2024",
-    },
+
+
+
+
+
     /*
     {
       title: "AI for Predictive Analysis",
@@ -92,7 +73,7 @@ const Projects = () => {
   const scrambledProjects = useMultipleScrambles(projectData);
 
   return (
-    <div className="container page-projects">
+    <div className="container page-writings">
       {scrambledProjects.map((project, index) => (
         <Link to={`/post/${project.id}`} key={index}>
           <div className="project-item">
@@ -113,4 +94,4 @@ const Projects = () => {
   );
 };
 
-export default Projects;
+export default Writings;

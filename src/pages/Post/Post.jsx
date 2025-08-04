@@ -456,6 +456,177 @@ const postData = {
       "The analysis included practical testing of security measures in a controlled environment, documenting both successful implementations and areas for improvement."
     ],
     images: []
+  },
+          "workstation": {
+          title: "Workstation",
+          date: "2024",
+          content: [
+            "I recently finished rebuilding my setup, which got me thinking: do you really need the latest tech to build a successful career in cybersecurity?",
+            "",
+            "In this article, I'll share some thoughts on the role of your CPU, RAM, and storage, whether having a dedicated GPU makes a real difference, and how the choice of operating system might impact your journey.",
+      "",
+                   "![Workstation Setup](/work/articles/workstation/workstation.jpg)",
+             "",
+                           "## Choosing the Right Hardware",
+              "",
+              "Let me tell you right away: you don't need anything fancy—especially when you're just starting out. In cybersecurity, unless you're already deep into advanced tasks like GPU-based password cracking or machine learning, you'll rarely need a dedicated GPU.",
+              "",
+              "If you're looking for a setup that works well without breaking the bank, here's my advice: aim for at least 1TB of storage. Personally, I've never even come close to filling that, and going with an SSD is ideal. While there are faster options like NVMe drives, they can be more expensive. Traditional HDDs are simply too slow for daily use and professional workloads—they're outdated in this context.",
+              "",
+                             "For RAM, 16GB is a solid starting point and will cover most needs. However, if your budget allows, go for 32GB. It's a great long-term investment and will keep your system running smoothly for years without upgrades.",
+               "",
+                               "## CPU for Cybersecurity Work",
+                "",
+                "💸 Budget Option – Getting Started Without Breaking the Bank",
+                "If you're just starting out, you don't need a high-end processor. A used or entry-level AMD Ryzen 5 (like the 1600 or 2600) or an Intel Core i5 from the 8th or 9th generation will be more than enough for learning, running virtual machines, and handling basic cybersecurity labs. These chips are affordable, reliable, and widely available on the secondhand market. Pair them with decent RAM and an SSD, and you'll have no issues completing most beginner-to-intermediate tasks.",
+                "",
+                "⚖️ Mid-Range – A Balanced Choice for Regular Use",
+                "For a more future-proof option, consider something like an AMD Ryzen 5 5600X or Intel Core i5-12400. These processors offer excellent multi-core performance, low power consumption, and can easily handle multiple VMs, light scripting, network traffic analysis, and security monitoring tools like Wireshark or Splunk in a home lab. They strike a perfect balance between price and performance, especially for those planning to use the same system for a few years.",
+                "",
+                                "🚀 High-End – For Heavy Workloads and Virtual Labs",
+                "If you're planning to dive into more intensive tasks—like managing several VMs at once, running local SIEM setups, or doing malware analysis—then something like an AMD Ryzen 9 5900X or Intel Core i7/i9 from the 12th gen onward might be worth the investment. These CPUs offer a high core/thread count and faster performance, which can significantly improve your workflow if you're doing parallel processing, compiling tools, or using more advanced tools like local sandboxing environments.",
+                "",
+                                "## Do You Really Need a Dedicated GPU for Cybersecurity?",
+                "",
+                                 "For most cybersecurity tasks—especially at the beginner and intermediate levels—a dedicated GPU is not necessary. Integrated graphics found in modern AMD Ryzen APUs (like the Ryzen 5 5600G) or Intel chips with Intel UHD or Iris Xe graphics can handle everyday workloads, including virtual machines, packet analysis, scripting, and web-based labs like TryHackMe or Hack The Box. Unless you plan on gaming or using GPU-accelerated tools, this setup saves both power and money.",
+                 "",
+                 "A dedicated GPU becomes useful if you're working with GPU-accelerated password cracking (e.g., Hashcat), malware analysis using sandbox environments, AI/machine learning tasks, or if you want to dual-purpose your machine for gaming or video rendering. In these cases, something like an NVIDIA GTX 1660 Super or RTX 3060 is a solid choice—it offers great performance without going overboard on cost or power consumption. However, for purely cybersecurity-related tasks, this is often optional unless you're moving into offensive security at a more advanced level.",
+      "",
+              "## My Setup",
+      "",
+      "After evaluating my needs and future plans in cybersecurity, I decided to go for a balanced but powerful setup. I built my system around an AMD Ryzen 5 5600, paired with 32GB of RAM—enough to comfortably run multiple virtual machines and handle more intensive lab environments. For storage, I use a 1TB SATA SSD for general use and a 480GB NVMe drive for faster boot times and quick access to my main tools and projects.",
+      "",
+      "Although not strictly necessary, I included an NVIDIA RTX 3060 to support GPU-based tasks like password cracking with Hashcat and to keep the door open for learning AI or machine learning techniques. Finally, I opted for an 800W power supply to ensure system stability and leave room for future upgrades. This setup strikes a solid balance between performance, flexibility, and long-term value.",
+      "",
+              "## Operating Systems: Windows, Linux, or macOS?",
+      "",
+      "Windows – Compatibility and Real-World Relevance",
+      "",
+                "Windows remains the most widely used operating system in both enterprise and home environments, making it essential for any cybersecurity professional. It's especially useful for studying malware behavior, working with Active Directory, and understanding enterprise infrastructures. Many defensive tools like Wireshark, Splunk, and Sysinternals are natively supported. However, Windows tends to be more resource-intensive and less flexible for automation and scripting compared to Linux.",
+          "",
+          "![Windows](/work/articles/workstation/windows.jpg)",
+          "",
+          "Linux – The Industry Standard for Security Professionals",
+      "",
+      "Linux is widely regarded as the go-to operating system for cybersecurity work due to its flexibility, lightweight performance, and open-source nature. Distributions like Kali Linux, Parrot OS, and Ubuntu are commonly used for penetration testing, scripting, network analysis, and server management. Learning Linux is essential for understanding how most real-world servers and security tools operate, especially in cloud, DevSecOps, and offensive security environments.",
+      "",
+      "![Linux](/work/articles/workstation/linux.jpg)",
+      "",
+              "macOS – Stability and a Unix-Like Environment",
+        "",
+        "macOS provides a stable Unix-based terminal environment that is useful for scripting, development, and basic security tasks. It's a good option for professionals who prefer Apple's ecosystem and want a balance between usability and power. However, its limitations become evident when dealing with tools or labs designed specifically for Linux or Windows, often requiring additional setup through virtualization or dual-boot environments.",
+        "",
+        "![Apple](/work/articles/workstation/apple.jpg)",
+        "",
+        "## Skills Matter More Than Specs",
+        "",
+        "At the end of the day, your hardware is just a tool. While having a reliable setup definitely helps, it's your curiosity, consistency, and problem-solving mindset that truly shape your path in cybersecurity. You don't need the latest gear to get started or to grow—you need hands-on practice, a willingness to learn, and the discipline to keep improving. Invest in your skills first. A modest machine paired with the right learning resources and projects can take you much further than a high-end setup with no direction. Focus on building your foundation, and upgrade your hardware only when your workflow truly demands it."
+    ],
+    images: [
+      {
+        src: "/work/articles/workstation/workstation.jpg",
+        alt: "Workstation Setup"
+      }
+    ]
+  },
+  "cybersecurity-roles": {
+    title: "Understanding Cybersecurity Roles",
+    date: "2025",
+    content: [
+      "Cybersecurity is a vast and evolving field that goes far beyond the classic \"blue team vs. red team\" dichotomy. As the industry grows, so does the need for professionals in a variety of specialized roles—each with its own focus, tools, and career paths. For those starting out, it's important to understand the landscape and choose a direction that aligns with your interests, strengths, and long-term goals. This article breaks down key cybersecurity roles—what they do, the skills they require, and which ones are more accessible for juniors.",
+      "",
+      "![](/work/articles/cybersecurity-roles/cybersecurity-roles.jpg)",
+      "",
+                   "## The Foundation: What All Roles Have in Common",
+             "",
+             "Before diving into any specific cybersecurity role, it's essential to build a strong and versatile foundation — a set of skills and knowledge areas that are shared across almost every security discipline. These foundational blocks not only help you understand how systems and networks work, but they also give you the context necessary to detect, prevent, or respond to cyber threats effectively.",
+             "",
+             "At the core, this means becoming familiar with networking fundamentals such as how data flows through networks (OSI model, TCP/IP), the role of ports and protocols, and concepts like NAT, DNS, firewalls, and VPNs. Understanding operating systems, especially Linux and Windows, is equally important — most systems you'll protect or investigate run on these platforms, and attackers often exploit OS misconfigurations or vulnerabilities. Basic command-line skills, scripting with Bash or Python, and comfort navigating logs are non-negotiable skills that you'll use daily in nearly every cybersecurity role.",
+             "",
+             "Finally, successful cybersecurity professionals also need solid soft skills: analytical thinking, clear communication, documentation habits, and curiosity. Security is a team effort — you'll often collaborate with IT, developers, managers, and other security personnel. Being able to explain risks to technical and non-technical audiences alike makes you more valuable. This foundation is what allows you to pivot confidently into more advanced or specialized areas later on — whether that's threat hunting, AppSec, GRC, or red teaming.",
+             "",
+             "## SOC Analyst – The Classic Junior Role",
+             "",
+             "The SOC (Security Operations Center) Analyst role is often the entry point for many cybersecurity professionals, and for good reason. It provides a comprehensive view of security operations while building the foundational skills needed for more advanced roles. As a SOC Analyst, you'll be responsible for monitoring security tools, investigating alerts, and responding to incidents in real-time. This role teaches you how to think like both an attacker and a defender, as you'll need to understand attack patterns to effectively detect and respond to threats.",
+             "",
+             "The day-to-day responsibilities typically include monitoring SIEM (Security Information and Event Management) platforms like Splunk, QRadar, or ELK Stack; analyzing network traffic and logs for suspicious activity; triaging and escalating security alerts; and documenting incidents and response procedures. You'll also work closely with other security teams, IT staff, and sometimes law enforcement during incident response. The learning curve can be steep initially, but the exposure to real-world threats and the variety of tools you'll use make this role an excellent foundation for your cybersecurity career.",
+             "",
+             "What makes this role particularly accessible for juniors is the structured nature of the work and the abundance of training resources available. Many organizations have established playbooks and procedures for common scenarios, and there's a wealth of free and low-cost training available through platforms like TryHackMe, HackTheBox, and various vendor certifications. The role also provides clear progression paths — you can advance to Senior SOC Analyst, Threat Hunter, or move into specialized areas like malware analysis or incident response. While the work can be demanding, especially during incidents, the skills you develop here are transferable to virtually every other cybersecurity role.",
+             "",
+             "## Threat Intelligence Analyst – The Research-Oriented Path",
+             "",
+             "Threat Intelligence Analysts focus on understanding the broader threat landscape by researching and analyzing cyber threats, threat actors, and their tactics, techniques, and procedures (TTPs). This role is perfect for those who enjoy research, analysis, and staying ahead of emerging threats. Unlike SOC Analysts who respond to active threats, Threat Intelligence Analysts work proactively to identify potential threats before they materialize, providing valuable insights that help organizations prepare their defenses.",
+             "",
+             "The day-to-day responsibilities include monitoring threat feeds, analyzing malware samples, tracking threat actor groups, creating threat reports, and providing intelligence briefings to security teams and management. You'll use tools like threat intelligence platforms (MISP, ThreatFox), malware analysis tools, and OSINT (Open Source Intelligence) techniques to gather information. The role requires strong analytical skills, attention to detail, and the ability to synthesize information from multiple sources into actionable intelligence. You'll also need to stay current with the latest threat trends, which means continuous learning and research.",
+             "",
+             "This role is particularly accessible for juniors who have strong research skills and enjoy analytical work. Many organizations are willing to train entry-level analysts, and there are numerous free resources available for learning threat intelligence fundamentals. The role also offers excellent career progression opportunities — you can advance to Senior Threat Intelligence Analyst, Threat Hunter, or specialize in areas like malware analysis, geopolitical threat analysis, or strategic intelligence. The skills you develop in research, analysis, and communication are highly transferable to other cybersecurity roles, making this an excellent foundation for a long-term career in security.",
+             "",
+             "## Vulnerability Management – Proactive Risk Hunting",
+             "",
+             "Vulnerability Management focuses on identifying, assessing, and remediating security weaknesses before they can be exploited by attackers. This proactive approach is crucial for maintaining a strong security posture and reducing the attack surface of an organization. Unlike reactive roles that respond to incidents, Vulnerability Management professionals work to prevent attacks by systematically finding and fixing security gaps in systems, applications, and networks.",
+             "",
+             "The day-to-day responsibilities include conducting vulnerability assessments using tools like Nessus, Qualys, or OpenVAS; analyzing scan results and prioritizing vulnerabilities based on severity and potential impact; coordinating with IT teams to remediate identified issues; and maintaining vulnerability databases and tracking remediation progress. You'll also need to stay current with the latest vulnerabilities, patches, and security advisories from vendors and security researchers. The role requires strong analytical skills to distinguish between false positives and real threats, as well as excellent communication skills to work with various teams across the organization.",
+             "",
+             "This role is particularly accessible for juniors because it provides a structured approach to security and offers clear learning paths. Many organizations have established vulnerability management programs with defined processes and tools, making it easier to learn on the job. There are also numerous certifications available, such as CompTIA Security+, CEH, or vendor-specific certifications from companies like Qualys or Rapid7. The role offers excellent career progression opportunities — you can advance to Senior Vulnerability Analyst, move into penetration testing, or specialize in areas like application security or cloud security. The skills you develop in risk assessment, technical analysis, and project management are highly valuable and transferable to other cybersecurity roles.",
+             "",
+             "## GRC / Compliance – Cybersecurity Without Heavy Coding",
+             "",
+             "GRC (Governance, Risk, and Compliance) and Compliance roles offer a unique path into cybersecurity that doesn't require heavy programming or deep technical expertise. These roles focus on ensuring organizations meet regulatory requirements, industry standards, and internal security policies. While technical knowledge is valuable, the emphasis is on understanding frameworks, regulations, and risk management principles. This makes it an excellent entry point for those who prefer policy work, documentation, and strategic thinking over hands-on technical implementation.",
+             "",
+             "The day-to-day responsibilities include conducting compliance assessments against frameworks like ISO 27001, NIST, GDPR, or industry-specific regulations; developing and maintaining security policies and procedures; performing risk assessments and creating risk management strategies; coordinating with legal, IT, and business teams to ensure compliance; and preparing for and managing external audits. You'll also need to stay current with changing regulations and industry standards, which requires continuous learning and research. The role requires strong analytical skills, attention to detail, excellent written and verbal communication, and the ability to translate complex technical concepts into business language that stakeholders can understand.",
+             "",
+             "This role is particularly accessible for juniors because it provides a structured learning path with clear frameworks and standards to follow. Many organizations have established compliance programs with defined processes, making it easier to learn on the job. There are also numerous certifications available, such as CISSP, CISM, CRISC, or vendor-specific certifications from companies like ISACA or (ISC)². The role offers excellent career progression opportunities — you can advance to Senior GRC Analyst, Compliance Manager, or specialize in areas like data privacy, cloud compliance, or industry-specific regulations. The skills you develop in risk management, policy development, and stakeholder communication are highly valuable and transferable to other cybersecurity roles, making this an excellent foundation for a long-term career in security.",
+             "",
+             "## Penetration Tester – The Ethical Hacker",
+             "",
+             "Penetration Testers, often called ethical hackers, simulate real-world attacks to identify vulnerabilities in systems, networks, and applications before malicious actors can exploit them. This role combines technical expertise with creative problem-solving, as you'll need to think like an attacker while working within ethical boundaries. Unlike other security roles that focus on defense or monitoring, penetration testing is inherently offensive in nature, requiring you to actively attempt to breach systems to prove their security posture.",
+             "",
+             "The day-to-day responsibilities include conducting authorized penetration tests against various targets (web applications, networks, wireless systems, social engineering); using tools like Metasploit, Burp Suite, Nmap, and custom scripts to identify and exploit vulnerabilities; documenting findings in detailed reports with clear remediation recommendations; and presenting results to technical and non-technical stakeholders. You'll also need to stay current with the latest attack techniques, tools, and vulnerabilities, which requires continuous learning and research. The role requires strong technical skills across multiple domains (networking, web technologies, operating systems), excellent problem-solving abilities, and the ability to communicate complex technical findings clearly.",
+             "",
+                            "This role is particularly accessible for juniors who have strong technical skills and enjoy hands-on problem-solving. Many organizations offer entry-level penetration testing positions, and there are numerous free resources available for learning, such as TryHackMe, HackTheBox, and OWASP. The role also offers excellent career progression opportunities — you can advance to Senior Penetration Tester, specialize in areas like web application security, mobile security, or red teaming, or move into security consulting or management. The skills you develop in vulnerability assessment, exploit development, and technical communication are highly valuable and transferable to other cybersecurity roles, making this an excellent foundation for a long-term career in security.",
+               "",
+               "## DFIR – The Cybersecurity Investigators",
+               "",
+               "Digital Forensics and Incident Response (DFIR) professionals are the cybersecurity detectives who investigate security incidents, collect and analyze digital evidence, and help organizations recover from breaches. This role combines technical expertise with investigative skills, as you'll need to piece together what happened during a security incident and determine the scope and impact of the breach. Unlike other security roles that focus on prevention or detection, DFIR is inherently reactive, requiring you to respond to incidents that have already occurred and help organizations understand and recover from them.",
+               "",
+               "The day-to-day responsibilities include responding to security incidents and conducting initial triage to determine the scope and severity; collecting and preserving digital evidence from various sources (computers, networks, cloud environments, mobile devices); analyzing evidence using forensic tools like EnCase, FTK, Volatility, and custom scripts; documenting findings in detailed reports for legal and technical audiences; and working with legal teams, law enforcement, and other stakeholders during investigations. You'll also need to stay current with the latest attack techniques, forensic tools, and legal requirements, which requires continuous learning and research. The role requires strong technical skills across multiple domains (operating systems, networking, malware analysis), excellent analytical and problem-solving abilities, and the ability to work under pressure during critical incidents.",
+               "",
+               "This role is particularly accessible for juniors who have strong technical skills and enjoy investigative work. Many organizations offer entry-level DFIR positions, and there are numerous free resources available for learning, such as SANS DFIR courses, forensic challenges, and open-source tools. The role also offers excellent career progression opportunities — you can advance to Senior DFIR Analyst, specialize in areas like malware analysis, memory forensics, or cloud forensics, or move into incident response management or consulting. The skills you develop in evidence collection, analysis, and incident response are highly valuable and transferable to other cybersecurity roles, making this an excellent foundation for a long-term career in security.",
+               "",
+               "## Cloud Security – Modern Infrastructure",
+               "",
+               "Cloud Security professionals focus on protecting cloud-based infrastructure, applications, and data across various cloud platforms like AWS, Azure, and Google Cloud. This role has become increasingly important as organizations continue to migrate their operations to the cloud, creating new security challenges and opportunities. Unlike traditional on-premises security, cloud security requires understanding of shared responsibility models, cloud-native security tools, and the unique threats and vulnerabilities that exist in cloud environments. You'll need to work with cloud providers' security services, implement security controls across multiple cloud platforms, and ensure compliance with various regulations and standards.",
+               "",
+               "The day-to-day responsibilities include implementing and managing cloud security controls (identity and access management, network security, data protection); monitoring cloud environments for security threats and vulnerabilities using tools like AWS GuardDuty, Azure Security Center, and third-party cloud security platforms; conducting security assessments of cloud infrastructure and applications; developing and maintaining cloud security policies and procedures; and working with development teams to integrate security into cloud-native applications. You'll also need to stay current with the latest cloud security threats, tools, and best practices, which requires continuous learning and research. The role requires strong technical skills across multiple domains (cloud platforms, networking, application security), excellent problem-solving abilities, and the ability to work with cross-functional teams.",
+               "",
+               "This role is particularly accessible for juniors who have strong technical skills and enjoy working with modern technologies. Many organizations offer entry-level cloud security positions, and there are numerous free resources available for learning, such as cloud provider certifications, free tier accounts, and open-source tools. The role also offers excellent career progression opportunities — you can advance to Senior Cloud Security Engineer, specialize in areas like cloud compliance, DevSecOps, or multi-cloud security, or move into cloud security architecture or consulting. The skills you develop in cloud security are highly valuable and transferable to other cybersecurity roles, making this an excellent foundation for a long-term career in security.",
+               "",
+               "## Security Engineer – The Builders Behind the Defenses",
+               "",
+               "Security Engineers are the architects and builders of cybersecurity infrastructure, responsible for designing, implementing, and maintaining the technical security controls that protect organizations from threats. This role combines deep technical knowledge with practical implementation skills, focusing on building robust security systems rather than just monitoring or responding to incidents. Unlike other roles that may focus on specific aspects of security, Security Engineers take a holistic approach, understanding how different security components work together to create a comprehensive defense strategy. You'll need to work with various technologies, from network security appliances and identity management systems to security monitoring platforms and automation tools, ensuring they all integrate seamlessly to provide maximum protection.",
+               "",
+               "The day-to-day responsibilities include designing and implementing security architectures and controls across network, endpoint, and application layers; configuring and managing security tools such as firewalls, intrusion detection/prevention systems, SIEM platforms, and endpoint protection solutions; developing and maintaining security automation scripts and workflows to improve efficiency and reduce manual tasks; conducting security assessments of existing infrastructure and recommending improvements; and collaborating with IT teams to ensure security controls are properly integrated into business processes. You'll also need to stay current with the latest security technologies, threats, and best practices, which requires continuous learning and experimentation with new tools and techniques. The role requires strong technical skills across multiple domains (networking, systems administration, programming), excellent problem-solving abilities, and the ability to think strategically about security architecture.",
+               "",
+               "This role is particularly accessible for juniors who have strong technical skills and enjoy building and implementing solutions. Many organizations offer entry-level security engineering positions, and there are numerous free resources available for learning, such as vendor certifications, open-source security tools, and hands-on labs. The role also offers excellent career progression opportunities — you can advance to Senior Security Engineer, specialize in areas like network security, application security, or security automation, or move into security architecture or consulting. The skills you develop in security engineering are highly valuable and transferable to other cybersecurity roles, making this an excellent foundation for a long-term career in security.",
+               "",
+               "## Mapping the Cybersecurity Landscape: Choose Your Path",
+               "",
+                               "To wrap things up, here's a simplified view of how the different roles we've discussed relate to one another, especially for juniors:",
+                "",
+                "<div class='table-container'><table class='cybersecurity-roles-table'><thead><tr><th>Area</th><th>Role</th><th>Focus</th><th>Technical Level</th><th>Good for Juniors?</th></tr></thead><tbody><tr><td><strong>Operations & Monitoring</strong></td><td>SOC Analyst</td><td>Alert triage, log analysis</td><td>Medium</td><td>Yes</td></tr><tr><td><strong>Research & Strategy</strong></td><td>Threat Intelligence Analyst</td><td>Adversary profiling, OSINT</td><td>Low-Medium</td><td>Yes</td></tr><tr><td><strong>Proactive Defense</strong></td><td>Vulnerability Management</td><td>Risk identification, patching</td><td>Medium</td><td>Yes</td></tr><tr><td><strong>Governance & Policy</strong></td><td>GRC / Compliance</td><td>Regulations, risk, documentation</td><td>Low</td><td>Yes</td></tr><tr><td><strong>Offensive Security</strong></td><td>Penetration Tester</td><td>Ethical hacking, red teaming</td><td>High</td><td>With preparation</td></tr><tr><td><strong>Incident Handling</strong></td><td>DFIR Analyst</td><td>Breach investigation, response</td><td>Medium-High</td><td>Some experience</td></tr><tr><td><strong>Infrastructure Security</strong></td><td>Cloud Security Analyst</td><td>Cloud hardening, IAM</td><td>Medium</td><td>Yes</td></tr><tr><td><strong>Defensive Engineering</strong></td><td>Security Engineer</td><td>Build & maintain security tools</td><td>Medium-High</td><td>Needs fundamentals</td></tr></tbody></table></div>",
+               "",
+               "When I started my own journey in cybersecurity, I remember being overwhelmed by all the different paths, tools, and skill sets. But what I learned is this: you don't need to know it all right away. What matters is building a strong foundation and choosing a direction that fits your interests and strengths. Whether you're more technical, strategic, investigative, or compliance-oriented, there's a place for you in this field.",
+               "",
+               "Hopefully, this guide gave you a clearer idea of where to start and how to grow. Keep learning, stay curious, and don't be afraid to explore different paths until you find yours.",
+               "",
+               "— Franco"
+             ],
+    images: [
+      {
+        src: "/work/articles/cybersecurity-roles/cybersecurity-roles.jpg",
+        alt: "Understanding Cybersecurity Roles"
+      }
+    ]
   }
 };
 
@@ -533,7 +704,7 @@ const Post = () => {
       {/* Left Sidebar */}
       <aside className="post-sidebar">
         <div className="sidebar-content">
-          <Link to="/labs" className="sidebar-back">
+          <Link to={id === "workstation" || id === "cybersecurity-roles" ? "/writings" : "/labs"} className="sidebar-back">
             <CustomArrow />
             <span>Back</span>
           </Link>
@@ -558,7 +729,7 @@ const Post = () => {
       {/* Main Content */}
       <main className="post-main">
         <header className="post-header">
-          <Link to="/labs" className="sidebar-back responsive-back">
+                      <Link to={id === "workstation" || id === "cybersecurity-roles" ? "/writings" : "/labs"} className="sidebar-back responsive-back">
             <CustomArrow />
             <span>Back</span>
           </Link>
@@ -597,7 +768,7 @@ const Post = () => {
                             paragraph === 'Bash and Python scripts to parse files, decode obfuscated data, or automate repetitive tasks.' ||
                             paragraph === 'Basic forensic analysis with tools like grep, binwalk, volatility, and analyzing pcap or image dumps.') {
                    // Aplicar subrayado a herramientas técnicas específicas y agregar margen superior
-                   const tools = ['nslookup', 'dig', 'Ghidra', 'cutter', 'strings', 'grep', 'binwalk', 'volatility', 'file', 'ltrace', 'base64', 'Burp Suite', 'Junior Security Analyst Intro', 'HackBack2 event', 'nmap', 'ffuf', 'python', 'socat', 'ip a', 'netstat', '/etc/hosts', '.bash_history', '.ssh', 'ssh -L', 'proxychains', 'gobuster', '/var/www', 'linpeas', 'les', '/root/', 'tcpdump', 'tshark', 'flag_server', 'flag_client'];
+                   const tools = ['nslookup', 'dig', 'Ghidra', 'cutter', 'strings', 'grep', 'binwalk', 'volatility', 'file', 'ltrace', 'base64', 'Burp Suite', 'Junior Security Analyst Intro', 'HackBack2 event', 'nmap', 'ffuf', 'python', 'socat', 'ip a', 'netstat', '/etc/hosts', '.bash_history', '.ssh', 'ssh -L', 'proxychains', 'gobuster', '/var/www', 'linpeas', 'les', '/root/', 'tcpdump', 'tshark', 'flag_server', 'flag_client', 'Ubuntu', 'VirtualBox', 'Nmap', 'Wireshark', 'OpenVAS', 'Nessus', 'Metasploit Framework', 'Volatility', 'Autopsy', 'OWASP ZAP', 'Git'];
                   let processedText = paragraph;
                   
                   tools.forEach(tool => {
@@ -606,9 +777,9 @@ const Post = () => {
                   });
                   
                   return <span key={index} style={{ marginTop: '0.5rem', display: 'block' }} dangerouslySetInnerHTML={{ __html: processedText }} />;
-                                                                     } else if (paragraph.includes('nslookup') || paragraph.includes('dig') || paragraph.includes('Ghidra') || paragraph.includes('cutter') || paragraph.includes('strings') || paragraph.includes('grep') || paragraph.includes('binwalk') || paragraph.includes('volatility') || paragraph.includes('file') || paragraph.includes('ltrace') || paragraph.includes('base64') || paragraph.includes('Burp Suite') || paragraph.includes('Junior Security Analyst Intro') || paragraph.includes('HackBack2 event') || paragraph.includes('nmap') || paragraph.includes('ffuf') || paragraph.includes('python') || paragraph.includes('socat') || paragraph.includes('ip a') || paragraph.includes('netstat') || paragraph.includes('/etc/hosts') || paragraph.includes('.bash_history') || paragraph.includes('.ssh') || paragraph.includes('ssh -L') || paragraph.includes('proxychains') || paragraph.includes('gobuster') || paragraph.includes('/var/www') || paragraph.includes('linpeas') || paragraph.includes('les') || paragraph.includes('/root/') || paragraph.includes('tcpdump') || paragraph.includes('tshark') || paragraph.includes('flag_server') || paragraph.includes('flag_client')) {
+                                                                     } else if (paragraph.includes('nslookup') || paragraph.includes('dig') || paragraph.includes('Ghidra') || paragraph.includes('cutter') || paragraph.includes('strings') || paragraph.includes('grep') || paragraph.includes('binwalk') || paragraph.includes('volatility') || paragraph.includes('file') || paragraph.includes('ltrace') || paragraph.includes('base64') || paragraph.includes('Burp Suite') || paragraph.includes('Junior Security Analyst Intro') || paragraph.includes('HackBack2 event') || paragraph.includes('nmap') || paragraph.includes('ffuf') || paragraph.includes('python') || paragraph.includes('socat') || paragraph.includes('ip a') || paragraph.includes('netstat') || paragraph.includes('/etc/hosts') || paragraph.includes('.bash_history') || paragraph.includes('.ssh') || paragraph.includes('ssh -L') || paragraph.includes('proxychains') || paragraph.includes('gobuster') || paragraph.includes('/var/www') || paragraph.includes('linpeas') || paragraph.includes('les') || paragraph.includes('/root/') || paragraph.includes('tcpdump') || paragraph.includes('tshark') || paragraph.includes('flag_server') || paragraph.includes('flag_client') || paragraph.includes('Ubuntu') || paragraph.includes('VirtualBox') || paragraph.includes('Nmap') || paragraph.includes('Wireshark') || paragraph.includes('OpenVAS') || paragraph.includes('Nessus') || paragraph.includes('Metasploit Framework') || paragraph.includes('Volatility') || paragraph.includes('Autopsy') || paragraph.includes('OWASP ZAP') || paragraph.includes('Git')) {
                    // Aplicar subrayado a herramientas técnicas específicas
-                     const tools = ['nslookup', 'dig', 'Ghidra', 'cutter', 'strings', 'grep', 'binwalk', 'volatility', 'file', 'ltrace', 'base64', 'Burp Suite', 'Junior Security Analyst Intro', 'HackBack2 event', 'nmap', 'ffuf', 'python', 'socat', 'ip a', 'netstat', '/etc/hosts', '.bash_history', '.ssh', 'ssh -L', 'proxychains', 'gobuster', '/var/www', 'linpeas', 'les', '/root/', 'tcpdump', 'tshark', 'flag_server', 'flag_client'];
+                     const tools = ['nslookup', 'dig', 'Ghidra', 'cutter', 'strings', 'grep', 'binwalk', 'volatility', 'file', 'ltrace', 'base64', 'Burp Suite', 'Junior Security Analyst Intro', 'HackBack2 event', 'nmap', 'ffuf', 'python', 'socat', 'ip a', 'netstat', '/etc/hosts', '.bash_history', '.ssh', 'ssh -L', 'proxychains', 'gobuster', '/var/www', 'linpeas', 'les', '/root/', 'tcpdump', 'tshark', 'flag_server', 'flag_client', 'Ubuntu', 'VirtualBox', 'Nmap', 'Wireshark', 'OpenVAS', 'Nessus', 'Metasploit Framework', 'Volatility', 'Autopsy', 'OWASP ZAP', 'Git'];
                    let processedText = paragraph;
                    
                    tools.forEach(tool => {
@@ -674,6 +845,9 @@ const Post = () => {
                     <span style={{ color: '#a3ea26 !important', marginRight: '8px' }}>•</span>
                     <span>{text}</span>
                   </li>;
+                } else if (paragraph.startsWith('💸') || paragraph.startsWith('⚖️') || paragraph.startsWith('🚀')) {
+                  // Emoji headings with proper spacing
+                  return <h3 key={index} style={{ margin: '2rem 0 1rem 0', fontSize: '16px', fontWeight: '600', color: '#ffffff', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>{paragraph}</h3>;
                 } else if (paragraph.startsWith('1. ') || paragraph.startsWith('2. ') || paragraph.startsWith('3. ') || paragraph.startsWith('4. ')) {
                   // Buscar si hay más elementos numerados consecutivos
                   const listItems = [];
@@ -703,6 +877,9 @@ const Post = () => {
                   }
                   
                   return <li key={index}>{paragraph.substring(paragraph.indexOf(' ') + 1)}</li>;
+               } else if (paragraph.includes('<div') || paragraph.includes('<table') || paragraph.includes('<ul') || paragraph.includes('<ol')) {
+                 // Renderizar HTML directamente
+                 return <div key={index} dangerouslySetInnerHTML={{ __html: paragraph }} />;
                } else {
                  return <p key={index}>{paragraph}</p>;
                }

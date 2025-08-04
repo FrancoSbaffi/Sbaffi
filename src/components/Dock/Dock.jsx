@@ -53,7 +53,7 @@ const Dock = ({ isVisible = true }) => {
     { icon: FaHome, path: "/" },
     { icon: FaInfoCircle, path: "/about" },
             { icon: FaFlask, path: "/labs" },
-    { icon: FaPen, path: "/projects" },
+    { icon: FaPen, path: "/writings" },
     {
       icon: FaLinkedin,
       path: "https://www.linkedin.com/in/franco-sbaffi/",
