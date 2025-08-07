@@ -67,8 +67,8 @@ const Dock = ({ isVisible = true }) => {
       className={`dock-container ${isVisible ? 'dock-visible' : 'dock-hidden'}`}
       style={{
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(20px)',
-        transition: 'opacity 0.8s ease-in-out, transform 0.8s ease-in-out'
+        transform: 'translateX(-50%) translateY(0)',
+        transition: 'none'
       }}
     >
       <div className="dock">

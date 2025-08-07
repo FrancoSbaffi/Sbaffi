@@ -1,98 +1,88 @@
 import React, { useState, useEffect } from "react";
-import Spline from "@splinetool/react-spline";
 import "./home.css";
-import { useScramble } from "use-scramble";
 
 import LiveClockUpdate from "../../components/LiveClockUpdate/LiveClockUpdate";
 import Dock from "../../components/Dock/Dock";
+import BlocksBackground from "../../components/BlocksBackground/BlocksBackground";
 
 const Home = () => {
   const [isIconVisible, setIsIconVisible] = useState(false);
   const [isDockVisible, setIsDockVisible] = useState(false);
-  const [showTitle, setShowTitle] = useState(false);
-
-  const { ref: titleRef, replay: replayTitle } = useScramble({
-    text: "FRANCO SBAFFI - CYBERSECURITY SPECIALIST",
-    speed: 0.5,
-    tick: 1,
-    step: 1,
-    scramble: 4,
-    overdrive: false,
-    overflow: false,
-    playOnMount: false,
-  });
+  const [isBlinking, setIsBlinking] = useState(false);
+  const [isMarqueeVisible, setIsMarqueeVisible] = useState(true);
 
   useEffect(() => {
-    // Check if this is the first visit to Home page
-    const hasVisitedHome = localStorage.getItem('hasVisitedHome');
-    
-    if (hasVisitedHome) {
-      // If already visited, show everything immediately
-      setIsIconVisible(true);
-      setIsDockVisible(true);
-      setShowTitle(true);
-      replayTitle();
-    } else {
-      // First visit - show animations with delay
-      const iconTimer = setTimeout(() => {
-        setIsIconVisible(true);
-        setIsDockVisible(true);
-        setShowTitle(true);
-        replayTitle();
-      }, 2000);
-      
-      // Mark as visited
-      localStorage.setItem('hasVisitedHome', 'true');
-      
-      return () => clearTimeout(iconTimer);
-    }
-  }, [replayTitle]);
+    // Show everything immediately without animation
+    setIsIconVisible(true);
+    setIsDockVisible(true);
+  }, []);
+
+  useEffect(() => {
+    // Blinking effect
+    const blinkInterval = setInterval(() => {
+      setIsBlinking(true);
+      setTimeout(() => {
+        setIsBlinking(false);
+      }, 150); // Eyes closed for 150ms (more realistic)
+    }, 4000); // Blink every 4 seconds (more natural frequency)
+
+    return () => clearInterval(blinkInterval);
+  }, []);
 
   return (
     <>
-      <div
-        style={{
-          position: "relative",
-          width: "100vw",
-          height: "100vh",
-          zIndex: 1,
-        }}
-      >
-        <Spline 
-          scene="https://prod.spline.design/1UzNQVY7YvVg5b49/scene.splinecode" 
-        />
+      <div className="home-container">
+        {/* Blocks background */}
+        <BlocksBackground />
         
-        {/* Título con animación de scramble - Arriba del dock */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: "140px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            zIndex: 0,
-            textAlign: "center",
-            pointerEvents: "none"
-          }}
-        >
-          <p
-            ref={titleRef}
-            className="mono"
-            style={{
-              fontSize: "clamp(0.5rem, 1.2vw, 0.8rem)",
-              fontWeight: "400",
-              color: "rgba(0, 0, 0, 0.8)",
-              fontFamily: "'DM Mono', monospace",
-              letterSpacing: "0.05em",
-              textTransform: "uppercase",
-              margin: 0,
-              userSelect: "none",
-              textShadow: "1px 1px 4px rgba(255,255,255,0.5)",
-              opacity: showTitle ? 1 : 0,
-              transition: "opacity 0.5s ease-in-out"
-            }}
-          >
-          </p>
+        {/* White background */}
+        <div className="home-background"></div>
+
+        {/* Marquee text behind cyborg */}
+        <div className={`marquee-container ${isMarqueeVisible ? 'visible' : ''}`}>
+          <div className="marquee-content">
+            <div className="marquee-text">
+              <span className="name-text">* FRANCO SBAFFI *</span>
+              <span className="title-text">* CYBERSECURITY SPECIALIST *</span>
+            </div>
+            <div className="marquee-text">
+              <span className="name-text">* FRANCO SBAFFI *</span>
+              <span className="title-text">* CYBERSECURITY SPECIALIST *</span>
+            </div>
+            <div className="marquee-text">
+              <span className="name-text">* FRANCO SBAFFI *</span>
+              <span className="title-text">* CYBERSECURITY SPECIALIST *</span>
+            </div>
+            <div className="marquee-text">
+              <span className="name-text">* FRANCO SBAFFI *</span>
+              <span className="title-text">* CYBERSECURITY SPECIALIST *</span>
+            </div>
+          </div>
         </div>
+
+        {/* Cyborg Image - Centered and large */}
+        <div className="cyborg-container">
+          {/* Base cyborg image (eyes open) */}
+          <img 
+            src="/Cyborg.png" 
+            alt="Cyborg" 
+            className="cyborg-image base-image"
+          />
+          
+          {/* Eyes-only overlay for blinking */}
+          <img 
+            src="/eyes.png" 
+            alt="Closed Eyes" 
+            className={`eyes-overlay ${isBlinking ? 'blinking' : ''}`}
+          />
+        </div>
+
+        {/* Credentials text - Left side of cyborg */}
+        <div className="credentials-text">
+          <p>Cybersecurity Analyst and Security Engineer with one year in IT and 1% TryHackMe Worldwide</p>
+        </div>
+
+
       </div>
 
       <div className="home-logo">
